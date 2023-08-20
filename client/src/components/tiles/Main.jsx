@@ -15,7 +15,7 @@ const Main = function() {
     },
     {
       src: 'jupiterFalls',
-      link: 'https://jf.earthpunk.art',
+      link: 'https://jupiterfalls.earthpunk.art',
       description: 'an educational math game built for web and mobile platforms, includes chickens and robots'
     },
     {
