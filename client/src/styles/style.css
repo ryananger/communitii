@@ -1,30 +1,30 @@
 :root {
-  --bg: #2b1018;
-  --brown: #86716a;
-  --gold: #ffbc90;
-  --salmon: #ff9d90;
+  --brown:      #86716a;
+  --gold:       #ffbc90;
+  --salmon:     #ff9d90;
   --darkSalmon: #a0483c;
-  --leaf: #cad683;
-  --avocado: #b1e064;
-  --sky: #0085c7;
-  --coffee: #4d281f;
-  --cream: rgb(255, 239, 229);
-  --banana: #f5e0d4;
+  --leaf:       #cad683;
+  --lime:       #b1e064;
+  --sky:        #0085c7;
+  --coffee:     #4d281f;
+  --cream:      #ffefe5;
+  --banana:     #f5ecd4;
 
-  --firehouse: #da3633;
-  --coal: #413b3a;
-  --tan: #a8895a;
-  --toast: #b75a43;
-  --trToast: #b75a4386;
-  --trFirehouse: #da363380;
-  --trCream: rgb(248 237 230 / 85%);
+  --firehouse:  #da3633;
+  --coal:       #413b3a;
+  --tan:        #a8895a;
+  --toast:      #b75a43;
 
-  --neonPink: #ff83a2;
+  --trToast:    #b75a4386;
+  --trFirehouse:#da363380;
+  --trCream:    #f8ede6d9;
 
-  --lightText: rgb(255, 232, 217);
-  --darkText: #231f20;
+  --neonPink:   #ff83a2;
 
-  --shadow: #39161096;
+  --lightText:  #ffe8d9;
+  --darkText:   #231f20;
+
+  --shadow:     #39161096;
   --cardShadow: 0 4px 6px #47182478;
 }
 
@@ -48,7 +48,7 @@ body, #root, .app {
   width: 100%;
   min-height: 100svh;
   font-family: Jost;
-  font-size: 2vmin;
+  font-size: 2vh;
 
   color: var(--coal);
 }
