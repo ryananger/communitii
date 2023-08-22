@@ -19,13 +19,13 @@ const App = function() {
 
   return (
     <div id='app' className='app v'>
-      <Tile bg={'gold'} height={10} left={<Header/>}/>
+      <Tile bg={'gold'} height={10} left={<Slide dir={'left'}><Header/></Slide>}/>
       <Tile
         bg={'brown'}
         color={'cream'}
         height={50}
         right={
-          <Slide dir={'right'} delay={2}>
+          <Slide dir={'right'} time={1.5} delay={2}>
             <div style={{width: '80%', textAlign: 'right'}}>do you have technology needs?</div>
           </Slide>
         }
