@@ -37,7 +37,7 @@
   width: 100%;
   margin: 10px;
   border-radius: 32px;
-  max-width: 20%;
+  max-width: 22%;
   overflow: hidden;
   flex: none;
   background-color: transparent;
@@ -64,6 +64,7 @@
   height: 100%;
   text-align: center;
   justify-content: flex-start;
+  margin-bottom: 2vh;
 }
 
 @media (max-width: 540px) {
@@ -103,6 +104,8 @@
   }
 
   .projectImage {
-    width: 70%;
+    height: 380px;
+    max-height: 30vh;
+    width: unset;
   }
 }
