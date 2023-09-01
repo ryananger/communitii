@@ -14,4 +14,3 @@ const Help = function(slide) {
 };
 
 export default Help;
-

@@ -44,12 +44,11 @@
   transition: background-color 0.5s, color 0.2s;
 }
 
-@media (min-width: 1000px) {
-  .projectCard:hover {
-    cursor: pointer;
-    background-color: var(--leaf);
-    color: var(--darkText);
-  }
+
+.projectCard:hover {
+  cursor: pointer;
+  background-color: var(--leaf);
+  color: var(--darkText);
 }
 
 .projectImage {
@@ -107,5 +106,13 @@
     height: 380px;
     max-height: 30vh;
     width: unset;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .projectCard:hover {
+    cursor: unset;
+    background-color: unset;
+    color: unset;
   }
 }

@@ -9,6 +9,7 @@
   --coffee:     #4d281f;
   --cream:      #ffefe5;
   --banana:     #f5ecd4;
+  --peach:      #ffb7a2;
 
   --firehouse:  #da3633;
   --coal:       #413b3a;
@@ -29,7 +30,7 @@
 }
 
 html {
-  background: var(--gold);
+  background: var(--leaf);
   overflow: hidden;
 }
 

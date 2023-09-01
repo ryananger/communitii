@@ -19,10 +19,9 @@ const App = function() {
 
   return (
     <div id='app' className='app v'>
-      <Tile bg={'gold'} height={10} left={<Slide dir={'left'}><Header/></Slide>}/>
+      <Tile bg={'leaf'} height={10} left={<Slide dir={'left'}><Header/></Slide>}/>
       <Tile
-        bg={'brown'}
-        color={'cream'}
+        bg={'banana'}
         height={50}
         className={'intro'}
         right={
@@ -37,10 +36,10 @@ const App = function() {
         }
         open={1}
       />
-      <Tile bg={'salmon'} height={35} open={1} center={<Help/>}/>
+      <Tile bg={'peach'} height={35} open={1} center={<Help/>}/>
       <Below />
       <MainTile center={<Main />}/>
-      <Tile bg={'gold'} height={10} center={<ContactButtons />}/>
+      <Tile bg={'leaf'} height={10} center={<ContactButtons />}/>
     </div>
   );
 };
