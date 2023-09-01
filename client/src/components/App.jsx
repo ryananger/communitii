@@ -26,12 +26,12 @@ const App = function() {
         className={'intro'}
         right={
           <Slide dir={'right'} time={1.5} delay={1}>
-            <div style={{width: '80%', textAlign: 'right'}}><h1>do you have technology needs?</h1></div>
+            <div style={{width: '90%', textAlign: 'right'}}><h1>do you have technology needs?</h1></div>
           </Slide>
         }
         left={
           <Slide dir={'left'} time={2} delay={2}>
-            <div style={{height: '90%', width: '80%'}}><h3>interested in stepping gracefully into the future?</h3></div>
+            <div style={{height: '90%', width: '90%'}}><h3>interested in stepping gracefully into the future?</h3></div>
           </Slide>
         }
         open={1}
