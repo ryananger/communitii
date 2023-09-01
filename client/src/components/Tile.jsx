@@ -6,7 +6,7 @@ import st from 'ryscott-st';
 import SmoothImage from './SmoothImage.jsx';
 import Lazy from './Lazy.jsx';
 
-const Tile = function({id, bg, color, height, float, left, center, right, open}) {
+const Tile = function({id, bg, color, height, float, left, center, right, open, className}) {
   const start = {
     height: open ? '2svh' : `${height}svh`,
     backgroundColor: `var(--${bg})`,
@@ -24,7 +24,7 @@ const Tile = function({id, bg, color, height, float, left, center, right, open})
   }, []);
 
   return (
-    <div id={id} className='tile h' style={style}>
+    <div id={id} className={`tile h ${className || ''}`} style={style}>
       {float && (
         <div className='tileFloat v'>
           {float}

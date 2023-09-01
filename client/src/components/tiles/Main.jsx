@@ -23,11 +23,11 @@ const Main = function() {
       link: 'https://gen.inkvessels.art',
       description: 'an app that generates a random mandala based on an input image, great for artists'
     },
-    {
-      src: 'thinkFood',
-      link: 'https://thinkfood.xyz',
-      description: 'a user database and appointment scheduling system for food drive organizations'
-    }
+    // {
+    //   src: 'thinkFood',
+    //   link: 'https://thinkfood.xyz',
+    //   description: 'a user database and appointment scheduling system for food drive organizations'
+    // }
   ];
 
   var renderProjects = function() {
@@ -59,7 +59,7 @@ const Main = function() {
   return (
     <div className={`main v ${vis}`}>
       <div style={{textAlign: 'center', padding: '12px'}}>
-        take a look at some of my recent projects and reach out for more info!
+        <h3>take a look at some of my recent projects and reach out for more info!</h3>
       </div>
       <div className='projects h'>
         {renderProjects()}

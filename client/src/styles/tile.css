@@ -22,6 +22,12 @@
   padding: 1vw;
 }
 
+.intro .tileLeft, .intro .tileRight {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 .help {
   height: 100%;
 }
