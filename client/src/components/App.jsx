@@ -12,6 +12,7 @@ import Header from './tiles/Header.jsx';
 import Help from './tiles/Help.jsx';
 import Below from './Below.jsx';
 import Main from './tiles/Main.jsx';
+import Orbit from './Orbit.jsx';
 import MainTile from './MainTile.jsx';
 
 const App = function() {
@@ -22,7 +23,7 @@ const App = function() {
       <Tile bg={'leaf'} height={10} left={<Slide dir={'left'}><Header/></Slide>}/>
       <Tile
         bg={'banana'}
-        height={50}
+        height={60}
         className={'intro'}
         right={
           <Slide dir={'right'} time={1.5} delay={1}>
@@ -34,9 +35,12 @@ const App = function() {
             <div style={{height: '90%', width: '90%'}}><h3>interested in stepping gracefully into the future?</h3></div>
           </Slide>
         }
+        center={
+          <Orbit />
+        }
         open={1}
       />
-      <Tile bg={'peach'} height={35} open={1} center={<Help/>}/>
+      <Tile bg={'peach'} height={25} open={1} center={<Help/>}/>
       <Below />
       <MainTile center={<Main />}/>
       <Tile bg={'leaf'} height={10} center={<ContactButtons />}/>

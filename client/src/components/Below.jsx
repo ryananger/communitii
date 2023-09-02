@@ -15,11 +15,11 @@ const Below = function() {
 
   useEffect(()=>{
     setTimeout(()=>{
-      setStyle({...style, top: '75vh', visibility: 'visible'});
+      setStyle({...style, top: '85vh', visibility: 'visible'});
     }, 8000);
 
     setTimeout(()=>{
-      setStyle({...style, top: '75vh', visibility: 'visible', opacity: 0});
+      setStyle({...style, top: '85vh', visibility: 'visible', opacity: 0});
     }, 10000);
   }, []);
 
