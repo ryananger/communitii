@@ -5,7 +5,7 @@ import 'styles';
 const Below = function() {
   const start = {
     position: 'absolute',
-    top: '95vh',
+    top: '110vh',
     opacity: 1,
     visibility: 'hidden',
     transition: 'top 1s, opacity 3s'
