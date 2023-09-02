@@ -40,7 +40,7 @@ const Help = function() {
 
 const start = {
   height: '100%',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   opacity: 0,
   visibility: 'hidden',
   transition: 'opacity 3s'
