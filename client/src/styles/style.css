@@ -132,12 +132,9 @@ h1, h2, h3 {
 
 /* --- */
 
-.backButton {
-  user-select: none;
-  padding: 1vh;
-  box-sizing: border-box;
-  min-height: 48px;
-  color: var(--salmon);
+.downButton {
+  transition: opacity 1s;
+  cursor: pointer;
 }
 
 .alert {

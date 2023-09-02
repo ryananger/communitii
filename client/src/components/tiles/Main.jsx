@@ -57,7 +57,7 @@ const Main = function() {
   }, [])
 
   return (
-    <div className={`main v ${vis}`}>
+    <div id='main' className={`main v ${vis}`}>
       <div style={{textAlign: 'center', padding: '12px'}}>
         <h3>take a look at some of my recent projects and reach out for more info!</h3>
       </div>
