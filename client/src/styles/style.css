@@ -154,14 +154,10 @@ h1, h2, h3 {
 }
 
 .visible {
-  visibility: visible;
-  position: unset;
   opacity: 1;
 }
 
 .hidden {
-  visibility: hidden;
-  position: absolute;
   opacity: 0;
 }
 

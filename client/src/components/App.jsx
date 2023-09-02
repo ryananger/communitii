@@ -10,7 +10,6 @@ import Tile from './Tile.jsx';
 import Slide from './Slide.jsx';
 import Header from './tiles/Header.jsx';
 import Help from './tiles/Help.jsx';
-import Below from './Below.jsx';
 import Main from './tiles/Main.jsx';
 import Orbit from './Orbit.jsx';
 import MainTile from './MainTile.jsx';
@@ -41,7 +40,7 @@ const App = function() {
         open={1}
       />
       <Tile bg={'peach'} height={25} open={1} center={<Help/>}/>
-      <Below />
+      {/* <Below /> */}
       <MainTile center={<Main />}/>
       <Tile bg={'leaf'} height={10} center={<ContactButtons />}/>
     </div>

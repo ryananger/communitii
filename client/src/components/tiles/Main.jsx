@@ -53,7 +53,7 @@ const Main = function() {
   useEffect(()=>{
     setTimeout(()=>{
       setVis('visible');
-    }, 9000)
+    }, 6000)
   }, [])
 
   return (
