@@ -6,6 +6,7 @@
   --leaf:       #cad683;
   --lime:       #b1e064;
   --sky:        #0085c7;
+  --teal:       #00a9c7;
   --coffee:     #4d281f;
   --cream:      #ffefe5;
   --banana:     #f5ecd4;
@@ -20,6 +21,7 @@
   --trFirehouse:#da363380;
   --trCream:    #f8ede6d9;
   --trPeach:    #ffb8a2a4;
+  --trTeal:       #00a9c72d;
 
   --neonPink:   #ff83a2;
 
@@ -31,32 +33,32 @@
 }
 
 html {
-  background: var(--leaf);
-  overflow: hidden;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  overflow-y: auto;
+  background: var(--trTeal);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-body, #root, .app {
+body, #root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0;
   margin: 0;
   width: 100%;
   min-height: 100svh;
   font-family: Jost;
   font-size: 2vh;
-
-  color: var(--coal);
 }
 
 .app {
-  justify-content: flex-start !important;
+  width: 1200px;
+  max-width: 100svw;
+  height: 100svh;
+  background-color: white;
+  border-left: 1px solid;
+  border-right: 1px solid;
+
+  color: var(--teal);
 }
 
 .full {
@@ -64,17 +66,7 @@ body, #root, .app {
   height: 100%;
 }
 
-.bgImage {
-  z-index: -1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
   margin: 0;
   font-weight: 600;
 }
@@ -95,46 +87,11 @@ h1, h2, h3 {
   box-sizing: border-box;
 }
 
-.portrait {
-  margin: 0;
-  margin-left: 2vh;
-  margin-right: 2vh;
-  max-width: calc(100% - 4vh);
-  height: calc(100% - 180px - 2vh);
-  font-size: 1.8vh;
-}
-
-.phone {
-  margin: 0;
-  max-width: 100%;
-  padding: 0;
-  padding-top: 1vh;
-  border-radius: 0;
-  font-size: 4vmin;
-  height: calc(100% - 32px - 1vh);
-}
-
-.notSupported {
-  width: 80vw;
-  height: 80vh;
-  font-size: 3vh;
-  text-align: center;
-  justify-content: space-between;
-}
-
-.img {
-  aspect-ratio: 1.25/1 auto;
-  object-fit: cover;
-  border: 2px solid var(--darkText);
-  border-radius: 12px;
-  box-shadow: var(--cardShadow);
-}
-
 /* --- */
 
-.downButton {
-  transition: opacity 1s;
-  cursor: pointer;
+.box {
+  border: 1px solid;
+  box-sizing: border-box;
 }
 
 .alert {

@@ -1,40 +1,17 @@
 .nav {
-  width: 260px;
-  flex: none;
-  height: 100%;
+  width: 100%;
+  padding: 1vh;
+  box-sizing: border-box;
+  border-bottom: 1px solid;
 }
 
-.logo {
-  width: calc(100% - 4vh);
-  aspect-ratio: 1;
-  max-width: 240px;
-  margin: 2vh;
-  margin-top: calc(2vh + 8px);
-  border-radius: 200px;
+.search {
+  width: 240px;
+  height: 32px;
+  border: 1px solid;
+  border-radius: 32px;
 }
 
 .navButton {
-  margin-bottom: 4px;
-  margin-right: 4px;
-
-  transition: color 0.5s;
-}
-
-.contactButtons {
-  width: 100%;
-  justify-content: center;
-}
-
-.contactButton {
-  margin-left: 0.5vh;
-  margin-right: 0.5vh;
-
-  transition: color 0.5s;
-}
-
-.contactButton:hover {
   cursor: pointer;
-  color: var(--darkSalmon);
-
-  transition: color 0.1s;
 }

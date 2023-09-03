@@ -1,118 +1,83 @@
-.mainTile {
-  background-color: var(--coffee);
-  color: var(--lightText);
-  transition: height 1s;
-}
-
-.closed {
-  height: 2svh;
-}
-
-.open {
-  height: 80svh;
-}
-
 .main {
-  margin: 2vh;
-  width: 100%;
-  height: calc(100% - 4vh);
-  transition: opacity 1s;
-}
-
-.projects {
   width: 100%;
   height: 100%;
-  overflow: overlay;
-  overflow-y: hidden;
-  justify-content: space-evenly !important;
-  align-items: center !important;
 }
 
-.projects::-webkit-scrollbar {
-  height: 8px;
-}
-
-.projectCard {
-  padding: 12px;
-  width: 100%;
-  margin: 10px;
-  border-radius: 32px;
-  max-width: 22%;
-  overflow: hidden;
+.social, .wing {
+  width: 240px;
+  height: 100%;
   flex: none;
-  background-color: transparent;
-  transition: background-color 0.5s, color 0.2s;
 }
 
-
-.projectCard:hover {
-  cursor: pointer;
-  background-color: var(--leaf);
-  color: var(--darkText);
+.social {
+  border-right: 1px solid;
 }
 
-.projectImage {
+.wing {
+  border-left: 1px solid;
+}
+
+.friends {
+  height: 30%;
   width: 100%;
-  border: 2px solid black;
-  box-sizing: border-box;
-  border-radius: 24px;
-  margin-bottom: 12px;
+  border-bottom: 1px solid;
 }
 
-.projectInfo {
+.updates {
+  height: 45%;
+  width: 100%;
+  border-bottom: 1px solid;
+}
+
+.feed {
+  width: 100%;
   height: 100%;
-  text-align: center;
-  justify-content: flex-start;
-  margin-bottom: 2vh;
 }
 
-@media (max-width: 540px) {
-  .main {
-    height: unset;
-  }
-
-  .open {
-    height: 1440px;
-  }
-
-  .projects {
-    flex-direction: column;
-    overflow: unset;
-    overflow-y: unset;
-  }
-
-  .projectCard {
-    max-width: unset;
-    height: 400px;
-  }
-
-  .projectImage {
-    width: 80%;
-    max-width: 280px;
-  }
+.postContainer {
+  width: 80%;
+  height: 200px;
 }
 
-@media (max-width: 999px) and (min-width: 541px) {
-  .projects {
-    justify-content: space-between !important;
-  }
-
-  .projectCard {
-    margin: 10%;
-    max-width: 80%;
-  }
-
-  .projectImage {
-    height: 380px;
-    max-height: 30vh;
-    width: unset;
-  }
+.postButtons {
+  background-color: var(--teal);
+  color: white;
+  width: 80%;
+  justify-content: center;
+  border-radius: 12px;
 }
 
-@media screen and (max-width: 999px) {
-  .projectCard:hover {
-    cursor: unset;
-    background-color: unset;
-    color: unset;
-  }
+textarea {
+  margin: 1vh;
+  padding: 2vh;
+  box-sizing: border-box;
+  width: 80%;
+  height: 100%;
+  resize: none;
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  outline: none;
+  font-family: Jost;
+}
+
+.home {
+  width: 90%;
+}
+
+.posts, .post, .postHead {
+  width: 100%;
+}
+
+.post {
+  border: 1px solid;
+  border-radius: 12px;
+  margin: 2vh 0;
+  padding: 1vh 1vh 0;
+  box-sizing: border-box;
+}
+
+.postContent {
+  padding: 1vh;
+  min-height: 80px;
+  justify-content: center;
 }
