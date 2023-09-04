@@ -5,14 +5,17 @@ const Nav = function() {
   return (
     <div className='nav h'>
       <div className='title h'>
-        <h3 class='navButton' onClick={()=>{st.setView('home')}}>communitii</h3>
+        <h3 className='navButton' onClick={()=>{st.setView('home')}}>communitii</h3>
       </div>
       <div className='h' style={{width: '320px'}}>
-        <h4 class='navButton' onClick={()=>{st.setView('learn')}}>learn</h4>
-        <h4 class='navButton' onClick={()=>{st.setView('grow')}}>grow</h4>
-        <h4 class='navButton' onClick={()=>{st.setView('work')}}>work</h4>
-        <h4 class='navButton' onClick={()=>{st.setView('play')}}>play</h4>
-        <h4 class='navButton' onClick={()=>{st.setView('help')}}>help</h4>
+        <h4 className='navButton grow' onClick={()=>{st.setView('learn')}}>learn</h4>
+        <h4 className='navButton grow' onClick={()=>{st.setView('grow')}}>grow</h4>
+        <h4 className='navButton grow' onClick={()=>{st.setView('work')}}>work</h4>
+        <h4 className='navButton grow' onClick={()=>{st.setView('play')}}>play</h4>
+        <h4 className='navButton grow' onClick={()=>{st.setView('help')}}>help</h4>
+      </div>
+      <div className='util h'>
+        <div className='loginButton grow' onClick={()=>{st.setView('login')}}>login</div>
       </div>
     </div>
   );

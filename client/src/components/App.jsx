@@ -4,12 +4,14 @@ import 'styles';
 import st from 'ryscott-st';
 import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
+import Login from './Login.jsx';
 
 const App = function() {
   const [view, setView] = st.newState('view', useState('home'));
 
   const views = {
-    home: <Home/>
+    home: <Home/>,
+    login: <Login/>
   };
 
   return (

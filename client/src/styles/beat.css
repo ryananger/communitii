@@ -2,6 +2,14 @@
   animation: 1.5s ease 0s infinite beat;
 }
 
+.grow {
+  transition: transform 0.25s;
+}
+
+.grow:hover {
+  transform: scale(1.2, 1.2);
+}
+
 @keyframes beat {
   0%, 50%, 100% { transform: scale(1, 1); }
   30%, 80% { transform: scale(0.8, 0.8); }

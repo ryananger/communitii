@@ -5,6 +5,14 @@
   border-bottom: 1px solid;
 }
 
+.title, .util {
+  width: calc(240px - 1vh);
+}
+
+.util {
+  justify-content: flex-end;
+}
+
 .search {
   width: 240px;
   height: 32px;
@@ -12,6 +20,15 @@
   border-radius: 32px;
 }
 
-.navButton {
+.navButton, .loginButton {
   cursor: pointer;
+  cursor: pointer;
+}
+
+.navButton{
+  transition: transform 0.25s;
+}
+
+.navButton:hover {
+  transform: scale(1.2, 1.2) translate(1vh, 0);
 }
