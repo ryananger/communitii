@@ -6,7 +6,7 @@ var urlBase = process.env.URL;
 
 var ax = {
   createUser: function(user) {
-    axios.post(urlBase + 'api/users', user)
+    axios.post(process.env.URL + 'api/users', user)
       .then(function(response) {
         document.cookie = `user=${user.uid}`;
 
@@ -17,7 +17,7 @@ var ax = {
       })
   },
   getUser: function(uid) {
-    axios.get(urlBase + 'api/users/' + uid)
+    axios.get(process.env.URL + 'api/users/' + uid)
       .then(function(response) {
         var user = response.data;
 

@@ -7,7 +7,7 @@ import { getAuth,
 import ax from './ax.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyApRb-LVJucHWXxIWjT94LVnEqohfwcqzk",
+  apiKey: process.env.FIREBASE_API,
   authDomain: "communitii.firebaseapp.com",
   projectId: "communitii",
   storageBucket: "communitii.appspot.com",
@@ -24,7 +24,7 @@ var signUp = function(user) {
     .then((userCredential) => {
       user.uid = userCredential.user.uid;
 
-      //ax.createUser(user);
+      ax.createUser(user);
       console.log('Created firebase user.');
     })
     .catch((error) => {
@@ -39,7 +39,7 @@ var signIn = function(email, password) {
 
       console.log('Firebase signIn successful.');
 
-      //ax.getUser(user.uid);
+      ax.getUser(user.uid);
     })
     .catch((error) => {
       console.log(error);

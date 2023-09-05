@@ -8,6 +8,7 @@ const fs     = require('fs');
 const cors   = require('cors');
 const path   = require('path');
 const app    = express();
+const controller = require('./controller.js');
 
 const dist = path.join(__dirname, '../client/dist');
 
@@ -26,6 +27,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(dist));
+
+app.post('/api/users', function(req, res) {
+  controller.createUser(req, res);
+});
+
+app.get('/api/users/:uid', function(req, res) {
+  controller.getUser(req.params.uid, res);
+});
 
 const PORT = 4001;
 
