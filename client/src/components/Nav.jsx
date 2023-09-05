@@ -1,7 +1,17 @@
 import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
 
-const Nav = function() {
+import {helpers} from 'util';
+
+const Nav = function({user}) {
+  var handleLogin = function() {
+    if (user) {
+      helpers.logOut();
+    } else {
+      st.setView('login');
+    }
+  };
+
   return (
     <div className='nav h'>
       <div className='title h'>
@@ -15,7 +25,7 @@ const Nav = function() {
         <h4 className='navButton grow' onClick={()=>{st.setView('help')}}>help</h4>
       </div>
       <div className='util h'>
-        <div className='loginButton grow' onClick={()=>{st.setView('login')}}>login</div>
+        <div className='loginButton grow' onClick={handleLogin}>{user ? 'logout' : 'login'}</div>
       </div>
     </div>
   );

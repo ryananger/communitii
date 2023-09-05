@@ -10,7 +10,7 @@ var helpers = {
     var cookie = {};
 
     if (!split[0]) {
-      cookie = 'No cookie.'
+      cookie = {user: null};
     } else {
       split.map(function(entry) {
         var pair = entry.split('=');

@@ -2,10 +2,14 @@ import React, {useEffect, useState} from 'react';
 
 import 'styles';
 import st from 'ryscott-st';
+import {ax, helpers} from 'util';
+
 import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
+
+const cookie = helpers.cookieParse();
 
 const App = function() {
   const [view, setView] = st.newState('view', useState('home'));
@@ -16,10 +20,23 @@ const App = function() {
     login: <Login/>
   };
 
+  var userFromCookie = function() {
+    if (!user && cookie.user) {
+      ax.getUser(cookie.user);
+    }
+  };
+
+  var handleUser = function() {
+    setView('home');
+  };
+
+  useEffect(userFromCookie, []);
+  useEffect(handleUser, [user]);
+
   return (
     <div className='app v'>
       <Alert />
-      <Nav />
+      <Nav user={user}/>
       <div className='main h'>
         <div className='social v'>
           <div className='friends v'>

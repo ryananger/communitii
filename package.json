@@ -1,13 +1,11 @@
 {
-  "name": "ry-creates",
+  "name": "communitii",
   "version": "0.0.1",
   "description": "",
   "author": "Ry Scott",
   "license": "UNLICENSED",
   "private": true,
-  "homepage": "http://ryananger.github.io/",
   "scripts": {
-    "deploy": "gh-pages -d client/dist",
     "start": "webpack --mode=production -w",
     "dev": "webpack serve --open",
     "server": "node server/index.js -w"
@@ -39,7 +37,6 @@
     "css-loader": "^6.7.2",
     "date-fns": "^2.29.3",
     "dotenv-webpack": "^8.0.1",
-    "gh-pages": "^5.0.0",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "style-loader": "^3.3.1",

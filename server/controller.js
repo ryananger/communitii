@@ -16,7 +16,8 @@ var controller = {
       .then(function(response) {
         var user = parseUser(response);
 
-        console.log(user);
+        res.status(201);
+        res.json(user);
       })
   }
 };
