@@ -16,13 +16,34 @@ const userSchema = new mongoose.Schema({
   createdOn: {type: Date, default: Date.now},
 
   email:     String,
-  phone:     String
+  phone:     String,
+
+  community: String,
+  notifications: Object,
+  settings: Object,
+
+  friends: [String],
+  interactions: [Object],
+  messages: [Object],
+  posts:    [Object],
+  events:   [Object]
 });
 
-const User     = new mongoose.model('User', userSchema);
+const communitySchema = new mongoose.Schema({
+  name: String,
+  settings: Object,
+  members:  [{admin: Boolean, id: String}],
+  messages: [Object],
+  posts:    [Object],
+  events:   [Object]
+});
+
+const User = new mongoose.model('User', userSchema);
+const Community = new mongoose.model('Community', communitySchema);
 
 var models = {
-  User:     User,
+  User: User,
+  Community: Community
 };
 
 module.exports = models;

@@ -5,7 +5,7 @@ var controller = {
   createUser: function(req, res) {
     User.create(req.body)
       .then(function(response) {
-        var user = parseUser(response);
+        var user = transform(response);
 
         res.status(201);
         res.json(user);
@@ -14,25 +14,12 @@ var controller = {
   getUser: function(uid, res) {
     User.findOne({uid: uid})
       .then(function(response) {
-        var user = parseUser(response);
+        var user = transform(response);
 
         res.status(201);
         res.json(user);
       })
   }
-};
-
-var parseUser = function(doc) {
-  var user = {
-    uid:       doc.uid,
-    username:  doc.username,
-    email:     doc.email,
-
-    firstName: doc.firstName || null,
-    lastName:  doc.lastName  || null
-  };
-
-  return user;
 };
 
 var transform = function(doc) {

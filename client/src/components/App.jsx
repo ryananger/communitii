@@ -27,7 +27,11 @@ const App = function() {
   };
 
   var handleUser = function() {
-    setView('home');
+    if (user && user.community) {
+      setView('home');
+    } else {
+      setView('findCommunity');
+    }
   };
 
   useEffect(userFromCookie, []);

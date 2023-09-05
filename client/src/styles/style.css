@@ -102,9 +102,10 @@ h1, h2, h3, h4, h5 {
   width: max-content;
   padding: 1vh;
   border-radius: 25px;
-  border: 2px solid var(--darkText);
   box-shadow: 0 2px 3px var(--shadow);
-  background-color: var(--cream);
+  background-color: var(--teal);
+  color: white;
+  transition: opacity 0s;
 }
 
 .visible {
@@ -113,6 +114,7 @@ h1, h2, h3, h4, h5 {
 
 .hidden {
   opacity: 0;
+  transition: opacity 1s;
 }
 
 .icon {
