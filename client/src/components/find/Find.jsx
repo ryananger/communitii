@@ -4,6 +4,7 @@ import st            from 'ryscott-st';
 import {ax, helpers} from 'util';
 
 import CreateForm from './CreateForm.jsx';
+import CommunityList from './CommunityList.jsx';
 
 const Find = function() {
   const [mode, setMode] = useState(null);
@@ -59,21 +60,6 @@ const Find = function() {
       {renderMode()}
     </div>
   )
-};
-
-const CommunityList = function({found}) {
-  var rendered = [];
-
-  found.map(function(community, i) {
-    rendered.push(
-      <div key={i} className='communityInfo h'>
-        {community.name}
-        {community.members.length}
-      </div>
-    )
-  });
-
-  return rendered;
 };
 
 export default Find;

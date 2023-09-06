@@ -28,25 +28,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(dist));
 
-app.post('/api/users', function(req, res) {
-  controller.createUser(req, res);
-});
-
-app.get('/api/users/:uid', function(req, res) {
-  controller.getUser(req.params.uid, res);
-});
-
-app.post('/api/communities', function(req, res) {
-  controller.createCommunity(req, res);
-});
-
-app.get('/api/communities/:id', function(req, res) {
-  controller.getCommunity(req.params.id, res);
-});
-
-app.get('/api/communities/find/:input', function(req, res) {
-  controller.findCommunities(req.params.input, res);
-});
+app.post('/api/users', controller.createUser);
+app.get('/api/users/:uid', controller.getUser);
+app.post('/api/communities', controller.createCommunity);
+app.get('/api/communities/:id', controller.getCommunity);
+app.get('/api/communities/find/:input', controller.findCommunities);
+app.post('/api/communities/join/', controller.joinRequest);
 
 const PORT = 4001;
 

@@ -47,6 +47,12 @@ var ax = {
       .then(function(response) {
         setFound(response.data);
       })
+  },
+  joinRequest: function(uid, id) {
+    axios.post(process.env.URL + 'api/communities/join/', {user: uid, community: id})
+      .then(function(response) {
+        st.setUser(response.data);
+      })
   }
 };
 

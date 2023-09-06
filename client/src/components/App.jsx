@@ -8,7 +8,7 @@ import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
-import Find from './Find.jsx';
+import Find from './find/Find.jsx';
 
 const cookie = helpers.cookieParse();
 

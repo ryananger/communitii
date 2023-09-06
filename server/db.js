@@ -19,9 +19,9 @@ const userSchema = new mongoose.Schema({
   phone:     String,
 
   community: String,
-  notifications: Object,
   settings: Object,
 
+  notifications: [Object],
   friends: [String],
   interactions: [Object],
   messages: [Object],
@@ -34,6 +34,7 @@ const communitySchema = new mongoose.Schema({
   settings: Object,
   private:  Boolean,
 
+  notifications: [Object],
   members:  [{admin: Boolean, uid: String}],
   messages: [Object],
   feeds: {

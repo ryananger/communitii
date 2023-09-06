@@ -5,14 +5,12 @@ var controller = {
   createUser: function(req, res) {
     User.create(req.body)
       .then(function(user) {
-        res.status(201);
         res.json(user);
       })
   },
-  getUser: function(uid, res) {
-    User.findOne({uid: uid})
+  getUser: function(req, res) {
+    User.findOne({uid: req.params.uid})
       .then(function(user) {
-        res.status(201);
         res.json(user);
       })
   },
@@ -21,7 +19,6 @@ var controller = {
       .then(function(response) {
         var community = response;
 
-        res.status(201);
         res.json(community);
 
         User.findOneAndUpdate({uid: req.body.uid}, {community: community._id})
@@ -30,18 +27,41 @@ var controller = {
           })
       })
   },
-  getCommunity: function(id, res) {
-    Community.findOne({_id: id})
+  getCommunity: function(req, res) {
+    Community.findOne({_id: req.params.id})
       .then(function(community) {
-        res.status(201);
         res.json(community);
       })
   },
-  findCommunities: function(input, res) {
-    Community.find({private: false, name: {$regex: input}})
+  findCommunities: function(req, res) {
+    Community.find({private: false, name: {$regex: req.params.input}})
       .then(function(communities) {
-        res.status(201);
         res.json(communities);
+      })
+  },
+  joinRequest: function(req, res) {
+    var user = req.body.user;
+    var comm = req.body.community;
+
+    var request = {
+      type: 'joinRequest',
+      user: user
+    };
+
+    Community.findOneAndUpdate({_id: comm}, {$push: {notifications: request}})
+      .then(function(response) {
+        console.log('Join request sent.');
+      });
+
+    var notify = {
+      type: 'joinRequest',
+      community: comm,
+      status: 'pending'
+    };
+
+    User.findOneAndUpdate({uid: user}, {$push: {notifications: notify}}, {new: true})
+      .then(function(user) {
+        res.json(user);
       })
   }
 };
