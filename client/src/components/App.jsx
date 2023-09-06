@@ -8,16 +8,18 @@ import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
+import Find from './Find.jsx';
 
 const cookie = helpers.cookieParse();
 
 const App = function() {
-  const [view, setView] = st.newState('view', useState('home'));
+  const [view, setView] = st.newState('view', useState('find'));
   const [user, setUser] = st.newState('user', useState(null));
 
   const views = {
     home: <Home/>,
-    login: <Login/>
+    login: <Login/>,
+    find: <Find/>
   };
 
   var userFromCookie = function() {
@@ -30,7 +32,7 @@ const App = function() {
     if (user && user.community) {
       setView('home');
     } else {
-      setView('findCommunity');
+      setView('find');
     }
   };
 

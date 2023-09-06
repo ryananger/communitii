@@ -1,0 +1,88 @@
+.findCommunity {
+  height: 100%;
+}
+
+.communityButtons {
+
+}
+
+.communityInput {
+  width: 320px;
+  border: 1px solid var(--teal);
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  font-family: Jost;
+  overflow: hidden;
+  margin-bottom: 0.5vh;
+}
+
+.communityInput input {
+  margin: 0;
+  border-radius: unset;
+  border: none;
+  width: 100%;
+  font-family: Jost;
+}
+
+.go {
+  background-color: var(--teal);
+  color: white;
+  padding: 0 1vh;
+  box-sizing: border-box;
+  height: 100%;
+  cursor: pointer;
+}
+
+.go:hover {
+  background-color: white;
+  color: var(--teal);
+}
+
+.communityButton {
+  width: 320px;
+  height: 72px;
+  border-radius: 0 0 32px 32px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  background-color: var(--teal);
+  color: white;
+  cursor: pointer;
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.communityButton:hover {
+  border: 1px solid var(--teal);
+  background-color: white;
+  color: var(--teal);
+}
+
+.createForm {
+  width: 100%;
+  margin: 2vh;
+}
+
+.createForm input {
+  width: 100%;
+  border: 1px solid var(--teal);
+}
+
+.privacy {
+  width: 100%;
+  padding: 0 0 0 0.5vh;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input[type='checkbox'] {
+  width: 24px;
+}
+
+.createForm select {
+  outline: none;
+  width: 120px;
+  height: 32px;
+  border-radius: 32px;
+  border: 1px solid var(--teal);
+  margin: 0;
+}

@@ -87,6 +87,10 @@ h1, h2, h3, h4, h5 {
   box-sizing: border-box;
 }
 
+.c {
+  justify-content: center;
+}
+
 /* --- */
 
 .box {
@@ -100,7 +104,7 @@ h1, h2, h3, h4, h5 {
   bottom: 10vh;
   min-width: 200px;
   width: max-content;
-  padding: 1vh;
+  padding: 1vh 2vh;
   border-radius: 25px;
   box-shadow: 0 2px 3px var(--shadow);
   background-color: var(--teal);
@@ -135,6 +139,18 @@ h1, h2, h3, h4, h5 {
 
 .active {
   color: #f5e0d4;
+}
+
+input, select {
+  width: 240px;
+  height: 32px;
+  border: 1px solid var(--trTeal);
+  padding: 0 1vh;
+  margin: 4px;
+  box-sizing: border-box;
+  border-radius: 32px;
+  outline: none;
+  font-family: Jost;
 }
 
 /* */

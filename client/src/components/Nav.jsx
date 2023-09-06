@@ -15,7 +15,7 @@ const Nav = function({user}) {
   return (
     <div className='nav h'>
       <div className='title h'>
-        <h3 className='navButton' onClick={()=>{st.setView('home')}}>communitii</h3>
+        <h3 className='navButton' onClick={()=>{st.setView(user && user.community ? 'home' : 'find')}}>communitii</h3>
       </div>
       <div className='h' style={{width: '320px'}}>
         <h4 className='navButton grow' onClick={()=>{st.setView('learn')}}>learn</h4>
