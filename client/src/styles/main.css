@@ -82,3 +82,10 @@ textarea {
   min-height: 80px;
   justify-content: center;
 }
+
+@media (max-width: 1000px) {
+  .wing, .social {
+    width: 0;
+    visibility: hidden;
+  }
+}

@@ -15,6 +15,7 @@ const cookie = helpers.cookieParse();
 const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
   const [user, setUser] = st.newState('user', useState(null));
+  const [community, setCommunity] = st.newState('community', useState(null));
 
   const views = {
     home: <Home/>,
@@ -31,6 +32,7 @@ const App = function() {
   var handleUser = function() {
     if (user && user.community) {
       setView('home');
+      ax.getCommunity(user.community);
     } else {
       setView('find');
     }

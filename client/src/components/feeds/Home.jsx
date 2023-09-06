@@ -23,7 +23,7 @@ var fakeFeed = [
 ];
 
 const Home = function() {
-  const [feed, setFeed] = useState(fakeFeed);
+  const [feed, setFeed] = useState([]);
 
   var renderFeed = function() {
     var rendered = [];
@@ -44,8 +44,10 @@ const Home = function() {
   };
 
   useEffect(()=>{
-    // get feed from db;
-  }, [])
+    if (st.community) {
+      setFeed(st.community.feeds.home);
+    }
+  }, [st.community]);
 
   return (
     <div className='home v'>

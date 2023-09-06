@@ -9,7 +9,7 @@ const Find = function() {
   var CreateForm = function() {
     return (
       <form id='createForm' className='createForm v' onSubmit={handleSubmit}>
-        <input name='community' placeholder='community name?'/>
+        <input name='name' placeholder='community name?'/>
         <div className='privacy h c'>
           Private?
           <select name='privacy'>
@@ -43,12 +43,18 @@ const Find = function() {
 
     var form = e.target;
 
-    var createInfo = {
+    var community = {
       name: form.name.value,
-      privacy: form.privacy.value
+      private: form.privacy.value,
+      members: [{admin: true, uid: st.user.uid}]
     };
 
-    console.log(createInfo);
+    var sendBody = {
+      uid: st.user.uid,
+      community
+    };
+
+    ax.createCommunity(sendBody);
   };
 
   useEffect(()=>{

@@ -36,6 +36,14 @@ app.get('/api/users/:uid', function(req, res) {
   controller.getUser(req.params.uid, res);
 });
 
+app.post('/api/communities', function(req, res) {
+  controller.createCommunity(req, res);
+});
+
+app.get('/api/communities/:id', function(req, res) {
+  controller.getCommunity(req.params.id, res);
+});
+
 const PORT = 4001;
 
 http.createServer(app).listen(PORT);

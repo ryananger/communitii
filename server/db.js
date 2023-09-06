@@ -30,12 +30,21 @@ const userSchema = new mongoose.Schema({
 });
 
 const communitySchema = new mongoose.Schema({
-  name: String,
+  name:     String,
   settings: Object,
-  members:  [{admin: Boolean, id: String}],
+  private:  Boolean,
+
+  members:  [{admin: Boolean, uid: String}],
   messages: [Object],
-  posts:    [Object],
-  events:   [Object]
+  feeds: {
+    home:  [Object],
+    learn: [Object],
+    grow:  [Object],
+    work:  [Object],
+    play:  [Object],
+    help:  [Object]
+  },
+  events:  [Object]
 });
 
 const User = new mongoose.model('User', userSchema);
