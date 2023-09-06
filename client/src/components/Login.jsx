@@ -48,7 +48,7 @@ const Login = function() {
           </div>
         </div>
 
-        <div className='backButton' onClick={()=>{st.setView('home')}}>
+        <div className='backButton' onClick={()=>{st.setView('find')}}>
           back
         </div>
       </form>

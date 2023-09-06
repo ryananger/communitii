@@ -4,18 +4,14 @@ const { User, Community } = require('./db.js');
 var controller = {
   createUser: function(req, res) {
     User.create(req.body)
-      .then(function(response) {
-        var user = response;
-
+      .then(function(user) {
         res.status(201);
         res.json(user);
       })
   },
   getUser: function(uid, res) {
     User.findOne({uid: uid})
-      .then(function(response) {
-        var user = response;
-
+      .then(function(user) {
         res.status(201);
         res.json(user);
       })
@@ -36,11 +32,16 @@ var controller = {
   },
   getCommunity: function(id, res) {
     Community.findOne({_id: id})
-      .then(function(response) {
-        var community = response;
-
+      .then(function(community) {
         res.status(201);
         res.json(community);
+      })
+  },
+  findCommunities: function(input, res) {
+    Community.find({private: false, name: {$regex: input}})
+      .then(function(communities) {
+        res.status(201);
+        res.json(communities);
       })
   }
 };

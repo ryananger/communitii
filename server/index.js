@@ -44,6 +44,10 @@ app.get('/api/communities/:id', function(req, res) {
   controller.getCommunity(req.params.id, res);
 });
 
+app.get('/api/communities/find/:input', function(req, res) {
+  controller.findCommunities(req.params.input, res);
+});
+
 const PORT = 4001;
 
 http.createServer(app).listen(PORT);

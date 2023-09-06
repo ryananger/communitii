@@ -2,6 +2,10 @@
   width: 100%;
   height: 100%;
   justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #0a1c2da3;
 }
 
 .loginForm {
@@ -9,7 +13,7 @@
   padding: 2vh;
   justify-content: space-around;
   border-radius: 32px;
-  background: linear-gradient(to top, var(--trTeal), transparent);
+  background: var(--cream);
   box-shadow: var(--cardShadow);
 }
 
@@ -20,7 +24,7 @@
 .formInput, .formSubmit {
   width: 240px;
   height: 32px;
-  border: 1px solid var(--trTeal);
+  border: 1px solid var(--border);
   padding: 0 1vh;
   margin: 4px;
   box-sizing: border-box;
@@ -29,7 +33,7 @@
 }
 
 .formSubmit {
-  background-color: var(--teal);
+  background-color: var(--color1);
   color: white;
   cursor: pointer;
 }

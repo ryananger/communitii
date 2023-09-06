@@ -18,9 +18,9 @@ const App = function() {
   const [community, setCommunity] = st.newState('community', useState(null));
 
   const views = {
-    home: <Home/>,
+    home:  <Home/>,
     login: <Login/>,
-    find: <Find/>
+    find:  <Find/>
   };
 
   var userFromCookie = function() {

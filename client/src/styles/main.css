@@ -10,23 +10,23 @@
 }
 
 .social {
-  border-right: 1px solid;
+  border-right: 1px solid var(--border);
 }
 
 .wing {
-  border-left: 1px solid;
+  border-left: 1px solid var(--border);
 }
 
 .friends {
   height: 30%;
   width: 100%;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid var(--border);
 }
 
 .updates {
   height: 45%;
   width: 100%;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid var(--border);
 }
 
 .feed {
@@ -41,7 +41,7 @@
 }
 
 .postButtons {
-  background-color: var(--teal);
+  background-color: var(--color1);
   color: white;
   width: 80%;
   justify-content: center;
@@ -55,7 +55,7 @@ textarea {
   width: 80%;
   height: 100%;
   resize: none;
-  border: 1px solid var(--teal);
+  border: 1px solid var(--border);
   border-radius: 12px;
   outline: none;
   font-family: Jost;
@@ -70,7 +70,7 @@ textarea {
 }
 
 .post {
-  border: 1px solid;
+  border: 1px solid var(--border);
   border-radius: 12px;
   margin: 2vh 0;
   padding: 1vh 1vh 0;

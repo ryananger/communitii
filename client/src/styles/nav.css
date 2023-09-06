@@ -2,7 +2,7 @@
   width: 100%;
   padding: 1vh;
   box-sizing: border-box;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid var(--border);
 }
 
 .title, .util {
@@ -16,7 +16,7 @@
 .search {
   width: 240px;
   height: 32px;
-  border: 1px solid;
+  border: 1px solid var(--border);
   border-radius: 32px;
 }
 

@@ -3,58 +3,40 @@ import React, {useEffect, useState} from 'react';
 import st            from 'ryscott-st';
 import {ax, helpers} from 'util';
 
+import CreateForm from './CreateForm.jsx';
+
 const Find = function() {
   const [mode, setMode] = useState(null);
-
-  var CreateForm = function() {
-    return (
-      <form id='createForm' className='createForm v' onSubmit={handleSubmit}>
-        <input name='name' placeholder='community name?'/>
-        <div className='privacy h c'>
-          Private?
-          <select name='privacy'>
-            <option value={true}>yes</option>
-            <option value={false}>no</option>
-          </select>
-        </div>
-        <input className='formSubmit' type='submit' value='create!'/>
-      </form>
-    );
-  };
+  const [found, setFound] = useState([]);
 
   var renderMode = function() {
     if (mode === 'find') {
-      return 'find';
+      return <CommunityList found={found}/>;
     } else if (mode === 'create') {
       return <CreateForm/>;
     }
   };
 
-  var handleClick = function(mode) {
-    if (st.user) {
+  var handleClick = function() {
+    if (!st.user) {
+      helpers.alert('You must be logged in to do that!');
+      return;
+    }
+
+    if (mode !== 'create') {
       setMode('create');
     } else {
-      helpers.alert('You must be logged in to do that!');
+      setMode(null);
     }
   };
 
-  var handleSubmit = function(e) {
-    e.preventDefault();
+  var handleFind = function() {
+    var input = document.getElementById('findInput').value;
 
-    var form = e.target;
+    if (!input) {return};
 
-    var community = {
-      name: form.name.value,
-      private: form.privacy.value,
-      members: [{admin: true, uid: st.user.uid}]
-    };
-
-    var sendBody = {
-      uid: st.user.uid,
-      community
-    };
-
-    ax.createCommunity(sendBody);
+    ax.findCommunities(input, setFound);
+    setMode('find');
   };
 
   useEffect(()=>{
@@ -67,16 +49,31 @@ const Find = function() {
     <div className='findCommunity v'>
       <div className='communityButtons v'>
         <div className='communityInput h'>
-          <input placeholder='find a community'/>
-          <div className='go v c'>GO</div>
+          <input id='findInput' placeholder='find a community'/>
+          <div className='go v c' onClick={handleFind}>GO</div>
         </div>
-        <div className='communityButton v c' onClick={()=>{handleClick('create')}}>
+        <div className='communityButton v c' onClick={()=>{handleClick()}}>
           create a community
         </div>
       </div>
       {renderMode()}
     </div>
   )
+};
+
+const CommunityList = function({found}) {
+  var rendered = [];
+
+  found.map(function(community, i) {
+    rendered.push(
+      <div key={i} className='communityInfo h'>
+        {community.name}
+        {community.members.length}
+      </div>
+    )
+  });
+
+  return rendered;
 };
 
 export default Find;

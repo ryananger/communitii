@@ -11,6 +11,7 @@
   --cream:      #ffefe5;
   --banana:     #f5ecd4;
   --peach:      #ffb7a2;
+  --navy:       #3b5f80;
 
   --firehouse:  #da3633;
   --coal:       #413b3a;
@@ -21,7 +22,8 @@
   --trFirehouse:#da363380;
   --trCream:    #f8ede6d9;
   --trPeach:    #ffb8a2a4;
-  --trTeal:       #00a9c72d;
+  --trTeal:     #00a9c72d;
+  --trNavy:     #3b5f805d;
 
   --neonPink:   #ff83a2;
 
@@ -30,10 +32,15 @@
 
   --shadow:     #39161096;
   --cardShadow: 0 2px 6px #4718182e;
+
+  --color1: var(--navy);
+  --color2: var(--peach);
+  --tr1:    var(--trCream);
+  --border: var(--trNavy);
 }
 
 html {
-  background: var(--trTeal);
+  background: var(--tr1);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
@@ -55,10 +62,10 @@ body, #root {
   max-width: 100svw;
   height: 100svh;
   background-color: white;
-  border-left: 1px solid;
-  border-right: 1px solid;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 
-  color: var(--teal);
+  color: var(--color1);
 }
 
 .full {
@@ -107,7 +114,7 @@ h1, h2, h3, h4, h5 {
   padding: 1vh 2vh;
   border-radius: 25px;
   box-shadow: 0 2px 3px var(--shadow);
-  background-color: var(--teal);
+  background-color: var(--color1);
   color: white;
   transition: opacity 0s;
 }
@@ -127,7 +134,7 @@ h1, h2, h3, h4, h5 {
 
 .icon:hover {
   cursor: pointer;
-  color: var(--firehouse);
+  color: var(--color2);
 
   transition: color 0.1s;
 }
@@ -144,7 +151,7 @@ h1, h2, h3, h4, h5 {
 input, select {
   width: 240px;
   height: 32px;
-  border: 1px solid var(--trTeal);
+  border: 1px solid var(--tr1);
   padding: 0 1vh;
   margin: 4px;
   box-sizing: border-box;

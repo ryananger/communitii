@@ -41,6 +41,12 @@ var ax = {
       .then(function(response) {
         st.setCommunity(response.data);
       })
+  },
+  findCommunities: function(input, setFound) {
+    axios.get(process.env.URL + 'api/communities/find/' + input)
+      .then(function(response) {
+        setFound(response.data);
+      })
   }
 };
 
