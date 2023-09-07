@@ -10,7 +10,7 @@ const CommunityCard = function({community, requested}) {
     if (requested) {return};
 
     setText('pending');
-    ax.joinRequest(st.user.uid, community._id, community.name);
+    ax.joinRequest(community._id, community.name);
   };
 
   return (

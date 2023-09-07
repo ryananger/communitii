@@ -23,7 +23,7 @@ var controller = {
 
         User.findOneAndUpdate({uid: req.body.uid}, {community: community._id})
           .then(function(response) {
-            console.log(response);
+            console.log('Community created.');
           })
       })
   },
@@ -41,12 +41,14 @@ var controller = {
   },
   joinRequest: function(req, res) {
     var user = req.body.user;
+    var username = req.body.username;
     var comm = req.body.community;
     var name = req.body.name;
 
     var request = {
       type: 'joinRequest',
-      user: user
+      uid: user,
+      username: req.body.username
     };
 
     Community.findOneAndUpdate({_id: comm}, {$push: {notifications: request}})
@@ -65,6 +67,19 @@ var controller = {
     User.findOneAndUpdate({uid: user}, {$push: {notifications: notify}}, {new: true})
       .then(function(user) {
         res.json(user);
+      })
+  },
+  fix: function(req, res) {
+    Community.deleteMany({})
+      .then(function(response) {
+        console.log(response);
+      })
+
+    User.updateMany({}, {community: null, notifications: []})
+      .then(function(response) {
+        console.log(response);
+
+        res.send('yay');
       })
   }
 };

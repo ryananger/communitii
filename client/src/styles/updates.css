@@ -1,0 +1,11 @@
+.updates {
+  height: 45%;
+  width: 100%;
+  border-bottom: var(--border);
+}
+
+.updateInfo {
+  font-size: 16px;
+  padding: 0.5vh 1vh;
+  border-bottom: var(--border);
+}

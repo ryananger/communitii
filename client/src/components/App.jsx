@@ -9,6 +9,7 @@ import Home from './feeds/Home.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
 import Find from './find/Find.jsx';
+import CommunityUpdates from './CommunityUpdates.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -16,6 +17,8 @@ const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
   const [user, setUser] = st.newState('user', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
+
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const views = {
     home:  <Home/>,
@@ -38,8 +41,19 @@ const App = function() {
     }
   };
 
+  var handleCommunity = function() {
+    if (!community) {return};
+
+    community.members.map(function(member) {
+      if (member.uid === user.uid) {
+        setIsAdmin(member.admin);
+      }
+    })
+  };
+
   useEffect(userFromCookie, []);
   useEffect(handleUser, [user]);
+  useEffect(handleCommunity, [community]);
 
   return (
     <div className='app v'>
@@ -58,9 +72,7 @@ const App = function() {
           {views[view] || view}
         </div>
         <div className='wing v'>
-          <div className='updates v'>
-
-          </div>
+          {isAdmin && <CommunityUpdates community={community}/>}
         </div>
       </div>
     </div>

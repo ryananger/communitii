@@ -35,6 +35,8 @@ app.get('/api/communities/:id', controller.getCommunity);
 app.get('/api/communities/find/:input', controller.findCommunities);
 app.post('/api/communities/join/', controller.joinRequest);
 
+app.get('/api/fix', controller.fix);
+
 const PORT = 4001;
 
 http.createServer(app).listen(PORT);

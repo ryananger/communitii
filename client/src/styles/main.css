@@ -10,23 +10,17 @@
 }
 
 .social {
-  border-right: 1px solid var(--border);
+  border-right: var(--border);
 }
 
 .wing {
-  border-left: 1px solid var(--border);
+  border-left: var(--border);
 }
 
 .friends {
   height: 30%;
   width: 100%;
-  border-bottom: 1px solid var(--border);
-}
-
-.updates {
-  height: 45%;
-  width: 100%;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
 }
 
 .feed {
@@ -55,7 +49,7 @@ textarea {
   width: 80%;
   height: 100%;
   resize: none;
-  border: 1px solid var(--border);
+  border: var(--border);
   border-radius: 12px;
   outline: none;
   font-family: Jost;
@@ -70,7 +64,7 @@ textarea {
 }
 
 .post {
-  border: 1px solid var(--border);
+  border: var(--border);
   border-radius: 12px;
   margin: 2vh 0;
   padding: 1vh 1vh 0;

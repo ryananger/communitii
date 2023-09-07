@@ -4,3 +4,4 @@ import './nav.css';
 import './beat.css';
 import './login.css';
 import './find.css';
+import './updates.css';

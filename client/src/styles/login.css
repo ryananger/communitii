@@ -24,7 +24,7 @@
 .formInput, .formSubmit {
   width: 240px;
   height: 32px;
-  border: 1px solid var(--border);
+  border: var(--border);
   padding: 0 1vh;
   margin: 4px;
   box-sizing: border-box;

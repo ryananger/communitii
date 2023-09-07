@@ -2,7 +2,7 @@
   width: 100%;
   padding: 1vh;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
 }
 
 .title, .util {
@@ -19,7 +19,7 @@
 .search {
   width: 240px;
   height: 32px;
-  border: 1px solid var(--border);
+  border: var(--border);
   border-radius: 32px;
 }
 
@@ -57,21 +57,20 @@
 
 .notificationsTab {
   position: absolute;
-  width: 320px;
+  width: 240px;
   background-color: white;
   height: 240px;
   top: calc(32px + 1vh);
   right: calc(-1vh);
-  border: 1px solid var(--border);
+  border: var(--border);
   border-right: none;
-  border-radius: 0 0 0 12px;
 }
 
 .notificationInfo {
   width: 100%;
   font-size: 16px;
   padding: 0.5vh 1vh;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
 }
 
 .utilButton {

@@ -34,12 +34,6 @@ const Util = function({user}) {
     }
   };
 
-  useEffect(()=>{
-    if (user) {
-      console.log(!user.notifications)
-    }
-  }, []);
-
   return (
     <div className='util h'>
       {showNotifications && renderNotifications()}

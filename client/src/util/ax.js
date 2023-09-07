@@ -48,8 +48,8 @@ var ax = {
         setFound(response.data);
       })
   },
-  joinRequest: function(uid, id, name) {
-    axios.post(process.env.URL + 'api/communities/join/', {user: uid, community: id, name: name})
+  joinRequest: function(id, name) {
+    axios.post(process.env.URL + 'api/communities/join/', {user: st.user.uid, username: st.user.username, community: id, name: name})
       .then(function(response) {
         st.setUser(response.data);
       })

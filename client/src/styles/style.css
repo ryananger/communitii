@@ -36,7 +36,8 @@
   --color1: var(--navy);
   --color2: var(--peach);
   --tr1:    var(--trCream);
-  --border: var(--trNavy);
+  --borderColor: var(--trNavy);
+  --border: 1px solid var(--borderColor);
 }
 
 html {
@@ -62,8 +63,8 @@ body, #root {
   max-width: 100svw;
   height: 100svh;
   background-color: white;
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
+  border-left: var(--border);
+  border-right: var(--border);
 
   color: var(--color1);
 }
