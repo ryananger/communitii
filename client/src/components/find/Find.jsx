@@ -31,7 +31,13 @@ const Find = function() {
     }
   };
 
-  var handleFind = function() {
+  var handleFind = function(e) {
+    if (e.key){
+      if (e.key !== 'Enter') {
+        return;
+      }
+    }
+
     var input = document.getElementById('findInput').value;
 
     if (!input) {return};
@@ -50,7 +56,7 @@ const Find = function() {
     <div className='findCommunity v'>
       <div className='communityButtons v'>
         <div className='communityInput h'>
-          <input id='findInput' placeholder='find a community'/>
+          <input id='findInput' placeholder='find a community' onKeyUp={handleFind}/>
           <div className='go v c' onClick={handleFind}>GO</div>
         </div>
         <div className='communityButton v c' onClick={()=>{handleClick()}}>

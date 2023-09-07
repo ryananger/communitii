@@ -30,6 +30,7 @@ const CommunityList = function({found}) {
 
   return (
     <div className='communityList v'>
+      <h2>{`showing ${found.length} ${found.length !== 1 ? 'results' : 'result'}`}</h2>
       {renderList()}
     </div>
   )

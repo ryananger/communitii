@@ -34,9 +34,15 @@ const Util = function({user}) {
     }
   };
 
+  useEffect(()=>{
+    if (!user) {
+      setShowNotifications(false);
+    }
+  }, [user]);
+
   return (
     <div className='util h'>
-      {showNotifications && renderNotifications()}
+      {user && showNotifications && renderNotifications()}
       <div className='notificationButton grow v c' onClick={()=>{setShowNotifications(!showNotifications)}}>
         <NotificationsIcon size={32}/>
         {user && user.notifications.length > 0 && <div className='notifyIndicator'/>}

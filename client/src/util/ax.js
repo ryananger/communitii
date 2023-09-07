@@ -23,17 +23,16 @@ var ax = {
 
         st.setUser(user);
         document.cookie = `user=${uid}`;
-
-        console.log('Retrieved user from database.', user);
       })
   },
   createCommunity: function(sendBody) {
     axios.post(process.env.URL + 'api/communities', sendBody)
       .then(function(response) {
-        var community = response.data;
+        var user = response.data;
 
-        st.setUser({...st.user, community: response.data._id});
+        st.setUser(user);
         st.setView('home');
+        helpers.alert('Community created!');
       })
   },
   getCommunity: function(id) {
@@ -52,6 +51,7 @@ var ax = {
     axios.post(process.env.URL + 'api/communities/join/', {user: st.user.uid, username: st.user.username, community: id, name: name})
       .then(function(response) {
         st.setUser(response.data);
+        helpers.alert('Request sent!');
       })
   }
 };

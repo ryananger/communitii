@@ -19,11 +19,25 @@ var controller = {
       .then(function(response) {
         var community = response;
 
-        res.json(community);
+        User.findOne({uid: req.body.uid})
+          .then(function(user) {
+            var update = {
+              notifications: [],
+              community: community._id
+            };
 
-        User.findOneAndUpdate({uid: req.body.uid}, {community: community._id})
-          .then(function(response) {
-            console.log('Community created.');
+            if (user.notifications) {
+              user.notifications.map(function(notificaton) {
+                if (notificaton.type !== 'joinRequest') {
+                  update.notifications.push(notificaton);
+                }
+              })
+            }
+
+            User.findOneAndUpdate(user, update, {new: true})
+              .then(function(user) {
+                res.json(user);
+              })
           })
       })
   },
@@ -34,7 +48,7 @@ var controller = {
       })
   },
   findCommunities: function(req, res) {
-    Community.find({private: false, name: {$regex: req.params.input}})
+    Community.find({private: false, name: {$regex: req.params.input, $options: 'i'}})
       .then(function(communities) {
         res.json(communities);
       })

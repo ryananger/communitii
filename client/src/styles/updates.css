@@ -5,6 +5,8 @@
 }
 
 .updateInfo {
+  width: 100%;
+  box-sizing: border-box;
   font-size: 16px;
   padding: 0.5vh 1vh;
   border-bottom: var(--border);

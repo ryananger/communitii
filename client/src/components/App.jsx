@@ -38,6 +38,8 @@ const App = function() {
       ax.getCommunity(user.community);
     } else {
       setView('find');
+      setIsAdmin(false);
+      setCommunity(null);
     }
   };
 
