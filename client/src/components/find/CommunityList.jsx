@@ -19,7 +19,7 @@ const CommunityList = function({found}) {
   };
 
   useEffect(()=>{
-    if (st.user.notifications) {
+    if (st.user && st.user.notifications) {
       st.user.notifications.map(function(entry, i) {
         if (entry.type === 'joinRequest') {
           setRequested(entry.community);

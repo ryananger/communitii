@@ -4,10 +4,13 @@ import st from 'ryscott-st';
 import {ax} from 'util';
 
 const CommunityCard = function({community, requested}) {
+  const [text, setText] = useState(requested ? 'pending' :'join');
+
   var joinRequest = function() {
     if (requested) {return};
 
-    ax.joinRequest(st.user.uid, community._id);
+    setText('pending');
+    ax.joinRequest(st.user.uid, community._id, community.name);
   };
 
   return (
@@ -19,7 +22,7 @@ const CommunityCard = function({community, requested}) {
           {community.members.length === 1 ? '1 member' : community.members.length + 'members'}
         </small>
       </div>
-      <div className='joinButton v c' onClick={joinRequest}>{requested ? 'pending' : 'join'}</div>
+      {st.user && <div className='joinButton v c' onClick={joinRequest}>{text}</div>}
     </div>
   )
 };

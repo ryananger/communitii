@@ -42,6 +42,7 @@ var controller = {
   joinRequest: function(req, res) {
     var user = req.body.user;
     var comm = req.body.community;
+    var name = req.body.name;
 
     var request = {
       type: 'joinRequest',
@@ -56,7 +57,9 @@ var controller = {
     var notify = {
       type: 'joinRequest',
       community: comm,
-      status: 'pending'
+      name: name,
+      status: 'pending',
+      read: false
     };
 
     User.findOneAndUpdate({uid: user}, {$push: {notifications: notify}}, {new: true})
