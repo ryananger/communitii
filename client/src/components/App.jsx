@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import 'styles';
 import st from 'ryscott-st';
+import pusher from './pusher.js';
 import {ax, helpers} from 'util';
 
 import Nav from './Nav.jsx';
@@ -34,7 +35,6 @@ const App = function() {
 
   var handleUser = function() {
     if (user && user.community) {
-      setView('home');
       ax.getCommunity(user.community);
     } else {
       setView('find');
@@ -50,6 +50,26 @@ const App = function() {
       if (member.uid === user.uid) {
         setIsAdmin(member.admin);
       }
+    });
+
+    handlePusher();
+  };
+
+  var handlePusher = function() {
+    const channel = pusher.subscribe(`${community._id}`);
+
+    channel.bind('adminUpdate', function(data) {
+      var updated = community.notifications;
+
+      updated.push(data);
+
+      helpers.alert('New community notification.');
+
+      setCommunity({...community, notifications: updated});
+    });
+
+    channel.bind('userUpdate', function(data) {
+      console.log(data);
     })
   };
 

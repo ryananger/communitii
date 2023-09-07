@@ -1,4 +1,5 @@
 const axios    = require('axios');
+const pusher = require('./pusher.js');
 const { User, Community } = require('./db.js');
 
 var controller = {
@@ -67,6 +68,8 @@ var controller = {
 
     Community.findOneAndUpdate({_id: comm}, {$push: {notifications: request}})
       .then(function(response) {
+        pusher.trigger(`${comm}`, 'adminUpdate', request);
+
         console.log('Join request sent.');
       });
 

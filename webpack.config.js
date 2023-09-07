@@ -9,6 +9,12 @@ module.exports = {
     path: path.join(__dirname, 'client/dist'),
     filename: "bundle.js"
   },
+  resolve: {
+    fallback: {
+      "crypto": require.resolve("crypto-browserify"),
+      "stream": require.resolve("stream-browserify")
+    }
+  },
   optimization: {
     minimize: true
   },

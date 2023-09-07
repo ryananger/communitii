@@ -35,16 +35,17 @@ const Login = function() {
 
         <div className='formBody v'>
           <div className='loginInputs v'>
-            {signUp && <input className='formInput' name='username' autoComplete='off' type='text' placeholder='Username?'/>}
+            {signUp && <input className='formInput' name='username' autoComplete='off' type='text' placeholder='username?'/>}
 
-            <input className='formInput' name='email' autoComplete='off' type='text'     placeholder='Email address!'/>
-            <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='Password!'/>
+            <input className='formInput' name='email' autoComplete='off' type='text'     placeholder='email address?'/>
+            <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='password?'/>
+            {signUp && <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='confirm it!'/>}
             <input className='formSubmit' type='submit' value={!signUp ? 'sign in' : 'sign up'}/>
           </div>
 
           <div className='signUpText' onClick={()=>{setSignUp(!signUp)}}>
-            {!signUp && 'Create an account?'}
-            {signUp  && 'Sign in?'}
+            {!signUp && 'create an account?'}
+            {signUp  && 'sign in?'}
           </div>
         </div>
 

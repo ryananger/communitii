@@ -31,7 +31,6 @@ var ax = {
         var user = response.data;
 
         st.setUser(user);
-        st.setView('home');
         helpers.alert('Community created!');
       })
   },
@@ -39,6 +38,7 @@ var ax = {
     axios.get(process.env.URL + 'api/communities/' + id)
       .then(function(response) {
         st.setCommunity(response.data);
+        st.setView('home');
       })
   },
   findCommunities: function(input, setFound) {
