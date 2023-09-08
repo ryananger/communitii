@@ -48,10 +48,32 @@ var ax = {
       })
   },
   joinRequest: function(id, name) {
-    axios.post(process.env.URL + 'api/communities/join/', {user: st.user.uid, username: st.user.username, community: id, name: name})
+    var sendBody = {
+      user: st.user.uid,
+      username: st.user.username,
+      community: id,
+      name: name
+    };
+
+    axios.post(process.env.URL + 'api/communities/join/', sendBody)
       .then(function(response) {
         st.setUser(response.data);
         helpers.alert('Request sent!');
+      })
+  },
+  handleJoinRequest: function(type, uid, username) {
+    var sendBody = {
+      type,
+      uid,
+      username,
+      comm: st.community._id,
+      name: st.community.name
+    };
+
+    axios.post(process.env.URL + 'api/communities/join/handle', sendBody)
+      .then(function(response) {
+        st.setCommunity(response.data);
+        console.log(response.data);
       })
   }
 };

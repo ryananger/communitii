@@ -10,7 +10,9 @@ import Home from './feeds/Home.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
 import Find from './find/Find.jsx';
-import CommunityUpdates from './CommunityUpdates.jsx';
+import Admin from './admin/Admin.jsx';
+import CommunityUpdates from './admin/CommunityUpdates.jsx';
+import CommunityHead from './admin/CommunityHead.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -20,6 +22,8 @@ const App = function() {
   const [community, setCommunity] = st.newState('community', useState(null));
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false);
 
   const views = {
     home:  <Home/>,
@@ -44,33 +48,37 @@ const App = function() {
   };
 
   var handleCommunity = function() {
-    if (!community) {return};
+    if (!community || loaded) {return};
 
     community.members.map(function(member) {
       if (member.uid === user.uid) {
         setIsAdmin(member.admin);
+        handlePusher(member.admin);
+        setLoaded(true);
+      }
+    });
+  };
+
+  var handlePusher = function(admin) {
+    const communityChannel = pusher.subscribe(`${community._id}`);
+    const userChannel = pusher.subscribe(`${user.uid}`);
+
+    if (admin) {
+      communityChannel.bind('adminUpdate', function(data) {
+        helpers.alert('New community notification.');
+        setCommunity({...community, notifications: data});
+      });
+    }
+
+    userChannel.bind('userUpdate', function(data) {
+      if (data.uid === user.uid) {
+        setUser(data);
       }
     });
 
-    handlePusher();
-  };
-
-  var handlePusher = function() {
-    const channel = pusher.subscribe(`${community._id}`);
-
-    channel.bind('adminUpdate', function(data) {
-      var updated = community.notifications;
-
-      updated.push(data);
-
-      helpers.alert('New community notification.');
-
-      setCommunity({...community, notifications: updated});
-    });
-
-    channel.bind('userUpdate', function(data) {
+    communityChannel.bind('communityUpdate', function(data) {
       console.log(data);
-    })
+    });
   };
 
   useEffect(userFromCookie, []);
@@ -94,9 +102,11 @@ const App = function() {
           {views[view] || view}
         </div>
         <div className='wing v'>
+          {community && <CommunityHead community={community} open={setAdminOpen}/>}
           {isAdmin && <CommunityUpdates community={community}/>}
         </div>
       </div>
+      {isAdmin && <Admin open={adminOpen} setOpen={setAdminOpen}/>}
     </div>
   );
 };

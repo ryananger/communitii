@@ -1,6 +1,6 @@
 import Pusher from 'pusher-js';
 
-var pusher = new Pusher('0a0e51c374872fcb1ee0', {
+var pusher = new Pusher(process.env.PUSHER_KEY, {
   cluster: 'us2'
 });
 

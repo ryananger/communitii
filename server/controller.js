@@ -66,9 +66,9 @@ var controller = {
       username: req.body.username
     };
 
-    Community.findOneAndUpdate({_id: comm}, {$push: {notifications: request}})
-      .then(function(response) {
-        pusher.trigger(`${comm}`, 'adminUpdate', request);
+    Community.findOneAndUpdate({_id: comm}, {$push: {notifications: request}}, {new: true})
+      .then(function(community) {
+        pusher.trigger(`${comm}`, 'adminUpdate', community.notifications);
 
         console.log('Join request sent.');
       });
@@ -85,6 +85,62 @@ var controller = {
       .then(function(user) {
         res.json(user);
       })
+  },
+  handleJoinRequest: function(req, res) {
+    var type = req.body.type;
+    var uid = req.body.uid;
+    var username = req.body.username;
+    var comm = req.body.comm;
+    var name = req.body.name;
+
+    //if approved, add to community, add approved notification
+    if (type === 'yes') {
+      var update = {
+        community: {
+          $push: {
+            members: {admin: false, uid}
+          }
+        },
+        user: {
+          community: comm,
+          $push: {
+            notifications: {type: 'text', text: `Your request to join ${name} has been approved.`}
+          }
+        }
+      };
+
+      Community.findOne({comm})
+        .then(function(community) {
+          var newNotifications = [];
+
+          community.notifications.map(function(entry) {
+            if (entry.type !== 'joinRequest') {
+              newNotifications.push(entry);
+            } else if (entry.uid !== uid) {
+              newNotifications.push(entry);
+            }
+          })
+
+          console.log(username, req.body);
+
+          newNotifications.push({type: 'text', text: `${username} has joined the community!`});
+
+          update.community.notifications = newNotifications;
+
+          Community.findOneAndUpdate(community, update.community, {new: true})
+            .then(function(updated) {
+              User.findOneAndUpdate({uid}, update.user, {new: true})
+                .then(function(user) {
+                  pusher.trigger(`${uid}`, 'userUpdate', user);
+                  pusher.trigger(`${comm}`, 'adminUpdate', updated.notifications);
+                  res.json(updated);
+                })
+            })
+        })
+
+    } else {
+      res.send('deny');
+    }
   },
   fix: function(req, res) {
     Community.deleteMany({})

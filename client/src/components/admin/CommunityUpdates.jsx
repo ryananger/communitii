@@ -4,6 +4,8 @@ import 'styles';
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
 
+import CommunityUpdate from './CommunityUpdate.jsx';
+
 const CommunityUpdates = function({community}) {
   const updates = community.notifications;
 
@@ -11,19 +13,15 @@ const CommunityUpdates = function({community}) {
     var rendered = [];
 
     updates.map(function(update) {
-      var str = '';
-
-      switch (update.type) {
-        case 'joinRequest':
-          str = `${update.username} has asked to join ${community.name}.`;
-          break;
-      }
-
-      rendered.push(<div className='updateInfo'>{str}</div>)
+      rendered.push(<CommunityUpdate update={update}/>);
     })
 
     return rendered;
   };
+
+  useEffect(()=>{
+
+  }, [community]);
 
   return (
     <div className='updates v'>

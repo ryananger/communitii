@@ -21,6 +21,7 @@
   --trToast:    #b75a4386;
   --trFirehouse:#da363380;
   --trCream:    #f8ede6d9;
+  --trLeaf:     #c9d68375;
   --trPeach:    #ffb8a2a4;
   --trTeal:     #00a9c72d;
   --trNavy:     #3b5f805d;
@@ -143,10 +144,6 @@ h1, h2, h3, h4, h5 {
 .icon:active {
   color: var(--sky);
   transition: color 0s;
-}
-
-.active {
-  color: #f5e0d4;
 }
 
 input, select {

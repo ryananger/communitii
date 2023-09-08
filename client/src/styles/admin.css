@@ -1,0 +1,36 @@
+.admin {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #0a1c2da3;
+}
+
+.communityHead {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5vh 1vh;
+  border-bottom: var(--border);
+}
+
+.adminSettingsButton {
+  cursor: pointer;
+}
+
+.adminPanel {
+  position: relative;
+  width: 50%;
+  height: 80%;
+  background-color: white;
+  border-radius: 12px;
+}
+
+.adminClose {
+  position: absolute;
+  top: 1vh;
+  right: 1vh;
+  cursor: pointer;
+}

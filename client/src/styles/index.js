@@ -5,3 +5,4 @@ import './beat.css';
 import './login.css';
 import './find.css';
 import './updates.css';
+import './admin.css';

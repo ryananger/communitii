@@ -4,10 +4,51 @@
   border-bottom: var(--border);
 }
 
-.updateInfo {
+.updateContainer {
+  width: 100%;
+}
+
+.updateInfo, .activeUpdate {
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
   padding: 0.5vh 1vh;
   border-bottom: var(--border);
+  cursor: pointer;
+}
+
+.updateInfo:hover {
+  background-color: var(--trLeaf);
+}
+
+.activeUpdate {
+  background-color: #f8ede66b;
+}
+
+.updateInfoButtons {
+  width: 100%;
+  justify-content: space-around;
+}
+
+.updateInfoButton {
+  width: 100%;
+  border-bottom: var(--border);
+}
+
+.updateInfoButton:hover {
+  background-color: white;
+  color: var(--color1);
+}
+
+.yes, .no {
+  cursor: pointer;
+}
+
+.yes {
+  background-color: var(--trLeaf);
+}
+
+.no {
+  background-color: var(--salmon);
+  color: white;
 }
