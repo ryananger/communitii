@@ -7,20 +7,20 @@ import {ax, helpers} from 'util';
 import CommunityUpdate from './CommunityUpdate.jsx';
 
 const CommunityUpdates = function({community}) {
-  const updates = community.notifications;
+  const [updates, setUpdates] = useState(community.notifications);
 
   var renderUpdates = function() {
     var rendered = [];
 
-    updates.map(function(update) {
-      rendered.push(<CommunityUpdate update={update}/>);
+    updates.map(function(update, i) {
+      rendered.push(<CommunityUpdate key={JSON.stringify(update)} update={update}/>);
     })
 
     return rendered;
   };
 
   useEffect(()=>{
-
+    setUpdates(community.notifications);
   }, [community]);
 
   return (

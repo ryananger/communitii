@@ -11,6 +11,7 @@ import Login from './Login.jsx';
 import Alert from './Alert.jsx';
 import Find from './find/Find.jsx';
 import Admin from './admin/Admin.jsx';
+import Pusher from './Pusher.jsx';
 import CommunityUpdates from './admin/CommunityUpdates.jsx';
 import CommunityHead from './admin/CommunityHead.jsx';
 
@@ -22,7 +23,6 @@ const App = function() {
   const [community, setCommunity] = st.newState('community', useState(null));
 
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
 
   const views = {
@@ -48,36 +48,12 @@ const App = function() {
   };
 
   var handleCommunity = function() {
-    if (!community || loaded) {return};
+    if (!community) {return};
 
     community.members.map(function(member) {
       if (member.uid === user.uid) {
         setIsAdmin(member.admin);
-        handlePusher(member.admin);
-        setLoaded(true);
       }
-    });
-  };
-
-  var handlePusher = function(admin) {
-    const communityChannel = pusher.subscribe(`${community._id}`);
-    const userChannel = pusher.subscribe(`${user.uid}`);
-
-    if (admin) {
-      communityChannel.bind('adminUpdate', function(data) {
-        helpers.alert('New community notification.');
-        setCommunity({...community, notifications: data});
-      });
-    }
-
-    userChannel.bind('userUpdate', function(data) {
-      if (data.uid === user.uid) {
-        setUser(data);
-      }
-    });
-
-    communityChannel.bind('communityUpdate', function(data) {
-      console.log(data);
     });
   };
 
@@ -88,6 +64,7 @@ const App = function() {
   return (
     <div className='app v'>
       <Alert />
+      <Pusher />
       <Nav user={user}/>
       <div className='main h'>
         <div className='social v'>
