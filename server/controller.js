@@ -74,10 +74,8 @@ var controller = {
       });
 
     var notify = {
-      type: 'joinRequest',
-      community: comm,
-      name: name,
-      status: 'pending',
+      type: 'text',
+      text: `A request to join "${name}" has been sent.`,
       read: false
     };
 
@@ -93,20 +91,11 @@ var controller = {
     var comm = req.body.comm;
     var name = req.body.name;
 
-    //if approved, add to community, add approved notification
     if (type === 'yes') {
+      var userNotify = {type: 'text', text: `Your request to join "${name}" has been approved.`};
       var update = {
-        community: {
-          $push: {
-            members: {admin: false, uid}
-          }
-        },
-        user: {
-          community: comm,
-          $push: {
-            notifications: {type: 'text', text: `Your request to join ${name} has been approved.`}
-          }
-        }
+        community: {$push: {members: {admin: false, uid}}},
+        user: {community: comm, $push: {notifications: userNotify}}
       };
 
       Community.findOne({comm})
@@ -121,17 +110,14 @@ var controller = {
             }
           })
 
-          console.log(username, req.body);
-
           newNotifications.push({type: 'text', text: `${username} has joined the community!`});
-
           update.community.notifications = newNotifications;
 
           Community.findOneAndUpdate(community, update.community, {new: true})
             .then(function(updated) {
               User.findOneAndUpdate({uid}, update.user, {new: true})
                 .then(function(user) {
-                  pusher.trigger(`${uid}`, 'userUpdate', user);
+                  pusher.trigger(`${uid}`, 'userUpdate', {user, update: userNotify});
                   pusher.trigger(`${comm}`, 'adminUpdate', updated.notifications);
                   res.json(updated);
                 })
@@ -139,7 +125,30 @@ var controller = {
         })
 
     } else {
-      res.send('deny');
+      var userNotify = {type: 'text', text: `Your request to join "${name}" has been denied.`};
+      var update = {$push: {notifications: userNotify}};
+
+      Community.findOne({comm})
+        .then(function(community) {
+          var newNotifications = [];
+
+          community.notifications.map(function(entry) {
+            if (entry.type !== 'joinRequest') {
+              newNotifications.push(entry);
+            } else if (entry.uid !== uid) {
+              newNotifications.push(entry);
+            }
+          })
+
+          Community.findOneAndUpdate(community, {notifications: newNotifications}, {new: true})
+            .then(function(updated) {
+              User.findOneAndUpdate({uid}, update, {new: true})
+                .then(function(user) {
+                  pusher.trigger(`${uid}`, 'userUpdate', {user, update: userNotify});
+                  res.json(updated);
+                })
+            })
+        })
     }
   },
   fix: function(req, res) {

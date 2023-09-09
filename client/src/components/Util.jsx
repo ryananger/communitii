@@ -14,9 +14,9 @@ const Util = function({user}) {
     var rendered = [];
 
     user.notifications.map(function(entry, i) {
-      var string = `Request to join "${entry.name}" ${entry.status}.`;
+      console.log(entry);
 
-      rendered.push(<div key={i} className='notificationInfo h'>{string}</div>);
+      rendered.push(<div key={i} className='notificationInfo h'>{entry.text}</div>);
     });
 
     return (

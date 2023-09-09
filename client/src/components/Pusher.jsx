@@ -9,13 +9,17 @@ const Pusher = function({admin}) {
   const [commMount, setCommMount] = useState(false);
 
   var mountUser = function() {
+    if (!st.user) {setUserMount(false)};
+
     if (st.user && !userMount) {
       const userChannel = pusher.subscribe(`${st.user.uid}`);
 
       userChannel.bind('userUpdate', function(data) {
-        if (data.uid === st.user.uid) {
-          st.setUser(data);
-        }
+        st.setUser(data.user);
+        helpers.alert(data.update.text);
+
+        console.log('in userUpdate', data);
+
       });
 
       setUserMount(true);
@@ -25,6 +29,8 @@ const Pusher = function({admin}) {
   };
 
   var mountComm = function() {
+    if (!st.community) {setCommMount(false)};
+
     if (st.community && !commMount) {
       const communityChannel = pusher.subscribe(`${st.community._id}`);
 
