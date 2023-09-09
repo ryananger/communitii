@@ -35,6 +35,7 @@ app.get('/api/communities/:id', controller.getCommunity);
 app.get('/api/communities/find/:input', controller.findCommunities);
 app.post('/api/communities/join/', controller.joinRequest);
 app.post('/api/communities/join/handle/', controller.handleJoinRequest);
+app.post('/api/readNotifications/', controller.readNotifications);
 
 app.get('/api/fix', controller.fix);
 

@@ -75,8 +75,7 @@ var controller = {
 
     var notify = {
       type: 'text',
-      text: `A request to join "${name}" has been sent.`,
-      read: false
+      text: `A request to join "${name}" has been sent.`
     };
 
     User.findOneAndUpdate({uid: user}, {$push: {notifications: notify}}, {new: true})
@@ -150,6 +149,19 @@ var controller = {
             })
         })
     }
+  },
+  readNotifications: function(req, res) {
+    User.findOne({uid: req.body.uid})
+      .then(function(user) {
+        user.notifications.map(function(entry) {
+          entry.read = true;
+        })
+
+        User.findOneAndUpdate({uid: user.uid}, user)
+          .then(function(updated) {
+            res.send(user);
+          })
+      })
   },
   fix: function(req, res) {
     Community.deleteMany({})

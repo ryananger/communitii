@@ -1,5 +1,2 @@
-- member join
-- push notifications
-
 - add friends
 - create post

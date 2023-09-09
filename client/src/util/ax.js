@@ -75,6 +75,12 @@ var ax = {
         st.setCommunity(response.data);
         console.log(response.data);
       })
+  },
+  readNotifications: function() {
+    axios.post(process.env.URL + 'api/readNotifications', {uid: st.user.uid})
+      .then(function(response) {
+        st.setUser(response.data);
+      })
   }
 };
 

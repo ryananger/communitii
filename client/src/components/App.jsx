@@ -80,7 +80,7 @@ const App = function() {
         </div>
         <div className='wing v'>
           {community && <CommunityHead community={community} open={setAdminOpen}/>}
-          {isAdmin && <CommunityUpdates community={community}/>}
+          {community && <CommunityUpdates community={community}/>}
         </div>
       </div>
       {isAdmin && <Admin open={adminOpen} setOpen={setAdminOpen}/>}

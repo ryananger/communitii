@@ -12,6 +12,11 @@ const Login = function() {
     var form = e.target;
 
     if (signUp) {
+      if (form.pass.value !== form.pass2.value) {
+        helpers.alert('Passwords do not match!');
+        return;
+      }
+
       var user = {
         username: form.username.value,
         email: form.email.value,
@@ -39,7 +44,7 @@ const Login = function() {
 
             <input className='formInput' name='email' autoComplete='off' type='text'     placeholder='email address?'/>
             <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='password?'/>
-            {signUp && <input className='formInput' name='pass'  autoComplete='off' type='password' placeholder='confirm it!'/>}
+            {signUp && <input className='formInput' name='pass2'  autoComplete='off' type='password' placeholder='confirm it!'/>}
             <input className='formSubmit' type='submit' value={!signUp ? 'sign in' : 'sign up'}/>
           </div>
 

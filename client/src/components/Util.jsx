@@ -5,7 +5,7 @@ import {AiOutlineLogout as Out,
 import {IoMdNotifications as NotificationsIcon} from 'react-icons/io';
 
 import st from 'ryscott-st';
-import {helpers} from 'util';
+import {ax, helpers} from 'util';
 
 const Util = function({user}) {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -14,8 +14,6 @@ const Util = function({user}) {
     var rendered = [];
 
     user.notifications.map(function(entry, i) {
-      console.log(entry);
-
       rendered.push(<div key={i} className='notificationInfo h'>{entry.text}</div>);
     });
 
@@ -26,12 +24,32 @@ const Util = function({user}) {
     );
   };
 
+  var handleNotification = function() {
+    if (!showNotifications) {
+      ax.readNotifications();
+    }
+
+    setShowNotifications(!showNotifications)
+  };
+
   var handleLogin = function() {
     if (user) {
       helpers.logOut();
     } else {
       st.setView('login');
     }
+  };
+
+  var checkUnread = function() {
+    for (var i = 0; i < user.notifications.length; i++) {
+      var entry = user.notifications[i];
+
+      if (!entry.read) {
+        return true;
+      }
+    }
+
+    return false;
   };
 
   useEffect(()=>{
@@ -43,9 +61,9 @@ const Util = function({user}) {
   return (
     <div className='util h'>
       {user && showNotifications && renderNotifications()}
-      <div className='notificationButton grow v c' onClick={()=>{setShowNotifications(!showNotifications)}}>
+      <div className='notificationButton grow v c' onClick={handleNotification}>
         <NotificationsIcon size={32}/>
-        {user && user.notifications.length > 0 && <div className='notifyIndicator'/>}
+        {user && checkUnread() && <div className='notifyIndicator'/>}
       </div>
       <SettingsIcon className='utilButton grow' size={26}/>
       <div className='loginButton grow v c' onClick={handleLogin}>{user ? <Out size={30}/> : <In size={30}/>}</div>
