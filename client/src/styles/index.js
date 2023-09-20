@@ -6,3 +6,5 @@ import './login.css';
 import './find.css';
 import './updates.css';
 import './admin.css';
+import './post.css';
+import './profile.css';

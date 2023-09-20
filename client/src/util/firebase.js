@@ -3,6 +3,7 @@ import { getAuth,
          createUserWithEmailAndPassword,
          signInWithEmailAndPassword,
          signOut } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import ax from './ax.js';
 
@@ -18,6 +19,8 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const storage = getStorage(app);
+const storageRef = ref(storage, 'images');
 
 var signUp = function(user) {
   createUserWithEmailAndPassword(auth, user.email, user.password)
@@ -54,10 +57,32 @@ var logOut = function() {
   });
 };
 
+var uploadBlob = async function(file, path, resolve) {
+  const imgRef = ref(storageRef, path);
+  const meta = {contentType: file.type};
+
+  var url;
+
+  uploadBytes(imgRef, file, meta).then(async (snapshot) => {
+    url = await getDownloadURL(imgRef);
+
+    if (resolve) {resolve(url)};
+  });
+};
+
+var getURL = async function(path) {
+  var gsRef = ref(storage, 'gs://communitii.appspot.com/images/' + path);
+  var url = await getDownloadURL(gsRef);
+
+  return url;
+};
+
 var methods = {
-  signUp: signUp,
-  signIn: signIn,
-  logOut: logOut
+  signUp,
+  signIn,
+  logOut,
+  uploadBlob,
+  getURL
 };
 
 export default methods;

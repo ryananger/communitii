@@ -1,0 +1,92 @@
+.profile {
+  width: 50%;
+}
+
+.cardContainer {
+  position: relative;
+  align-self: baseline;
+}
+
+.profileCard,
+.profileHead {
+  height: 150px;
+  width: 100%;
+  border: var(--border);
+  border-radius: 12px;
+  margin-top: 1vh;
+  padding: 1vh;
+}
+
+.profileLeft {
+  cursor: pointer;
+}
+
+.profileCard {
+  position: absolute;
+  top: calc(-1vh - 1px);
+  left: calc(-1vh - 1px);
+  width: 420px;
+  background: white;
+  margin: 0;
+}
+
+.friendPopup {
+  background-color: white;
+  top: -50px;
+  border-radius: 12px;
+  border: var(--border);
+  padding: 1vh 1.75vh;
+}
+
+.popupOption {
+  min-width: 100px;
+  text-align: center;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pfp {
+  height: 100px;
+  aspect-ratio: 1;
+  border: var(--border);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pfpImg {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.bio {
+  width: 100%;
+  height: 100%;
+  padding: 0 1vh;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.editHeadline {
+  border-radius: 12px;
+  width: 100%;
+}
+
+.editBio {
+  margin: 4px;
+  padding: 0.5vh 1vh;
+  height: 72px;
+  resize: none;
+}
+
+.editButtons {
+  height: 100%;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.editButton {
+  cursor: pointer;
+}

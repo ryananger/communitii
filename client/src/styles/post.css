@@ -1,0 +1,221 @@
+.postContainer {
+  width: 100%;
+}
+
+.postButtons {
+  background-color: var(--color1);
+  color: white;
+  width: 100%;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#submitText {
+  height: 200px;
+  resize: none;
+}
+
+#uploadButton {
+  cursor: pointer;
+}
+
+.uploadThumb {
+  height: 120px;
+  aspect-ratio: 1;
+  margin: 1vh;
+  object-fit: cover;
+  border: var(--border);
+}
+
+.posts, .post, .postHead, .postInteract {
+  width: 100%;
+}
+
+.post {
+  border: var(--border);
+  border-radius: 12px;
+  margin: 2vh 0;
+  box-sizing: border-box;
+}
+
+.postHead {
+  border-bottom: var(--border);
+  padding: 1vh;
+  box-sizing: border-box;
+}
+
+.postHead, .postUser {
+  align-items: center;
+}
+
+.pfpThumb {
+  width: 24px;
+  aspect-ratio: 1;
+  border: var(--border);
+  border-radius: 100%;
+  margin-right: 8px;
+}
+
+.optionsContainer {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+.optionsList {
+  position: absolute;
+  align-items: flex-start;
+  left: 48px;
+}
+
+.postContent {
+  padding: 1vh;
+  justify-content: center;
+  min-height: 160px;
+}
+
+.postMedia {
+  margin-bottom: 1vh;
+}
+
+.postImage,
+.postVideo {
+  margin: 1vh;
+  max-height: 600px;
+  max-width: 90%;
+  border: var(--border);
+}
+
+.postInteract {
+  border-top: var(--border);
+  padding: 1vh;
+  align-items: center;
+}
+
+.likeContainer {
+  font-size: 1.8vh;
+  position: relative;
+  height: 28px;
+  align-items: baseline;
+}
+
+.likeButton {
+  cursor: pointer;
+}
+
+.liked {
+  color: var(--salmon);
+}
+
+.replyToggle {
+  height: 24px;
+  cursor: pointer;
+  align-items: baseline;
+}
+
+.commentButton {
+  margin-left: 2px;
+}
+
+.replyContainer {
+  width: 100%;
+  position: relative;
+  padding: 1vh;
+  border-top: var(--border);
+}
+
+.replyText {
+  border-radius: 8px;
+  height: 40px;
+  min-height: 120px;
+  padding: 1vh;
+  min-width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.replyButtons {
+  width: 100%;
+  text-align: end;
+  margin: 1vh 0 0;
+  height: 20px;
+}
+
+.replyButton {
+  cursor: pointer;
+  margin: 0 2px;
+}
+
+.replyUpload {
+  max-width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.replyUpload::-webkit-scrollbar {
+  background: var(--white);
+  border-style: none;
+  height: 0.8vw;
+  min-height: 6px;
+
+  width: 100%;
+}
+
+.replyBody {
+  width: 100%;
+  border-top: var(--border);
+  align-items: flex-start;
+  border-left: 2px solid var(--borderColor);
+}
+
+.replyLeft {
+  width: 100px;
+  min-height: 180px;
+  padding: 1vh;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: none;
+}
+
+.replyRight {
+  width: 100%;
+  min-height: 180px;
+  padding: 1vh;
+  border-left: var(--border);
+}
+
+.replyHead {
+  padding: 1vh;
+}
+
+.replyContent {
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 2vh 1vh;
+}
+
+.replyImage,
+.replyVideo {
+  height: 360px;
+  margin: 1vh 0.25vh;
+  border: var(--border);
+}
+
+.replyMedia {
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  padding: 1vh;
+}
+
+.replyInteract {
+  margin-bottom: 1vh;
+  padding: 1vh 0.5vh 0;
+  width: 100%;
+}

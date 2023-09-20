@@ -3,7 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: "./client/src/index.jsx",
   output: {
     path: path.join(__dirname, 'client/dist'),

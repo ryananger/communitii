@@ -1,6 +1,6 @@
 import mouse from './input.js';
 import ax from './ax.js';
-import auth from './auth.js';
+import firebase from './firebase.js';
 import helpers from './helpers.js';
 
-export {ax, mouse, auth, helpers};
+export {ax, mouse, firebase, helpers};

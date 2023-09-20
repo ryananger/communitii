@@ -35,6 +35,15 @@ app.get('/api/communities/:id', controller.getCommunity);
 app.get('/api/communities/find/:input', controller.findCommunities);
 app.post('/api/communities/join/', controller.joinRequest);
 app.post('/api/communities/join/handle/', controller.handleJoinRequest);
+
+app.post('/api/users/settings', controller.updateSettings);
+app.post('/api/posts/submit', controller.submitPost);
+app.post('/api/posts/delete', controller.deletePost);
+app.get('/api/users/posts/:uid', controller.getPostsForUser);
+app.put('/api/posts/likePost', controller.likePost);
+app.post('/api/addFriend', controller.addFriend);
+app.post('/api/unfriend', controller.unfriend);
+
 app.post('/api/readNotifications/', controller.readNotifications);
 
 app.get('/api/fix', controller.fix);

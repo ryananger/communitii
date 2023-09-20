@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import st            from 'ryscott-st';
-import {ax, auth, helpers} from 'util';
+import {ax, firebase, helpers} from 'util';
 
 const Login = function() {
   const [signUp, setSignUp] = useState(false);
@@ -23,9 +23,9 @@ const Login = function() {
         password: form.pass.value
       };
 
-      auth.signUp(user);
+      firebase.signUp(user);
     } else {
-      auth.signIn(form.email.value, form.pass.value);
+      firebase.signIn(form.email.value, form.pass.value);
     }
   };
 
@@ -62,7 +62,7 @@ const Login = function() {
   };
 
   return (
-    <div className='auth v'>
+    <div className='firebase v'>
       {renderForm()}
     </div>
   )

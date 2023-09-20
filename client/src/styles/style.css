@@ -44,6 +44,7 @@
 html {
   background: var(--tr1);
   overflow-x: hidden;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -62,7 +63,7 @@ body, #root {
 .app {
   width: 1200px;
   max-width: 100svw;
-  height: 100svh;
+  min-height: 100svh;
   background-color: white;
   border-left: var(--border);
   border-right: var(--border);
@@ -109,7 +110,7 @@ h1, h2, h3, h4, h5 {
 
 .alert {
   z-index: 11;
-  position: absolute;
+  position: fixed;
   bottom: 10vh;
   min-width: 200px;
   max-width: 90svh;
@@ -150,7 +151,7 @@ h1, h2, h3, h4, h5 {
 input, select {
   width: 240px;
   height: 32px;
-  border: 1px solid var(--tr1);
+  border: var(--border);
   padding: 0 1vh;
   margin: 4px;
   box-sizing: border-box;
@@ -159,10 +160,26 @@ input, select {
   font-family: Jost;
 }
 
+.yes {
+  background-color: var(--leaf);
+}
+
+.no {
+  background-color: var(--salmon);
+  color: white;
+}
+
+.anchor {
+  position: relative;
+}
+
+.float {
+  position: absolute;
+}
+
 /* */
 
 ::-webkit-scrollbar {
-  background: var(--coffee);
   border-style: none;
   width: 0.4vw;
   min-width: 6px;

@@ -1,5 +1,5 @@
 import st from 'ryscott-st';
-import {ax, auth} from 'util';
+import {ax, firebase} from 'util';
 
 var helpers = {
   rand: function(num) {
@@ -27,7 +27,7 @@ var helpers = {
   },
   logOut: function() {
     document.cookie = 'user=;';
-    auth.logOut();
+    firebase.logOut();
     helpers.alert('Logout successful!');
     st.setUser(null);
   },
@@ -132,6 +132,70 @@ var helpers = {
     } else {
       helpers.alert('Invalid email.');
       return false;
+    }
+  },
+  timeSince: function (date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) === 1 ? '1 year' : Math.floor(interval) + " years";
+    }
+
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) === 1 ? '1 month' : Math.floor(interval) + " months";
+    }
+
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) === 1 ? '1 day' : Math.floor(interval) + " days";
+    }
+
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) === 1 ? '1 hour' : Math.floor(interval) + " hours";
+    }
+
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) === 1 ? '1 minute' : Math.floor(interval) + " minutes";
+    }
+    if (interval > 15) {
+      return Math.floor(interval) + " seconds";
+    }
+    return null;
+  },
+  resizeImage: function(file, width, resolve) {
+    var reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      const img = new Image();
+      img.src = reader.result.toString();
+
+      img.onload = function() {
+        if (width > img.width) {
+          resolve(file);
+          return;
+        }
+
+        const elem = document.createElement('canvas');
+        const scaleFactor = width / img.width;
+
+        elem.width = width;
+        elem.height = img.height * scaleFactor;
+
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, img.height * scaleFactor);
+
+        ctx.canvas.toBlob((blob) => {
+          var resizedImage = new File([blob], file.name, {type: 'image/jpeg'});
+
+          resolve(resizedImage);
+        }, 'image/jpeg', 1);
+      };
     }
   }
 };

@@ -1,6 +1,6 @@
 const axios    = require('axios');
 const pusher = require('./pusher.js');
-const { User, Community } = require('./db.js');
+const { User, Community, Post } = require('./db.js');
 
 var controller = {
   createUser: function(req, res) {
@@ -44,8 +44,44 @@ var controller = {
   },
   getCommunity: function(req, res) {
     Community.findOne({_id: req.params.id})
+      .lean()
       .then(function(community) {
-        res.json(community);
+        var promises = [];
+        var newFeeds = {};
+
+        var getPost = function(feed, ids, resolve) {
+          Post.findOne({_id: ids[feed.length]})
+            .populate('user')
+            .then(function(post) {
+              feed.push(post);
+
+              if (feed.length < ids.length) {
+                getPost(feed, ids, resolve);
+              } else {
+                resolve();
+              }
+            })
+        };
+
+        for (var key in community.feeds) {
+          newFeeds[key] = [];
+
+          var ids = community.feeds[key];
+          var start = ids[0];
+
+          var promise = new Promise(function(resolve) {
+            getPost(newFeeds[key], ids, resolve);
+          });
+
+          promises.push(promise);
+        }
+
+        Promise.all(promises)
+          .then(function() {
+            community.feeds = newFeeds;
+
+            res.json(community);
+          })
       })
   },
   findCommunities: function(req, res) {
@@ -150,6 +186,357 @@ var controller = {
         })
     }
   },
+
+  updateSettings: function(req, res) {
+    User.findOneAndUpdate({uid: req.body.uid}, {settings: req.body.settings}, {new: true})
+      .then(function(user) {
+        res.json(user.settings);
+      })
+  },
+  submitPost: function(req, res) {
+    const post = req.body;
+    const uid  = post.user.uid || post.user;
+
+    User.findOne({uid: uid})
+      .then(function(user) {
+        post.user = user._id;
+
+        Post.create(post)
+          .then(function(post) {
+            if (post.parent) {
+              Post.findOneAndUpdate({_id: post.parent}, {$push: {replies: post._id}}, {new: true})
+                .then(function(post) {
+                  console.log(`Added reply to post ${post._id}.`);
+                })
+            }
+
+            User.findOneAndUpdate({uid: uid}, {$push: {posts: post._id}}, {new: true})
+              .then(function(user) {
+                Community.findOne({_id: post.community})
+                  .then(function(community) {
+                    var updated = community.feeds;
+
+                    updated[post.feed].push(post._id);
+
+                    Community.findOneAndUpdate({_id: post.community}, {feeds: updated}, {new: true})
+                      .then(function(community) {
+                        console.log(community);
+                        res.json(community);
+                      })
+                  })
+              })
+          })
+      })
+  },
+  deletePost: function(req, res) {
+    const {parent, uid, _id, replies} = req.body;
+
+    if (parent) {
+      Post.updateOne({_id: parent}, {$pull: {replies: _id}})
+        .then(function(result) {
+          console.log('Deleted reply from parent.');
+        })
+    }
+
+    if (replies) {
+      replies.map(function(entry) {
+        Post.deleteOne({_id: entry})
+          .then(function(result) {
+            console.log('Deleted reply.');
+          })
+      })
+    }
+
+    User.updateOne({uid: uid}, {$pull: {posts: ObjectId(_id)}})
+      .then(function(result) {
+        console.log('Deleted post from user.');
+      })
+
+    Post.deleteOne({_id: _id})
+      .then(function(result) {
+        console.log('Deleted post.');
+
+        res.send({success: true});
+      })
+  },
+  getPostsForUser: function(req, res) {
+    Post.find({user: req.params.uid})
+      .populate('user')
+      .then(function(posts) {
+        res.json(posts);
+      })
+  },
+  addFriend: function(req, res) {
+    User.findOne({uid: req.body.userId})
+      .then(function(result) {
+        const sender = req.body.sender;
+        const user = result;
+        const type = req.body.type;
+
+        var sendRequest = function() {
+          var sendNote = {
+            type: 'friendRequest',
+            uid: sender.uid,
+            text: `${sender.username} has sent you a friend request.`
+          };
+
+          var sendUpdate = {
+            $push: {
+              notifications: sendNote,
+              friends: 'pending.' + sender.uid
+            }
+          };
+
+          User.updateOne({_id: user._id}, sendUpdate)
+            .then(function(result) {
+              console.log('addFriend sent notification', sendNote);
+            })
+
+          var pendNote = {
+            type: 'friendPending',
+            uid: user.uid,
+            text: `Friend request sent to ${user.username}.`
+          };
+
+          var pendUpdate = {
+            $push: {
+              notifications: pendNote,
+              friends: 'pending.' + user.uid
+            }
+          };
+
+          User.findOneAndUpdate({_id: sender._id}, pendUpdate, {new: true})
+            .populate('posts')
+            .then(function(user) {
+              console.log('addFriend pending notification', pendNote);
+
+              res.json(user);
+            })
+        };
+
+        var confirmRequest = function() {
+          var confirmNote = {
+            type: 'friendConfirmed',
+            uid: sender.uid,
+            text: `${sender.username} has confirmed your friend request.`
+          };
+
+          var newUserNotifications = [];
+          var newUserFriends = user.friends;
+
+          user.notifications.map(function(entry) {
+            if (entry.uid !== sender.uid) {
+              newUserNotifications.push(entry);
+            }
+          })
+
+          newUserNotifications.push(confirmNote);
+          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
+          newUserFriends.push(sender.uid);
+
+          var confirmUpdate = {
+            notifications: newUserNotifications,
+            friends: newUserFriends
+          };
+
+          User.updateOne({_id: user._id}, confirmUpdate)
+            .then(function(result) {
+              console.log('addFriend confirm notification', confirmNote);
+            })
+
+          var addedNote = {
+            type: 'friendAdded',
+            uid: user.uid,
+            text: `You are now friends with ${user.username}!`,
+            read: true
+          };
+
+          User.findOne({_id: sender._id})
+            .then(function(sender) {
+              var newSenderNotifications = [];
+              var newSenderFriends = sender.friends;
+
+              sender.notifications.map(function(entry) {
+                if (entry.uid !== user.uid) {
+                  newSenderNotifications.push(entry);
+                }
+              })
+
+              newSenderNotifications.push(addedNote);
+              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
+              newSenderFriends.push(user.uid);
+
+              var addedUpdate = {
+                notifications: newSenderNotifications,
+                friends: newSenderFriends
+              };
+
+              User.findOneAndUpdate({_id: sender._id}, addedUpdate, {new: true})
+                .populate('posts')
+                .then(function(user) {
+                  console.log('addFriend add notification', addedNote);
+
+                  res.json(user);
+                })
+            })
+        };
+
+        var denyRequest = function() {
+          var denyNote = {
+            type: 'friendDenied',
+            uid: sender.uid,
+            text: `${sender.username} has denied your friend request.`
+          };
+
+          var newUserNotifications = [];
+          var newUserFriends = user.friends;
+
+          user.notifications.map(function(entry) {
+            if (entry.uid !== sender.uid) {
+              newUserNotifications.push(entry);
+            }
+          })
+
+          newUserNotifications.push(denyNote);
+          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
+
+          var denyUpdate = {
+            notifications: newUserNotifications,
+            friends: newUserFriends
+          };
+
+          User.updateOne({_id: user._id}, denyUpdate)
+            .then(function(result) {
+              console.log('addFriend deny notification', denyNote);
+            })
+
+          User.findOne({_id: sender._id})
+            .then(function(sender) {
+              var newSenderNotifications = [];
+              var newSenderFriends = sender.friends;
+
+              sender.notifications.map(function(entry) {
+                if (entry.uid !== user.uid) {
+                  newSenderNotifications.push(entry);
+                }
+              })
+
+              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
+
+              var denyUpdate = {
+                notifications: newSenderNotifications,
+                friends: newSenderFriends
+              };
+
+              User.findOneAndUpdate({_id: sender._id}, denyUpdate, {new: true})
+                .populate('posts')
+                .then(function(user) {
+                  console.log('addFriend denied');
+
+                  res.json(user);
+                })
+            })
+        };
+
+        var cancelRequest = function() {
+          var newUserNotifications = [];
+          var newUserFriends = user.friends;
+
+          user.notifications.map(function(entry) {
+            if (entry.uid !== sender.uid) {
+              newUserNotifications.push(entry);
+            }
+          })
+
+          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
+
+          var cancelUpdate = {
+            notifications: newUserNotifications,
+            friends: newUserFriends
+          };
+
+          User.updateOne({_id: user._id}, cancelUpdate)
+            .then(function(result) {
+              console.log('addFriend canceled');
+            })
+
+          User.findOne({_id: sender._id})
+            .then(function(sender) {
+              var newSenderNotifications = [];
+              var newSenderFriends = sender.friends;
+
+              sender.notifications.map(function(entry) {
+                if (entry.uid !== user.uid) {
+                  newSenderNotifications.push(entry);
+                }
+              })
+
+              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
+
+              var removeUpdate = {
+                notifications: newSenderNotifications,
+                friends: newSenderFriends
+              };
+
+              User.findOneAndUpdate({_id: sender._id}, removeUpdate, {new: true})
+                .populate('posts')
+                .then(function(user) {
+                  console.log('addFriend canceled');
+
+                  res.json(user);
+                })
+            })
+        };
+
+        switch (type) {
+          case 'send':
+            sendRequest();
+            break;
+          case 'confirm':
+            confirmRequest();
+            break;
+          case 'deny':
+            denyRequest();
+            break;
+          case 'cancel':
+            cancelRequest();
+            break;
+        }
+      })
+  },
+  unfriend: function(req, res) {
+    const sender = req.body.sender;
+    const userId = req.body.userId;
+
+    User.updateOne({uid: userId}, {$pull: {friends: sender.uid}})
+      .then(function(result) {
+        console.log('removed sender from friend');
+      })
+
+    User.findOneAndUpdate({uid: sender.uid}, {$pull: {friends: userId}}, {new: true})
+      .populate('posts')
+      .then(function(user) {
+        res.send(user);
+      })
+  },
+  likePost: function(req, res) {
+    Post.findOne({_id: req.body._id})
+      .then(function(post) {
+        if (post.likes.includes(req.body.uid)) {
+          post.likes.splice(post.likes.indexOf(req.body.uid), 1);
+
+          Post.updateOne({_id: post._id}, {likes: post.likes})
+            .then(function() {
+              res.sendStatus(201);
+            })
+        } else {
+          Post.updateOne(post, {$push: {likes: req.body.uid}})
+            .then(function() {
+              res.sendStatus(201);
+            })
+        }
+      })
+  },
   readNotifications: function(req, res) {
     User.findOne({uid: req.body.uid})
       .then(function(user) {
@@ -164,6 +551,11 @@ var controller = {
       })
   },
   fix: function(req, res) {
+    Post.deleteMany({})
+      .then(function() {
+        console.log('Posts deleted.');
+      })
+
     Community.deleteMany({})
       .then(function(response) {
         console.log(response);
