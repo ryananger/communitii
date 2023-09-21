@@ -98,7 +98,11 @@ var ax = {
 
     axios.post(process.env.URL + 'api/communities/join/handle', sendBody)
       .then(function(response) {
-        st.setCommunity(response.data);
+        var community = response.data;
+
+        community = ax.transformFeeds(community);
+
+        st.setCommunity(community);
       })
   },
   updateSettings: function(send) {

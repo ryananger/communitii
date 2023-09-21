@@ -61,7 +61,7 @@
   width: 240px;
   background-color: white;
   height: 240px;
-  top: calc(32px + 1vh);
+  bottom: calc(-240px - 1vh);
   right: calc(-1vh);
   border: var(--border);
   border-right: none;
@@ -77,6 +77,7 @@
 
 .utilButton {
   margin-right: 0.5vh;
+  flex: none;
 }
 
 .navButton:hover {

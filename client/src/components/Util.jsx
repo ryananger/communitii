@@ -89,7 +89,7 @@ const Util = function({user}) {
   return (
     <div className='util h'>
       {user && showNotifications && renderNotifications()}
-      <div className='utilButton grow v c' onClick={handleNotification}>
+      <div className='utilButton anchor grow v c' onClick={handleNotification}>
         <NotificationsIcon size={32}/>
         {user && checkUnread() && <div className='notifyIndicator'/>}
       </div>

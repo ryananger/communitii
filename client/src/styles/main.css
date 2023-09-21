@@ -28,7 +28,7 @@
   height: 100%;
   padding: 2vh;
   overflow-x: unset;
-  overflow-y: overlay;
+  overflow-y: scroll;
 }
 
 textarea {
