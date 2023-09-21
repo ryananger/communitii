@@ -38,12 +38,12 @@ const communitySchema = new mongoose.Schema({
   members:  [{admin: Boolean, uid: String}],
   messages: [Object],
   feeds: {
-    home:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    learn: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    grow:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    work:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    play:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
-    help:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
+    home:  [String],
+    learn: [String],
+    grow:  [String],
+    work:  [String],
+    play:  [String],
+    help:  [String]
   },
   events:  [Object]
 });

@@ -8,10 +8,10 @@ import ReplyUpload from './ReplyUpload.jsx';
 
 const PostReply = function({post}) {
   const [uploads, setUploads] = useState([]);
-  const _id = post._id;
 
   var handleSubmit = function() {
-    var text = document.getElementById(`replyText${_id}`).value;
+    var el = document.getElementById(`replyText${post._id}`);
+    var text = el.value;
 
     if (uploads.length === 0 && !text) {return};
 
@@ -37,18 +37,32 @@ const PostReply = function({post}) {
 
     Promise.all(promises)
       .then(function(res) {
-        var post = {
-          user: st.user.uid,
-          feed: st.feed.name,
+        var submission = {
+          user: st.user,
+          community: st.user.community,
+          feed: st.view,
           text,
           media,
           date: Date(Date.now()).toString(),
           likes: [],
-          parent: _id
+          parent: post._id
         };
 
-        text = null;
-        ax.submitPost(post);
+        var newFeed = st.community.feeds[post.feed];
+        newFeed.push(submission);
+
+        var newCommunity = {
+          ...st.community,
+          feeds: {
+            ...st.community.feeds,
+            [post.feed]: newFeed}
+        };
+
+        newCommunity = ax.transformFeeds(newCommunity);
+        st.setCommunity(newCommunity);
+
+        el.value = null;
+        ax.submitPost(submission);
         setUploads([]);
       })
   };

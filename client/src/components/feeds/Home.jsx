@@ -2,6 +2,7 @@ import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
 import {firebase} from 'util';
 
+import Post from './post/Post.jsx';
 import SubmitPost from './SubmitPost.jsx';
 import ImageUpload from './ImageUpload.jsx';
 
@@ -16,18 +17,11 @@ const Home = function() {
     for (var i = feed.length - 1; i >= 0; i--) {
       var post = feed[i];
 
-      rendered.push(
-        <div key={i} className='post v'>
-          <div className='postHead h'>
-            <div className='postUser'>{post.user.username}</div>
-            <div className='postDate'><small>{new Date(post.createdOn).toLocaleString('en-GB', { timeZone: 'America/New_York' })}</small></div>
-          </div>
-          <div className='postContent v'>{post.text}</div>
-          <div className='postMedia v'>
-            {post.media[0] && handleMedia(post.media)}
-          </div>
-        </div>
-      );
+      if (!post.parent) {
+        rendered.push(<Post key={i} post={post}/>);
+      } else {
+        console.log(post);
+      }
     }
 
     return rendered;

@@ -24,9 +24,10 @@ const App = function() {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [feed, setFeed] = useState([]);
 
   const views = {
-    home:  <Home/>,
+    home:  <Home feed={feed}/>,
     login: <Login/>,
     find:  <Find/>
   };
@@ -49,6 +50,10 @@ const App = function() {
 
   var handleCommunity = function() {
     if (!community) {return};
+
+    if (view !== 'login' && view !== 'find') {
+      setFeed(community.feeds[view]);
+    }
 
     community.members.map(function(member) {
       if (member.uid === user.uid) {

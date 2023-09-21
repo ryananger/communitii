@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const axios    = require('axios');
 const pusher = require('./pusher.js');
 const { User, Community, Post } = require('./db.js');
@@ -49,28 +51,21 @@ var controller = {
         var promises = [];
         var newFeeds = {};
 
-        var getPost = function(feed, ids, resolve) {
-          Post.findOne({_id: ids[feed.length]})
+        var getPosts = function(feed, resolve) {
+          Post.find({community: community._id, feed: feed})
             .populate('user')
-            .then(function(post) {
-              feed.push(post);
+            .then(function(posts) {
+              newFeeds[feed] = posts;
 
-              if (feed.length < ids.length) {
-                getPost(feed, ids, resolve);
-              } else {
-                resolve();
-              }
+              resolve();
             })
         };
 
         for (var key in community.feeds) {
           newFeeds[key] = [];
 
-          var ids = community.feeds[key];
-          var start = ids[0];
-
           var promise = new Promise(function(resolve) {
-            getPost(newFeeds[key], ids, resolve);
+            getPosts(key, resolve);
           });
 
           promises.push(promise);
@@ -203,6 +198,8 @@ var controller = {
 
         Post.create(post)
           .then(function(post) {
+            console.log('Created post.');
+
             if (post.parent) {
               Post.findOneAndUpdate({_id: post.parent}, {$push: {replies: post._id}}, {new: true})
                 .then(function(post) {
@@ -212,18 +209,7 @@ var controller = {
 
             User.findOneAndUpdate({uid: uid}, {$push: {posts: post._id}}, {new: true})
               .then(function(user) {
-                Community.findOne({_id: post.community})
-                  .then(function(community) {
-                    var updated = community.feeds;
-
-                    updated[post.feed].push(post._id);
-
-                    Community.findOneAndUpdate({_id: post.community}, {feeds: updated}, {new: true})
-                      .then(function(community) {
-                        console.log(community);
-                        res.json(community);
-                      })
-                  })
+                res.send({success: true});
               })
           })
       })

@@ -15,12 +15,10 @@ const PostInteract = function({post}) {
       updatedPost.likes.splice(updatedPost.likes.indexOf(st.user.uid), 1);
 
       setLiked(false);
-      st.setFeed({...st.feed, post: updatedPost});
     } else {
       updatedPost.likes.push(st.user.uid);
 
       setLiked(true);
-      st.setFeed({...st.feed, post: updatedPost});
     }
 
     ax.likePost(post);

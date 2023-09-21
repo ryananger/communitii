@@ -50,10 +50,9 @@ const SubmitPost = function() {
           text,
           media,
           date: Date(Date.now()).toString(),
-          likes: []
+          likes: [],
+          replies: []
         };
-
-        console.log(st.user);
 
         var newFeed = st.community.feeds[st.view];
         newFeed.push(post);
