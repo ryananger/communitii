@@ -14,6 +14,8 @@ import Admin from './admin/Admin.jsx';
 import Pusher from './Pusher.jsx';
 import CommunityUpdates from './admin/CommunityUpdates.jsx';
 import CommunityHead from './admin/CommunityHead.jsx';
+import Profile from './feeds/profile/Profile.jsx';
+import UserProfile from './feeds/profile/UserProfile.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -21,15 +23,18 @@ const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
   const [user, setUser] = st.newState('user', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
+  const [profile, setProfile] = st.newState('profile', useState(null));
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
   const [feed, setFeed] = useState([]);
 
   const views = {
-    home:  <Home feed={feed}/>,
+    home:  <Home/>,
     login: <Login/>,
-    find:  <Find/>
+    find:  <Find/>,
+    profile: <Profile profile={profile}/>,
+    userProfile: <UserProfile />
   };
 
   var userFromCookie = function() {
@@ -39,9 +44,9 @@ const App = function() {
   };
 
   var handleUser = function() {
-    if (user && user.community) {
+    if (user && user.community && !community) {
       ax.getCommunity(user.community);
-    } else {
+    } else if (!user) {
       setView('find');
       setIsAdmin(false);
       setCommunity(null);
@@ -51,9 +56,9 @@ const App = function() {
   var handleCommunity = function() {
     if (!community) {return};
 
-    if (view !== 'login' && view !== 'find') {
-      setFeed(community.feeds[view]);
-    }
+    // if (view !== 'login' && view !== 'find') {
+    //   setFeed(community.feeds[view]);
+    // }
 
     community.members.map(function(member) {
       if (member.uid === user.uid) {

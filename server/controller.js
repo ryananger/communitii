@@ -14,7 +14,13 @@ var controller = {
   getUser: function(req, res) {
     User.findOne({uid: req.params.uid})
       .then(function(user) {
-        res.json(user);
+        Post.find({user: user._id})
+          .populate('user')
+          .then(function(posts) {
+            user.posts = posts;
+
+            res.json(user);
+          })
       })
   },
   createCommunity: function(req, res) {
@@ -38,6 +44,7 @@ var controller = {
             }
 
             User.findOneAndUpdate(user, update, {new: true})
+              .populate('posts')
               .then(function(user) {
                 res.json(user);
               })
@@ -110,6 +117,7 @@ var controller = {
     };
 
     User.findOneAndUpdate({uid: user}, {$push: {notifications: notify}}, {new: true})
+      .populate('posts')
       .then(function(user) {
         res.json(user);
       })
@@ -525,6 +533,7 @@ var controller = {
   },
   readNotifications: function(req, res) {
     User.findOne({uid: req.body.uid})
+      .populate('posts')
       .then(function(user) {
         user.notifications.map(function(entry) {
           entry.read = true;
@@ -547,7 +556,7 @@ var controller = {
         console.log(response);
       })
 
-    User.updateMany({}, {community: null, notifications: []})
+    User.updateMany({}, {community: null, notifications: [], posts: []})
       .then(function(response) {
         console.log(response);
 
