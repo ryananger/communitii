@@ -5,24 +5,17 @@ import {firebase} from 'util';
 import SubmitPost from './SubmitPost.jsx';
 import Feed from './Feed.jsx';
 
-const Home = function() {
-  const feeds = st.community.feeds;
-  const feed = [
-    ...feeds.home,
-    ...feeds.learn,
-    ...feeds.grow,
-    ...feeds.work,
-    ...feeds.play,
-    ...feeds.help
-  ];
+const Play = function() {
+  const feed = st.community.feeds.play || [];
 
   return (
-    <div className='homeFeed v'>
+    <div className='playFeed v'>
+      play
       <SubmitPost />
       <Feed feed={feed}/>
     </div>
   );
 };
 
-export default Home;
+export default Play;
 

@@ -44,7 +44,12 @@ textarea {
   font-family: Jost;
 }
 
-.home {
+.homeFeed,
+.learnFeed,
+.growFeed,
+.workFeed,
+.playFeed,
+.helpFeed {
   width: 90%;
 }
 

@@ -17,6 +17,8 @@ const SubmitPost = function() {
     var media = [];
     var uid = st.user.uid;
 
+    var postFeed = st.view === 'userProfile' ? 'home' : st.view;
+
     uploads.map(function(entry) {
       var split = entry.file.name.split('.');
       var path = split[0] + Date.now() + uid + '.' + split[1];
@@ -46,7 +48,7 @@ const SubmitPost = function() {
         var post = {
           user: st.user,
           community: st.user.community,
-          feed: st.view,
+          feed: postFeed,
           text,
           media,
           date: Date(Date.now()).toString(),
@@ -54,13 +56,17 @@ const SubmitPost = function() {
           replies: []
         };
 
-        var newFeed = st.community.feeds[st.view];
+        var newFeed = st.community.feeds[postFeed];
         newFeed.push(post);
 
         el.value = null;
-        st.setCommunity({...st.community, feeds: {...st.community.feeds, [st.view]: newFeed}});
+        st.setCommunity({...st.community, feeds: {...st.community.feeds, [postFeed]: newFeed}});
 
         ax.submitPost(post);
+
+        var newPosts = [...st.user.posts, post];
+        st.setUser({...st.user, posts: newPosts});
+
         setUploads([]);
       })
   };

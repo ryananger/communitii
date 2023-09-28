@@ -7,6 +7,11 @@ import {ax, helpers} from 'util';
 
 import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
+import Learn from './feeds/Learn.jsx';
+import Grow from './feeds/Grow.jsx';
+import Work from './feeds/Work.jsx';
+import Play from './feeds/Play.jsx';
+import Help from './feeds/Help.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
 import Find from './find/Find.jsx';
@@ -27,10 +32,14 @@ const App = function() {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
-  const [feed, setFeed] = useState([]);
 
   const views = {
     home:  <Home/>,
+    learn: <Learn/>,
+    grow:  <Grow/>,
+    work:  <Work/>,
+    play:  <Play/>,
+    help:  <Help/>,
     login: <Login/>,
     find:  <Find/>,
     profile: <Profile profile={profile}/>,
@@ -39,7 +48,7 @@ const App = function() {
 
   var userFromCookie = function() {
     if (!user && cookie.user) {
-      ax.getUser(cookie.user);
+      ax.getUser(cookie.user, true);
     }
   };
 
@@ -55,10 +64,6 @@ const App = function() {
 
   var handleCommunity = function() {
     if (!community) {return};
-
-    // if (view !== 'login' && view !== 'find') {
-    //   setFeed(community.feeds[view]);
-    // }
 
     community.members.map(function(member) {
       if (member.uid === user.uid) {

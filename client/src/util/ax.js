@@ -15,13 +15,16 @@ var ax = {
         helpers.alert('Welcome to communitii!');
       })
   },
-  getUser: function(uid) {
+  getUser: function(uid, mount) {
     axios.get(process.env.URL + 'api/users/' + uid)
       .then(function(response) {
         var user = response.data;
 
         st.setUser(user);
-        document.cookie = `user=${uid}`;
+
+        if (mount) {
+          document.cookie = `user=${uid}`;
+        }
       })
   },
   createCommunity: function(sendBody) {
@@ -41,7 +44,10 @@ var ax = {
         community = ax.transformFeeds(community);
 
         st.setCommunity(community);
-        st.setView('home');
+
+        if (st.view === 'find') {
+          st.setView('home');
+        }
       })
   },
   transformFeeds: function(community) {
@@ -116,6 +122,7 @@ var ax = {
       .then(function(response) {
         if (response.data.success) {
           ax.getCommunity(st.user.community);
+          ax.getUser(st.user.uid);
         }
       })
   },
@@ -124,6 +131,7 @@ var ax = {
       .then(function(response) {
         if (response.data.success) {
           ax.getCommunity(st.user.community);
+          ax.getUser(st.user.uid);
         }
       })
   },

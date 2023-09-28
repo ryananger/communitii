@@ -40,7 +40,7 @@ const PostReply = function({post}) {
         var submission = {
           user: st.user,
           community: st.user.community,
-          feed: st.view,
+          feed: post.feed,
           text,
           media,
           date: Date(Date.now()).toString(),
