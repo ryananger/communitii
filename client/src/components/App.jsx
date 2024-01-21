@@ -7,11 +7,7 @@ import {ax, helpers} from 'util';
 
 import Nav from './Nav.jsx';
 import Home from './feeds/Home.jsx';
-import Learn from './feeds/Learn.jsx';
-import Grow from './feeds/Grow.jsx';
-import Work from './feeds/Work.jsx';
-import Play from './feeds/Play.jsx';
-import Help from './feeds/Help.jsx';
+import Page from './feeds/Page.jsx';
 import Login from './Login.jsx';
 import Alert from './Alert.jsx';
 import Find from './find/Find.jsx';
@@ -35,11 +31,11 @@ const App = function() {
 
   const views = {
     home:  <Home/>,
-    learn: <Learn/>,
-    grow:  <Grow/>,
-    work:  <Work/>,
-    play:  <Play/>,
-    help:  <Help/>,
+    learn: <Page feed='learn'/>,
+    grow:  <Page feed='grow'/>,
+    work:  <Page feed='work'/>,
+    play:  <Page feed='play'/>,
+    help:  <Page feed='help'/>,
     login: <Login/>,
     find:  <Find/>,
     profile: <Profile profile={profile}/>,
@@ -48,11 +44,13 @@ const App = function() {
 
   var userFromCookie = function() {
     if (!user && cookie.user) {
-      ax.getUser(cookie.user, true);
+      ax.getUser(cookie.user);
     }
   };
 
   var handleUser = function() {
+    console.log(user);
+
     if (user && user.community && !community) {
       ax.getCommunity(user.community);
     } else if (!user) {
@@ -84,10 +82,10 @@ const App = function() {
       <div className='main h'>
         <div className='social v'>
           <div className='friends v'>
-
+            <small>friends list here</small>
           </div>
           <div className='chat v'>
-
+            <small>chat here</small>
           </div>
         </div>
         <div className='feed v'>
@@ -96,6 +94,9 @@ const App = function() {
         <div className='wing v'>
           {community && <CommunityHead community={community} open={setAdminOpen}/>}
           {community && <CommunityUpdates community={community}/>}
+          <div className='global v'>
+            <small>global feed here</small>
+          </div>
         </div>
       </div>
       {isAdmin && <Admin open={adminOpen} setOpen={setAdminOpen}/>}

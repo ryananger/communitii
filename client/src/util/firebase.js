@@ -42,7 +42,7 @@ var signIn = function(email, password) {
 
       console.log('Firebase signIn successful.');
 
-      ax.getUser(user.uid);
+      ax.getUser(user.uid, true);
     })
     .catch((error) => {
       console.log(error);

@@ -45,7 +45,7 @@ var ax = {
 
         st.setCommunity(community);
 
-        if (st.view === 'find') {
+        if (st.view === 'find' || st.view === 'login') {
           st.setView('home');
         }
       })

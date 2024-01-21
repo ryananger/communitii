@@ -11,6 +11,8 @@ const PostHead = function({post}) {
   const timeText =  timeSince ? timeSince  + ' ago' : 'now';
 
   const user = post.user;
+  const userPost = st.user.uid === post.user.uid;
+
   const settings = post.user.settings || {};
 
   var handleUser = function() {
@@ -42,7 +44,7 @@ const PostHead = function({post}) {
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
         <div className='postDate'><small>{timeText}</small></div>
-        <Options post={post}/>
+        {userPost && <Options post={post}/>}
       </div>
     </div>
   )

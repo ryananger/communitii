@@ -33,7 +33,7 @@ const Login = function() {
     return (
       <form id='loginForm' className='loginForm v' onSubmit={handleSubmit} autoComplete='off'>
         <div className='formHead v'>
-          <h2>
+          <h2 style={{marginBottom: '2vh'}}>
             Welcome to communitii!
           </h2>
         </div>

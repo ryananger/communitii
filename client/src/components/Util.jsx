@@ -60,6 +60,7 @@ const Util = function({user}) {
 
   var handleLogin = function() {
     if (user) {
+      st.setView('find');
       helpers.logOut();
     } else {
       st.setView('login');

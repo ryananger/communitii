@@ -27,12 +27,20 @@
 .navButton,
 .loginButton,
 .utilButton,
-.notificationButton {
+.notificationButton,
+.homeButton {
   cursor: pointer;
 }
 
 .navButton {
-  transition: transform 0.25s;
+  padding: 0 1vh;
+  margin: 0 0.5vh;
+  border-radius: 24px;
+}
+
+.navSelect {
+  background-color: var(--color1);
+  color: white;
 }
 
 .loginButton {
@@ -43,6 +51,19 @@
 
 .notificationButton {
   position: relative;
+}
+
+.noteButtonContainer {
+  height: 32px;
+}
+
+.noteButton {
+  width: 100%;
+  padding: 1px 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .notifyIndicator {

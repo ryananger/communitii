@@ -17,10 +17,24 @@
   border-left: var(--border);
 }
 
+.friends,
+.chat,
+.global {
+  width: 100%;
+  justify-content: center;
+}
+
 .friends {
   height: 30%;
-  width: 100%;
   border-bottom: var(--border);
+}
+
+.chat {
+  height: 70%;
+}
+
+.global {
+  height: 60%;
 }
 
 .feed {
@@ -44,13 +58,18 @@ textarea {
   font-family: Jost;
 }
 
-.homeFeed,
-.learnFeed,
-.growFeed,
-.workFeed,
-.playFeed,
-.helpFeed {
+.page {
   width: 90%;
+}
+
+.actionBox {
+  padding: 1vh;
+  border: 1px solid var(--borderColor);
+  width: 100%;
+  height: 72px;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {
