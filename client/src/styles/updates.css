@@ -1,5 +1,12 @@
-.updates {
+.communityUpdateCard {
   height: 40%;
+  padding: 0;
+  width: 100%;
+  width: calc(100% - 2vh);
+  overflow: hidden;
+}
+
+.updates {
   width: 100%;
   border-bottom: var(--border);
 }

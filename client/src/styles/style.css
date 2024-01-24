@@ -72,9 +72,6 @@ body, #root {
   height: 100svh;
   max-width: 100svw;
   min-height: 100svh;
-  background-color: white;
-  border-left: var(--border);
-  border-right: var(--border);
 
   color: var(--color1);
   overflow: hidden;
@@ -184,6 +181,13 @@ input, select {
 
 .float {
   position: absolute;
+}
+
+.card {
+  background-color: white;
+  box-shadow: 0px 2px 2px 0px #b365734a;
+  border-radius: 12px;
+  margin: 1vh;
 }
 
 /* */

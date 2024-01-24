@@ -120,7 +120,7 @@ const ProfileCard = function({user, onProfile}) {
   };
 
   return (
-    <div className={`${onProfile ? 'profileHead' : 'profileCard'} h`}>
+    <div className={`card ${onProfile ? 'profileHead' : 'profileCard'} h`}>
       <div className='profileLeft v' onClick={handleProfile}>
         <ProfilePic url={info.pfp ? info.pfp : null} isStatic={true}/>
         <b>{user.username}</b>

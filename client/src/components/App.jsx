@@ -81,21 +81,31 @@ const App = function() {
       <Nav user={user}/>
       <div className='main h'>
         <div className='social v'>
-          <div className='friends v'>
-            <small>friends list here</small>
+          <div className='friends card v'>
+            <div className='friendsHead h'>
+              {/* friends */}
+            </div>
+            <div className='friendsList full v'>
+            </div>
           </div>
-          <div className='chat v'>
-            <small>chat here</small>
+          <div className='chat card v'>
+            <div className='chatHead h'>
+              {/* chat */}
+            </div>
           </div>
         </div>
         <div className='feed v'>
           {views[view] || view}
         </div>
         <div className='wing v'>
-          {community && <CommunityHead community={community} open={setAdminOpen}/>}
-          {community && <CommunityUpdates community={community}/>}
-          <div className='global v'>
-            <small>global feed here</small>
+          <div className='communityUpdateCard card v'>
+            {community && <CommunityHead community={community} open={setAdminOpen}/>}
+            {community && <CommunityUpdates community={community}/>}
+          </div>
+          <div className='global card v'>
+            <div className='globalHead h'>
+              {/* global */}
+            </div>
           </div>
         </div>
       </div>

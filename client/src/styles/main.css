@@ -1,5 +1,6 @@
 .main {
   width: 100%;
+  margin-top: 48px;
   height: calc(100svh - 48px);
 }
 
@@ -9,19 +10,11 @@
   flex: none;
 }
 
-.social {
-  border-right: var(--border);
-}
-
-.wing {
-  border-left: var(--border);
-}
-
 .friends,
 .chat,
 .global {
-  width: 100%;
-  justify-content: center;
+  width: calc(100% - 2vh);
+  overflow: hidden;
 }
 
 .friends {
@@ -29,19 +22,42 @@
   border-bottom: var(--border);
 }
 
+.friendsHead,
+.chatHead,
+.globalHead {
+  width: 100%;
+  height: 28px;
+  background: linear-gradient(45deg, transparent, #ffffff44);
+  padding: 0 1vh;
+  font-size: 16px;
+  font-weight: bold;
+  align-items: baseline;
+}
+
+.friendsHead {
+  background-color: var(--grow);
+}
+
 .chat {
   height: 70%;
+}
+
+.chatHead {
+  background-color: var(--learn);
 }
 
 .global {
   height: 60%;
 }
 
+.globalHead {
+  background-color: var(--play);
+}
+
 .feed {
   width: 100%;
   height: 100%;
   padding: 2vh;
-  background-color: #f9f8f7;
   overflow-x: unset;
   overflow-y: scroll;
 }

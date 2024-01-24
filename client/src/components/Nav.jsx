@@ -17,12 +17,12 @@ const Nav = function({user}) {
       <div className='title h'>
         <h3 className='homeButton' onClick={()=>{st.setView(user && user.community ? 'home' : 'find')}}>communitii</h3>
       </div>
-      <div className='h' style={{width: '400px'}}>
-        <h4 className={`navButton grow ${st.view === 'learn' ? 'navSelect' : ''}`} onClick={()=>{handleClick('learn')}}>learn</h4>
-        <h4 className={`navButton grow ${st.view === 'grow' ? 'navSelect' : ''}`} onClick={()=>{handleClick('grow')}}>grow</h4>
-        <h4 className={`navButton grow ${st.view === 'work' ? 'navSelect' : ''}`} onClick={()=>{handleClick('work')}}>work</h4>
-        <h4 className={`navButton grow ${st.view === 'play' ? 'navSelect' : ''}`} onClick={()=>{handleClick('play')}}>play</h4>
-        <h4 className={`navButton grow ${st.view === 'help' ? 'navSelect' : ''}`} onClick={()=>{handleClick('help')}}>help</h4>
+      <div className='navButtons h'>
+        <h4 className={`navButton v grow`} style={{backgroundColor: st.view === 'learn' ? 'var(--learn)' : 'unset'}} onClick={()=>{handleClick('learn')}}>learn</h4>
+        <h4 className={`navButton v grow`} style={{backgroundColor: st.view === 'grow' ? 'var(--grow)' : 'unset'}} onClick={()=>{handleClick('grow')}}>grow</h4>
+        <h4 className={`navButton v grow`} style={{backgroundColor: st.view === 'work' ? 'var(--work)' : 'unset'}} onClick={()=>{handleClick('work')}}>work</h4>
+        <h4 className={`navButton v grow`} style={{backgroundColor: st.view === 'play' ? 'var(--play)' : 'unset'}} onClick={()=>{handleClick('play')}}>play</h4>
+        <h4 className={`navButton v grow`} style={{backgroundColor: st.view === 'help' ? 'var(--help)' : 'unset'}} onClick={()=>{handleClick('help')}}>help</h4>
       </div>
       <Util user={user}/>
     </div>

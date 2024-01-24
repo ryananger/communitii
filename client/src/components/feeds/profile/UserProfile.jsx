@@ -49,7 +49,7 @@ const UserProfile = function() {
 
   return (
     <div className='profile v'>
-      <div className='profileHead h'>
+      <div className='profileHead card h'>
         <div className='profileLeft v'>
           <PicUpload settings={settings}/>
           <b>{st.user.username}</b>
