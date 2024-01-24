@@ -62,7 +62,7 @@ const ImageUpload = function({uploads, setUploads}) {
       <div className='uploads h'>
         {renderUploads()}
       </div>
-      <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}><Add size={40}/></div>
+      <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}><Add size={32}/></div>
       <input type="file" id="imageInput" accept=".jpg, .png, .gif, .mp4, .mov" style={{display: 'none'}} onChange={loadImage} multiple/>
     </div>
   );

@@ -2,15 +2,18 @@
   width: 100%;
 }
 
-.postButtons {
-  background-color: var(--color1);
-  color: white;
-  width: 100%;
-  height: 48px;
-  justify-content: center;
-  align-items: center;
+.submitButtons {
+  background: white;
+  padding: 0.5vh 1vh;
+  align-self: flex-end;
+  justify-content: flex-end;
+  border: 1px solid var(--borderColor);
   border-radius: 12px;
+}
+
+.postButton {
   cursor: pointer;
+  margin-left: 2vh;
 }
 
 #submitText {
@@ -20,6 +23,7 @@
 }
 
 #uploadButton {
+  height: 32px;
   cursor: pointer;
 }
 
@@ -36,16 +40,25 @@
 }
 
 .post {
-  border: var(--border);
+  background-color: white;
   border-radius: 12px;
   margin: 2vh 0;
   box-sizing: border-box;
+  box-shadow: 0px 3px 4px 0px #b365734d;
+  overflow: hidden;
 }
 
 .postHead {
-  border-bottom: var(--border);
-  padding: 1vh;
   box-sizing: border-box;
+}
+
+.postInteract {
+  align-items: baseline;
+}
+
+.postHead, .postInteract {
+  background: linear-gradient(45deg, transparent, #ffffff85);
+  padding: 0.5vh 1vh;
 }
 
 .postHead, .postUser {
@@ -100,12 +113,6 @@
   max-height: 600px;
   max-width: 90%;
   border: var(--border);
-}
-
-.postInteract {
-  border-top: var(--border);
-  padding: 1vh;
-  align-items: center;
 }
 
 .likeContainer {

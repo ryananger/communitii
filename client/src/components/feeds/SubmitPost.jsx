@@ -1,4 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
+import {IoMdSend as Send} from 'react-icons/io';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
@@ -74,9 +75,10 @@ const SubmitPost = function() {
   return (
     <div className='postContainer v'>
       <textarea id='submitText' placeholder='Say something!'/>
-
-      <ImageUpload uploads={uploads} setUploads={setUploads}/>
-      <div className='postButtons h' onClick={handleSubmit}>submit</div>
+      <div className='submitButtons h'>
+        <ImageUpload uploads={uploads} setUploads={setUploads}/>
+        <Send className='postButton grow' size={30} onClick={handleSubmit} />
+      </div>
     </div>
   );
 };

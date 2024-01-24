@@ -34,15 +34,22 @@
   --shadow:     #39161096;
   --cardShadow: 0 2px 6px #4718182e;
 
-  --color1: var(--navy);
+  --color1: #775555;
   --color2: var(--peach);
   --tr1:    var(--trCream);
-  --borderColor: var(--trNavy);
+  --borderColor: #e5d6d6;
   --border: 1px solid var(--borderColor);
+
+  --learn: #ffd9a2;
+  --grow: #bedf8f;
+  --work: #ffb6aa;
+  --play: #dfc1eb;
+  --help: #b8cdf5;
+  --home: #e5d6d6;
 }
 
 html {
-  background: var(--tr1);
+  background: #f7f4f3;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -190,5 +197,5 @@ input, select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--peach);
+  background-color: var(--home);
 }

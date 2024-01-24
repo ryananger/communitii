@@ -31,7 +31,6 @@ const Home = function() {
 
   return (
     <div className='page v'>
-      <ActionBox feed={'home'}/>
       <SubmitPost />
       <Feed feed={feed}/>
     </div>

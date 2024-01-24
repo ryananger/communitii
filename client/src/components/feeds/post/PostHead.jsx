@@ -40,7 +40,7 @@ const PostHead = function({post}) {
   };
 
   return (
-    <div className='postHead h'>
+    <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}}>
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
         <div className='postDate'><small>{timeText}</small></div>

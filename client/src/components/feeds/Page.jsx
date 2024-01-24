@@ -11,7 +11,6 @@ const Page = function({feed}) {
 
   return (
     <div className='page v'>
-      <ActionBox feed={feed}/>
       <SubmitPost />
       <Feed feed={posts}/>
     </div>
