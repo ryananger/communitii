@@ -6,6 +6,9 @@ import pusher from './pusher.js';
 import {ax, helpers} from 'util';
 
 import Nav from './Nav.jsx';
+import Friends from './Friends.jsx';
+import Chat from './Chat.jsx';
+import Global from './Global.jsx';
 import Home from './feeds/Home.jsx';
 import Page from './feeds/Page.jsx';
 import Login from './Login.jsx';
@@ -74,6 +77,20 @@ const App = function() {
   useEffect(handleUser, [user]);
   useEffect(handleCommunity, [community]);
 
+  if (!user) {
+    return (
+      <div className='app v'>
+      <Alert />
+      <Nav user={user}/>
+      <div className='main h'>
+        <div className='feed v'>
+          {views[view] || view}
+        </div>
+      </div>
+    </div>
+    )
+  }
+
   return (
     <div className='app v'>
       <Alert />
@@ -81,18 +98,8 @@ const App = function() {
       <Nav user={user}/>
       <div className='main h'>
         <div className='social v'>
-          <div className='friends card v'>
-            <div className='friendsHead h'>
-              {/* friends */}
-            </div>
-            <div className='friendsList full v'>
-            </div>
-          </div>
-          <div className='chat card v'>
-            <div className='chatHead h'>
-              {/* chat */}
-            </div>
-          </div>
+          <Friends />
+          <Chat />
         </div>
         <div className='feed v'>
           {views[view] || view}
@@ -102,11 +109,7 @@ const App = function() {
             {community && <CommunityHead community={community} open={setAdminOpen}/>}
             {community && <CommunityUpdates community={community}/>}
           </div>
-          <div className='global card v'>
-            <div className='globalHead h'>
-              {/* global */}
-            </div>
-          </div>
+          <Global />
         </div>
       </div>
       {isAdmin && <Admin open={adminOpen} setOpen={setAdminOpen}/>}

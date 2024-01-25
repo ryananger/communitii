@@ -30,12 +30,33 @@
   background: linear-gradient(45deg, transparent, #ffffff44);
   padding: 0 1vh;
   font-size: 16px;
-  font-weight: bold;
-  align-items: baseline;
+  /* font-weight: bold; */
+  align-items: end;
 }
 
 .friendsHead {
   background-color: var(--grow);
+}
+
+.friendsList {
+  overflow-y: auto;
+}
+
+.friendEntry {
+  width: 100%;
+  padding: 1vh;
+  font-size: 18px;
+  border-bottom: 1px solid var(--borderColor);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.friendStatus {
+  margin-right: 1vh;
+  height: 80%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  background-color: var(--learn);
 }
 
 .chat {
@@ -46,12 +67,49 @@
   background-color: var(--learn);
 }
 
+.chatMessages {
+  height: 90%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.messageEntry {
+  font-size: 16px;
+  padding: 0.5vh 1vh;
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.chatInputContainer {
+  width: 100%;
+  border-top: 1px solid var(--borderColor);
+}
+
+.chatInput {
+  width: calc(100% - 2vh);
+  margin: 1vh;
+  padding: 1vh;
+  box-sizing: border-box;
+  height: auto;
+}
+
 .global {
   height: 60%;
 }
 
 .globalHead {
   background-color: var(--play);
+}
+
+.globalMessages {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.globalEntry {
+  font-size: 16px;
+  padding: 0.5vh 1vh;
+  border-bottom: 1px solid var(--borderColor);
+  align-items: flex-start;
 }
 
 .feed {

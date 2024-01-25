@@ -50,7 +50,7 @@
   padding: 0 1vh;
   margin: 0 0.5vh;
   justify-content: center;
-  background: linear-gradient(12deg, transparent, #ffffff5e);
+  background: linear-gradient(12deg, transparent 60%, #ffffff5e);
 }
 
 .navSelect {
