@@ -39,8 +39,6 @@ const PostHead = function({post}) {
     }
   };
 
-  useEffect(()=>{console.log(post, settings.pfp)}, [post]);
-
   return (
     <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}}>
       {handleUser()}

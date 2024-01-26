@@ -19,7 +19,6 @@ const Pusher = function({admin}) {
         helpers.alert(data.update.text);
 
         console.log('in userUpdate', data);
-
       });
 
       setUserMount(true);
@@ -42,7 +41,7 @@ const Pusher = function({admin}) {
       }
 
       communityChannel.bind('communityUpdate', function(data) {
-        console.log(data);
+        ax.getCommunity(st.user.community);
       });
 
       setCommMount(true);

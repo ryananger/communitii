@@ -217,6 +217,7 @@ var controller = {
 
             User.findOneAndUpdate({uid: uid}, {$push: {posts: post._id}}, {new: true})
               .then(function(user) {
+                pusher.trigger(`${user.community}`, 'communityUpdate', {text: 'New post.'});
                 res.send({success: true});
               })
           })
@@ -241,15 +242,15 @@ var controller = {
       })
     }
 
-    User.updateOne({uid: uid}, {$pull: {posts: ObjectId(_id)}})
-      .then(function(result) {
+    User.findOneAndUpdate({uid: uid}, {$pull: {posts: ObjectId(_id)}})
+      .then(function(user) {
+        pusher.trigger(`${user.community}`, 'communityUpdate', {text: 'Deleted post.'});
         console.log('Deleted post from user.');
       })
 
     Post.deleteOne({_id: _id})
       .then(function(result) {
         console.log('Deleted post.');
-
         res.send({success: true});
       })
   },
