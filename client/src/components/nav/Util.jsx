@@ -16,14 +16,14 @@ const Util = function({user}) {
       case 'friendRequest':
         return (
           <div className='noteButtonContainer h'>
-            <div className='noteButton yes grow v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'confirm')}}>confirm</div>
-            <div className='noteButton no grow v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'deny')}}>deny</div>
+            <div className='noteButton yes v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'confirm')}}>confirm</div>
+            <div className='noteButton no v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'deny')}}>deny</div>
           </div>
         );
       case 'friendPending':
         return (
           <div className='noteButtonContainer h'>
-            <div className='noteButton no grow v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'cancel')}}>cancel</div>
+            <div className='noteButton no v c' onClick={()=>{ax.addFriend(st.user, note.uid, 'cancel')}}>cancel</div>
           </div>
         );
     }
@@ -40,7 +40,7 @@ const Util = function({user}) {
         </div>
       );
 
-      rendered.push(render);
+      rendered.unshift(render);
     });
 
     return (

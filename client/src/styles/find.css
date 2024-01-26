@@ -87,11 +87,9 @@ input[type='checkbox'] {
   position: relative;
   width: 480px;
   height: 160px;
-  justify-content: flex-start;
-  margin: 1vh;
-  padding: 1vh;
   border: var(--border);
-  border-radius: 12px;
+  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .communityImg {
@@ -99,10 +97,10 @@ input[type='checkbox'] {
   aspect-ratio: 1;
   object-fit: cover;
   margin-right: 1vh;
-  border-radius: 8px;
 }
 
 .communityInfo {
+  padding: 0.5vh;
   height: 100%;
   align-items: flex-start;
   justify-content: space-between;

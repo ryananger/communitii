@@ -7,7 +7,7 @@ import Options from '../Options.jsx';
 const PostHead = function({post}) {
   const [showCard, setShowCard] = useState(false);
 
-  const timeSince = helpers.timeSince(new Date(post.createdOn))
+  const timeSince = helpers.timeSince(new Date(post.createdOn));
   const timeText =  timeSince ? timeSince  + ' ago' : 'now';
 
   const user = post.user;
@@ -38,6 +38,8 @@ const PostHead = function({post}) {
       )
     }
   };
+
+  useEffect(()=>{console.log(post, settings.pfp)}, [post]);
 
   return (
     <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}}>

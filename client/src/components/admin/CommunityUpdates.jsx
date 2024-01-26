@@ -13,7 +13,7 @@ const CommunityUpdates = function({community}) {
     var rendered = [];
 
     updates.map(function(update, i) {
-      rendered.push(<CommunityUpdate key={JSON.stringify(update)} update={update}/>);
+      rendered.unshift(<CommunityUpdate key={'update_' + i} update={update}/>);
     })
 
     return rendered;

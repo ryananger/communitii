@@ -14,12 +14,12 @@ const CommunityCard = function({community, requested}) {
   };
 
   return (
-    <div className='communityCard h'>
+    <div className='communityCard card h'>
       <img className='communityImg' src='https://earthpunk.art/public/images/jupiterFalls.png'/>
       <div className='communityInfo v'>
         <h4>{community.name}</h4>
         <small>
-          {community.members.length === 1 ? '1 member' : community.members.length + 'members'}
+          {community.members.length === 1 ? '1 member' : community.members.length + ' members'}
         </small>
       </div>
       {st.user && <div className='joinButton v c' onClick={joinRequest}>{text}</div>}

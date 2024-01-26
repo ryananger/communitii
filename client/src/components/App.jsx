@@ -79,7 +79,7 @@ const App = function() {
   useEffect(handleUser, [user]);
   useEffect(handleCommunity, [community]);
 
-  if (!user) {
+  if (!user || !user.community) {
     return (
       <div className='app v'>
         <Alert />
