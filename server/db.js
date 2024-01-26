@@ -19,10 +19,10 @@ const userSchema = new mongoose.Schema({
   phone:     String,
 
   community: String,
-  settings: Object,
+  settings:  Object,
 
   notifications: [Object],
-  friends: [String],
+  friends: [],
   interactions: [Object],
   messages: [Object],
   posts:    [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],

@@ -3,7 +3,7 @@ import {BsPersonCircle as ProfileIcon} from 'react-icons/bs';
 import {IoMdChatbubbles as MessageIcon} from 'react-icons/io';
 
 import st from 'ryscott-st';
-import {helpers} from 'util';
+import {ax, helpers} from 'util';
 
 var friends = [
   {user: 'John', status: 'online'},
@@ -18,11 +18,13 @@ var friends = [
   {user: 'Socrates', status: 'off'}
 ];
 
-const Friends = function({user}) {
+const Friends = function() {
+  const user = st.user;
+
   var renderFriends = function() {
     var rendered = [];
 
-    friends.map(function(friend) {
+    user.friends.map(function(friend) {
       var color;
 
       switch(friend.status) {
@@ -41,11 +43,11 @@ const Friends = function({user}) {
       }
 
       rendered.push(
-        <div key={friend.user} className='friendEntry h'>
+        <div key={friend.username} className='friendEntry h'>
           <div className='friendStatus' style={{backgroundColor: `var(--${color})`}}/>
-          {friend.user}
+          {friend.username}
           <div className='friendListIcons h'>
-            <ProfileIcon className='friendListIcon grow'/>
+            <ProfileIcon className='friendListIcon grow' onClick={()=>{ax.getPostsForUser(friend)}}/>
             {friend.status !== 'dnd' && <MessageIcon className='friendListIcon grow'/>}
           </div>
         </div>

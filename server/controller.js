@@ -19,8 +19,37 @@ var controller = {
           .then(function(posts) {
             user.posts = posts;
 
-            res.json(user);
+            controller.getFriendsForUser(user, res);
           })
+      })
+  },
+  getFriendsForUser: function(user, res) {
+    var promises = [];
+    var friendInfo = [];
+    var updatedUser = user;
+
+    user.friends.map(function(friend) {
+      var promise = new Promise(function(resolve) {
+        User.findOne({uid: friend})
+          .then(function(user) {
+            friendInfo.push({
+              _id: user._id,
+              uid: user.uid,
+              username: user.username,
+              settings: user.settings,
+              status: 'online'});
+            resolve();
+          })
+      });
+
+      promises.push(promise);
+    });
+
+    Promise.all(promises)
+      .then(function(result) {
+        user.friends = friendInfo;
+
+        res.json(user);
       })
   },
   createCommunity: function(req, res) {
@@ -255,7 +284,7 @@ var controller = {
       })
   },
   getPostsForUser: function(req, res) {
-    Post.find({user: req.params.uid})
+    Post.find({user: req.params._id})
       .populate('user')
       .then(function(posts) {
         res.json(posts);
