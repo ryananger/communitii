@@ -19,37 +19,8 @@ var controller = {
           .then(function(posts) {
             user.posts = posts;
 
-            controller.getFriendsForUser(user, res);
+            res.json(user);
           })
-      })
-  },
-  getFriendsForUser: function(user, res) {
-    var promises = [];
-    var friendInfo = [];
-    var updatedUser = user;
-
-    user.friends.map(function(friend) {
-      var promise = new Promise(function(resolve) {
-        User.findOne({uid: friend})
-          .then(function(user) {
-            friendInfo.push({
-              _id: user._id,
-              uid: user.uid,
-              username: user.username,
-              settings: user.settings,
-              status: 'online'});
-            resolve();
-          })
-      });
-
-      promises.push(promise);
-    });
-
-    Promise.all(promises)
-      .then(function(result) {
-        user.friends = friendInfo;
-
-        res.json(user);
       })
   },
   createCommunity: function(req, res) {
@@ -297,6 +268,22 @@ var controller = {
         const user = result;
         const type = req.body.type;
 
+        const friendInfo = {
+          _id: user._id.toString(),
+          uid: user.uid,
+          username: user.username,
+          settings: user.settings,
+          status: 'online'
+        };
+
+        const senderInfo = {
+          _id: sender._id.toString(),
+          uid: sender.uid,
+          username: sender.username,
+          settings: sender.settings,
+          status: 'online'
+        };
+
         var sendRequest = function() {
           var sendNote = {
             type: 'friendRequest',
@@ -307,7 +294,7 @@ var controller = {
           var sendUpdate = {
             $push: {
               notifications: sendNote,
-              friends: 'pending.' + sender.uid
+              friends: {...senderInfo, uid: 'pending.' + sender.uid}
             }
           };
 
@@ -325,7 +312,7 @@ var controller = {
           var pendUpdate = {
             $push: {
               notifications: pendNote,
-              friends: 'pending.' + user.uid
+              friends: {...friendInfo, uid: 'pending.' + user.uid}
             }
           };
 
@@ -355,8 +342,12 @@ var controller = {
           })
 
           newUserNotifications.push(confirmNote);
-          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
-          newUserFriends.push(sender.uid);
+
+          newUserFriends.map(function(friend) {
+            if (friend._id === sender._id) {
+              friend.uid = friend.uid.slice(8);
+            }
+          })
 
           var confirmUpdate = {
             notifications: newUserNotifications,
@@ -365,7 +356,7 @@ var controller = {
 
           User.updateOne({_id: user._id}, confirmUpdate)
             .then(function(result) {
-              console.log('addFriend confirm notification', confirmNote);
+              // console.log('addFriend confirm notification', confirmNote);
             })
 
           var addedNote = {
@@ -387,8 +378,12 @@ var controller = {
               })
 
               newSenderNotifications.push(addedNote);
-              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
-              newSenderFriends.push(user.uid);
+
+              newSenderFriends.map(function(friend) {
+                if (friend._id === user._id) {
+                  friend.uid = friend.uid.slice(8);
+                }
+              })
 
               var addedUpdate = {
                 notifications: newSenderNotifications,
@@ -398,11 +393,12 @@ var controller = {
               User.findOneAndUpdate({_id: sender._id}, addedUpdate, {new: true})
                 .populate('posts')
                 .then(function(user) {
-                  console.log('addFriend add notification', addedNote);
+                  // console.log('addFriend add notification', addedNote);
 
                   res.json(user);
                 })
             })
+
         };
 
         var denyRequest = function() {
@@ -413,7 +409,7 @@ var controller = {
           };
 
           var newUserNotifications = [];
-          var newUserFriends = user.friends;
+          var newUserFriends = [];
 
           user.notifications.map(function(entry) {
             if (entry.uid !== sender.uid) {
@@ -422,7 +418,12 @@ var controller = {
           })
 
           newUserNotifications.push(denyNote);
-          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
+
+          user.friends.map(function(friend) {
+            if (friend._id !== senderInfo._id) {
+              newUserFriends.push(friend);
+            }
+          })
 
           var denyUpdate = {
             notifications: newUserNotifications,
@@ -437,7 +438,7 @@ var controller = {
           User.findOne({_id: sender._id})
             .then(function(sender) {
               var newSenderNotifications = [];
-              var newSenderFriends = sender.friends;
+              var newSenderFriends = [];
 
               sender.notifications.map(function(entry) {
                 if (entry.uid !== user.uid) {
@@ -445,7 +446,11 @@ var controller = {
                 }
               })
 
-              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
+              sender.friends.map(function(friend) {
+                if (friend._id !== friendInfo._id) {
+                  newSenderFriends.push(friend);
+                }
+              })
 
               var denyUpdate = {
                 notifications: newSenderNotifications,
@@ -464,7 +469,7 @@ var controller = {
 
         var cancelRequest = function() {
           var newUserNotifications = [];
-          var newUserFriends = user.friends;
+          var newUserFriends = [];
 
           user.notifications.map(function(entry) {
             if (entry.uid !== sender.uid) {
@@ -472,7 +477,11 @@ var controller = {
             }
           })
 
-          newUserFriends.splice(newUserFriends.indexOf('pending.' + sender.uid), 1);
+          user.friends.map(function(friend) {
+            if (friend._id !== senderInfo._id) {
+              newUserFriends.push(friend);
+            }
+          })
 
           var cancelUpdate = {
             notifications: newUserNotifications,
@@ -487,7 +496,7 @@ var controller = {
           User.findOne({_id: sender._id})
             .then(function(sender) {
               var newSenderNotifications = [];
-              var newSenderFriends = sender.friends;
+              var newSenderFriends = [];
 
               sender.notifications.map(function(entry) {
                 if (entry.uid !== user.uid) {
@@ -495,7 +504,11 @@ var controller = {
                 }
               })
 
-              newSenderFriends.splice(newSenderFriends.indexOf('pending.' + user.uid), 1);
+              sender.friends.map(function(friend) {
+                if (friend._id !== friendInfo._id) {
+                  newSenderFriends.push(friend);
+                }
+              })
 
               var removeUpdate = {
                 notifications: newSenderNotifications,
@@ -571,7 +584,7 @@ var controller = {
 
         User.findOneAndUpdate({uid: user.uid}, user)
           .then(function(updated) {
-            res.send(user);
+            res.json(user);
           })
       })
   },

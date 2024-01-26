@@ -43,7 +43,7 @@ const Friends = function() {
       }
 
       rendered.push(
-        <div key={friend.username} className='friendEntry h'>
+        <div key={'friend_' + friend.username} className='friendEntry h'>
           <div className='friendStatus' style={{backgroundColor: `var(--${color})`}}/>
           {friend.username}
           <div className='friendListIcons h'>

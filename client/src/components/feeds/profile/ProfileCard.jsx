@@ -13,18 +13,42 @@ const ProfileCard = function({user, onProfile}) {
 
   const info = user.settings || {pfp: '', headline: '', bio: ''};
   const otherUser = user.uid !== st.user.uid;
-  const isFriend = st.user.friends.includes(user.uid);
-  const pendingFriend = st.user.friends.includes('pending.' + user.uid);
-  const isSender = function() {
-    var isSender = false;
+  const isFriend = function() {
+    var result;
 
-    st.user.notifications.map(function(entry) {
-      if (entry.type === 'friendPending' && entry.uid === user.uid) {
-        isSender = true;
+    st.user.friends.map(function(friend) {
+      if (friend.uid.includes('pending.')) {return};
+
+      if (friend.uid === user.uid) {
+        result = true;
       }
     })
 
-    return isSender;
+    return result;
+  }();
+
+  const pendingFriend = function() {
+    var result;
+
+    st.user.friends.map(function(friend) {
+      if (friend.uid.includes('pending.')) {
+        result = true;
+      }
+    })
+
+    return result;
+  }();
+
+  const isSender = function() {
+    var result = false;
+
+    st.user.notifications.map(function(entry) {
+      if (entry.type === 'friendPending' && entry.uid === user.uid) {
+        result = true;
+      }
+    })
+
+    return result;
   }();
 
   var handleProfile = function() {
