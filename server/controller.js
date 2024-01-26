@@ -344,7 +344,7 @@ var controller = {
           newUserNotifications.push(confirmNote);
 
           newUserFriends.map(function(friend) {
-            if (friend._id === sender._id) {
+            if (friend._id.toString() === sender._id.toString()) {
               friend.uid = friend.uid.slice(8);
             }
           })
@@ -356,7 +356,7 @@ var controller = {
 
           User.updateOne({_id: user._id}, confirmUpdate)
             .then(function(result) {
-              // console.log('addFriend confirm notification', confirmNote);
+              console.log('addFriend confirm notification', confirmNote);
             })
 
           var addedNote = {
@@ -380,7 +380,7 @@ var controller = {
               newSenderNotifications.push(addedNote);
 
               newSenderFriends.map(function(friend) {
-                if (friend._id === user._id) {
+                if (friend._id.toString() === user._id.toString()) {
                   friend.uid = friend.uid.slice(8);
                 }
               })
@@ -393,7 +393,7 @@ var controller = {
               User.findOneAndUpdate({_id: sender._id}, addedUpdate, {new: true})
                 .populate('posts')
                 .then(function(user) {
-                  // console.log('addFriend add notification', addedNote);
+                  console.log('addFriend add notification', addedNote);
 
                   res.json(user);
                 })
@@ -545,15 +545,38 @@ var controller = {
     const sender = req.body.sender;
     const userId = req.body.userId;
 
-    User.updateOne({uid: userId}, {$pull: {friends: sender.uid}})
-      .then(function(result) {
-        console.log('removed sender from friend');
+    User.findOne({uid: userId})
+      .then(function(user) {
+        var newFriends = [];
+
+        user.friends.map(function(friend) {
+          if (friend.uid !== sender.uid) {
+            newFriends.push(friend);
+          }
+        })
+
+        User.updateOne({uid: userId}, {friends: newFriends})
+          .then(function(result) {
+            console.log('removed sender from friend');
+          })
       })
 
-    User.findOneAndUpdate({uid: sender.uid}, {$pull: {friends: userId}}, {new: true})
-      .populate('posts')
+    User.findOne({uid: sender.uid})
       .then(function(user) {
-        res.send(user);
+        var newFriends = [];
+
+        user.friends.map(function(friend) {
+          if (friend.uid !== userId) {
+            newFriends.push(friend);
+          }
+        })
+
+        User.findOneAndUpdate({uid: user.uid}, {friends: newFriends}, {new: true})
+          .then(function(user) {
+            console.log('removed friend from sender');
+
+            res.send(user);
+          })
       })
   },
   likePost: function(req, res) {
