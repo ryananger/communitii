@@ -3,7 +3,6 @@ import st from 'ryscott-st';
 import {firebase} from 'util';
 
 import SubmitPost from './SubmitPost.jsx';
-import ActionBox from './ActionBox.jsx';
 import Feed from './Feed.jsx';
 
 const Page = function({feed}) {

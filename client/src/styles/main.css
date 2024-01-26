@@ -92,8 +92,12 @@
   background-color: var(--learn);
 }
 
+.chatBox {
+ height: calc(100% - 28px);
+}
+
 .chatMessages {
-  height: 90%;
+  height: calc(100% - 82px);
   overflow: auto;
   overflow-x: hidden;
 }
@@ -106,7 +110,7 @@
 
 .chatInputContainer {
   width: 100%;
-  height: 60px;
+  height: 80px;
   border-top: 1px solid var(--borderColor);
 }
 

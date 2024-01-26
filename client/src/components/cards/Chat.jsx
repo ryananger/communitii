@@ -34,7 +34,7 @@ const Chat = function({user}) {
   };
 
   return (
-    <div className='full v'>
+    <div className='chatBox v'>
       <div className='chatMessages v'>
         {renderMessages()}
       </div>

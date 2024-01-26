@@ -2,25 +2,28 @@ import React, {useEffect, useState} from 'react';
 
 import 'styles';
 import st from 'ryscott-st';
-import pusher from './pusher.js';
+import pusher from './pusher/pusher.js';
 import {ax, helpers} from 'util';
 
-import Card from './Card.jsx';
-import Nav from './Nav.jsx';
-import Friends from './Friends.jsx';
-import Chat from './Chat.jsx';
-import Global from './Global.jsx';
+import Nav from './nav/Nav.jsx';
+
+import Card from './cards/Card.jsx';
+import Friends from './cards/Friends.jsx';
+import Chat from './cards/Chat.jsx';
+import Global from './cards/Global.jsx';
+
 import Home from './feeds/Home.jsx';
 import Page from './feeds/Page.jsx';
-import Login from './Login.jsx';
-import Alert from './Alert.jsx';
-import Find from './find/Find.jsx';
-import Admin from './admin/Admin.jsx';
-import Pusher from './Pusher.jsx';
-import CommunityUpdates from './admin/CommunityUpdates.jsx';
-import CommunityHead from './admin/CommunityHead.jsx';
 import Profile from './feeds/profile/Profile.jsx';
 import UserProfile from './feeds/profile/UserProfile.jsx';
+import Login from './Login.jsx';
+import Alert from './Alert.jsx';
+
+import Pusher from './pusher/Pusher.jsx';
+import Find from './find/Find.jsx';
+import Admin from './admin/Admin.jsx';
+import CommunityUpdates from './admin/CommunityUpdates.jsx';
+import CommunityHead from './admin/CommunityHead.jsx';
 
 const cookie = helpers.cookieParse();
 
@@ -53,8 +56,6 @@ const App = function() {
   };
 
   var handleUser = function() {
-    console.log(user);
-
     if (user && user.community && !community) {
       ax.getCommunity(user.community);
     } else if (!user) {
