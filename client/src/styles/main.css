@@ -18,128 +18,14 @@
   flex: auto;
 }
 
-.friends {
-  height: calc(30%);
-}
-
-.friendsHead,
-.chatHead,
-.globalHead,
 .cardHead {
   width: 100%;
   height: 28px;
   background: linear-gradient(45deg, transparent, #ffffff44);
   padding: 0 1vh;
   font-size: 16px;
-  /* font-weight: bold; */
   align-items: inherit;
   flex: none;
-}
-
-.closedCard {
-  height: calc(28px);
-}
-
-.friendsHead {
-  background-color: var(--grow);
-}
-
-.friendsList {
-  overflow-y: auto;
-}
-
-.friendEntry {
-  width: 100%;
-  padding: 1vh;
-  font-size: 16px;
-  border-bottom: 1px solid var(--borderColor);
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-}
-
-.friendStatus {
-  margin-right: 1vh;
-  height: 80%;
-  aspect-ratio: 1;
-  border-radius: 100%;
-  background-color: var(--learn);
-}
-
-.friendListIcons {
-  position: absolute;
-  right: 1vh;
-  cursor: pointer;
-}
-
-.friendListIcon {
-  margin-left: 6px;
-  font-size: 20px;
-  opacity: 0;
-  transition: opacity 0.5s, transform 0.25s;
-}
-
-.friendEntry:hover .friendListIcon {
-  opacity: 1;
-  transition: opacity 0.5s, transform 0.25s;
-}
-
-.chat {
-  height: calc(70%);
-}
-
-.chatHead {
-  background-color: var(--learn);
-}
-
-.chatBox {
- height: calc(100% - 28px);
-}
-
-.chatMessages {
-  height: calc(100% - 82px);
-  overflow: auto;
-  overflow-x: hidden;
-}
-
-.messageEntry {
-  font-size: 14px;
-  padding: 0.5vh 1vh;
-  border-bottom: 1px solid var(--borderColor);
-}
-
-.chatInputContainer {
-  width: 100%;
-  height: 80px;
-  border-top: 1px solid var(--borderColor);
-}
-
-.chatInput {
-  width: calc(100% - 2vh);
-  margin: 1vh;
-  padding: 1vh;
-  box-sizing: border-box;
-  height: 60px;
-}
-
-.global {
-  height: calc(60%);
-}
-
-.globalHead {
-  background-color: var(--play);
-}
-
-.globalMessages {
-  overflow: auto;
-  overflow-x: hidden;
-}
-
-.globalEntry {
-  font-size: 14px;
-  padding: 0.5vh 1vh;
-  border-bottom: 1px solid var(--borderColor);
-  align-items: flex-start;
 }
 
 .feed {

@@ -1,0 +1,47 @@
+.friends {
+  height: calc(30%);
+}
+
+.friendsHead {
+  background-color: var(--grow);
+}
+
+.friendsList {
+  overflow-y: auto;
+}
+
+.friendEntry {
+  width: 100%;
+  padding: 1vh;
+  font-size: 16px;
+  border-bottom: 1px solid var(--borderColor);
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.friendStatus {
+  margin-right: 1vh;
+  height: 80%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  background-color: var(--learn);
+}
+
+.friendListIcons {
+  position: absolute;
+  right: 1vh;
+  cursor: pointer;
+}
+
+.friendListIcon {
+  margin-left: 6px;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.25s;
+}
+
+.friendEntry:hover .friendListIcon {
+  opacity: 1;
+  transition: opacity 0.5s, transform 0.25s;
+}

@@ -1,0 +1,19 @@
+.global {
+  height: calc(60%);
+}
+
+.globalHead {
+  background-color: var(--play);
+}
+
+.globalMessages {
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.globalEntry {
+  font-size: 14px;
+  padding: 0.5vh 1vh;
+  border-bottom: 1px solid var(--borderColor);
+  align-items: flex-start;
+}

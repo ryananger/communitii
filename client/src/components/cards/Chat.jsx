@@ -45,8 +45,5 @@ const Chat = function({user}) {
   );
 };
 
-var openStyle = {flex: 'auto'};
-var closedStyle = {height: 'calc(28px)', flex: 'none'};
-
 export default Chat;
 

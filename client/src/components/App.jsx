@@ -43,8 +43,8 @@ const App = function() {
     work:  <Page feed='work'/>,
     play:  <Page feed='play'/>,
     help:  <Page feed='help'/>,
-    login: <Login/>,
-    find:  <Find/>,
+    login: <Login />,
+    find:  <Find />,
     profile: <Profile profile={profile}/>,
     userProfile: <UserProfile />
   };
@@ -82,14 +82,14 @@ const App = function() {
   if (!user) {
     return (
       <div className='app v'>
-      <Alert />
-      <Nav user={user}/>
-      <div className='main h'>
-        <div className='feed v'>
-          {views[view] || view}
+        <Alert />
+        <Nav user={user}/>
+        <div className='main h'>
+          <div className='feed v'>
+            {views[view] || view}
+          </div>
         </div>
       </div>
-    </div>
     )
   }
 

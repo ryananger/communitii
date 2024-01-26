@@ -8,3 +8,6 @@ import './updates.css';
 import './admin.css';
 import './post.css';
 import './profile.css';
+import './friends.css';
+import './global.css';
+import './chat.css';
