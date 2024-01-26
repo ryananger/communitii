@@ -1,4 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
+import {MdMinimize as Min} from "react-icons/md";
 
 import st from 'ryscott-st';
 import {helpers} from 'util';
@@ -33,13 +34,8 @@ const Global = function({user}) {
   };
 
   return (
-    <div className='global card v'>
-      <div className='globalHead h'>
-        global
-      </div>
-      <div className='globalMessages v'>
-        {renderMessages()}
-      </div>
+    <div className='globalMessages v'>
+      {renderMessages()}
     </div>
   );
 };

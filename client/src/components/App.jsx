@@ -5,6 +5,7 @@ import st from 'ryscott-st';
 import pusher from './pusher.js';
 import {ax, helpers} from 'util';
 
+import Card from './Card.jsx';
 import Nav from './Nav.jsx';
 import Friends from './Friends.jsx';
 import Chat from './Chat.jsx';
@@ -98,8 +99,8 @@ const App = function() {
       <Nav user={user}/>
       <div className='main h'>
         <div className='social v'>
-          <Friends />
-          <Chat />
+          <Card type='friends' content={<Friends />}/>
+          <Card type='chat' content={<Chat />}/>
         </div>
         <div className='feed v'>
           {views[view] || view}
@@ -109,7 +110,7 @@ const App = function() {
             {community && <CommunityHead community={community} open={setAdminOpen}/>}
             {community && <CommunityUpdates community={community}/>}
           </div>
-          <Global />
+          <Card type='global' content={<Global />}/>
         </div>
       </div>
       {isAdmin && <Admin open={adminOpen} setOpen={setAdminOpen}/>}

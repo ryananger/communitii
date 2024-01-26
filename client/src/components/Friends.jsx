@@ -1,4 +1,6 @@
 import React, {lazy, useEffect, useState} from 'react';
+import {BsPersonCircle as ProfileIcon} from 'react-icons/bs';
+import {IoMdChatbubbles as MessageIcon} from 'react-icons/io';
 
 import st from 'ryscott-st';
 import {helpers} from 'util';
@@ -12,8 +14,8 @@ var friends = [
   {user: 'Farm', status: 'away'},
   {user: 'Ee eye ee eye', status: 'online'},
   {user: 'Oh', status: 'dnd'},
-  {user: 'Albert Einstein', status: 'away'},
-  {user: 'Socrates', status: 'away'}
+  {user: 'Albert Einstein', status: 'off'},
+  {user: 'Socrates', status: 'off'}
 ];
 
 const Friends = function({user}) {
@@ -33,12 +35,19 @@ const Friends = function({user}) {
         case 'dnd':
           color = 'work';
           break;
+        case 'off':
+          color = 'home';
+          break;
       }
 
       rendered.push(
         <div key={friend.user} className='friendEntry h'>
           <div className='friendStatus' style={{backgroundColor: `var(--${color})`}}/>
           {friend.user}
+          <div className='friendListIcons h'>
+            <ProfileIcon className='friendListIcon grow'/>
+            {friend.status !== 'dnd' && <MessageIcon className='friendListIcon grow'/>}
+          </div>
         </div>
       );
     })
@@ -47,13 +56,8 @@ const Friends = function({user}) {
   };
 
   return (
-    <div className='friends card v'>
-      <div className='friendsHead h'>
-        friends
-      </div>
-      <div className='friendsList full v'>
-        {renderFriends()}
-      </div>
+    <div className='friendsList full v'>
+      {renderFriends()}
     </div>
   );
 };

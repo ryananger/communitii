@@ -14,7 +14,7 @@ const Nav = function({user}) {
 
   return (
     <div className='nav h'>
-      <div style={{height: '4px', width: '100%', position: 'absolute', bottom: '0', backgroundColor: `var(--${st.view})`}}></div>
+      <div style={{height: '4px', width: '100%', position: 'absolute', bottom: '0', backgroundColor: `var(--${st.view})`}}/>
       <div className='title h'>
         <h3 className='homeButton' onClick={()=>{st.setView(user && user.community ? 'home' : 'find')}}>communitii</h3>
       </div>

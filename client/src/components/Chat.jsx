@@ -34,10 +34,7 @@ const Chat = function({user}) {
   };
 
   return (
-    <div className='chat card v'>
-      <div className='chatHead h'>
-        chat
-      </div>
+    <div className='full v'>
       <div className='chatMessages v'>
         {renderMessages()}
       </div>
@@ -47,6 +44,9 @@ const Chat = function({user}) {
     </div>
   );
 };
+
+var openStyle = {flex: 'auto'};
+var closedStyle = {height: 'calc(28px)', flex: 'none'};
 
 export default Chat;
 
