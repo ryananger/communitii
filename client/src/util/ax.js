@@ -170,7 +170,7 @@ var ax = {
   readNotifications: function() {
     axios.post(process.env.URL + 'api/readNotifications', {uid: st.user.uid})
       .then(function(response) {
-        st.setUser(response.data);
+        st.setUser({...st.user, notifications: response.data});
       })
   }
 };

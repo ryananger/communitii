@@ -600,15 +600,14 @@ var controller = {
   },
   readNotifications: function(req, res) {
     User.findOne({uid: req.body.uid})
-      .populate('posts')
       .then(function(user) {
         user.notifications.map(function(entry) {
           entry.read = true;
         })
 
-        User.findOneAndUpdate({uid: user.uid}, user)
+        User.findOneAndUpdate({uid: user.uid}, {notifications: user.notifications})
           .then(function(updated) {
-            res.json(user);
+            res.json(user.notifications);
           })
       })
   },
