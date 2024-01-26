@@ -3,7 +3,7 @@ import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
 import {helpers} from 'util';
 
-const messages = [
+const defaultMessages = [
   { user: "John", message: "To live or not to live, that's the real question, isn't it?" },
   { user: "Al", message: "What's bothering you, John? You seem lost in thought." },
   { user: "John", message: "Life's a crazy ride, Al. And the crazy part is, no one really knows where it leads." },
@@ -17,7 +17,10 @@ const messages = [
   { user: "John", message: "So, let's embrace the unknown, Al, and dance to the rhythm of our own narrative." }
 ];
 
-const Chat = function({user}) {
+const Chat = function() {
+  const [chatWith, setChatWith] = st.newState('chatWith', useState(null));
+  const [messages, setMessages] = useState(defaultMessages);
+
   var renderMessages = function() {
     var rendered = [];
 
@@ -33,8 +36,17 @@ const Chat = function({user}) {
     return rendered;
   };
 
+  var handleChat = function() {
+    if (chatWith && !st.user.messages[chatWith._id]) {
+      setMessages([]);
+    }
+  };
+
+  useEffect(handleChat, [chatWith]);
+
   return (
     <div className='chatBox v'>
+      <div>{chatWith ? chatWith.username : ''}</div>
       <div className='chatMessages v'>
         {renderMessages()}
       </div>

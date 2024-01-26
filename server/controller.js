@@ -572,6 +572,7 @@ var controller = {
         })
 
         User.findOneAndUpdate({uid: user.uid}, {friends: newFriends}, {new: true})
+          .populate('posts')
           .then(function(user) {
             console.log('removed friend from sender');
 
