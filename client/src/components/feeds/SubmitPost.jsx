@@ -7,6 +7,21 @@ import ImageUpload from './ImageUpload.jsx';
 
 const SubmitPost = function() {
   const [uploads, setUploads] = useState([]);
+  const postFeed = st.view === 'userProfile' ? 'home' : st.view;
+
+  var submitPost = function(post) {
+    var newFeed, newFeeds, newPosts;
+
+    newFeed = st.community.feeds[postFeed];
+    newFeed.push(post);
+    newFeeds = {...st.community.feeds, [postFeed]: newFeed};
+    newPosts = [...st.user.posts, post];
+
+    st.setCommunity({...st.community, feeds: newFeeds});
+    st.setUser({...st.user, posts: newPosts});
+
+    ax.submitPost(post);
+  };
 
   var handleSubmit = async function() {
     var el = document.getElementById('submitText');
@@ -14,11 +29,28 @@ const SubmitPost = function() {
 
     if (uploads.length === 0 && !text) {return};
 
-    var promises = [];
     var media = [];
     var uid = st.user.uid;
 
-    var postFeed = st.view === 'userProfile' ? 'home' : st.view;
+    var post = {
+      user: st.user,
+      community: st.user.community,
+      feed: postFeed,
+      text,
+      media,
+      createdOn: new Date().toISOString(),
+      likes: [],
+      replies: []
+    };
+
+    if (uploads.length === 0) {
+      submitPost(post);
+
+      el.value = null;
+      return;
+    }
+
+    var promises = [];
 
     uploads.map(function(entry) {
       var split = entry.file.name.split('.');
@@ -46,28 +78,9 @@ const SubmitPost = function() {
 
     Promise.all(promises)
       .then(function(res) {
-        var post = {
-          user: st.user,
-          community: st.user.community,
-          feed: postFeed,
-          text,
-          media,
-          date: Date(Date.now()).toString(),
-          likes: [],
-          replies: []
-        };
-
-        var newFeed = st.community.feeds[postFeed];
-        newFeed.push(post);
+        submitPost(post);
 
         el.value = null;
-        st.setCommunity({...st.community, feeds: {...st.community.feeds, [postFeed]: newFeed}});
-
-        ax.submitPost(post);
-
-        var newPosts = [...st.user.posts, post];
-        st.setUser({...st.user, posts: newPosts});
-
         setUploads([]);
       })
   };

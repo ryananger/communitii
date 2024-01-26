@@ -197,6 +197,17 @@ var helpers = {
         }, 'image/jpeg', 1);
       };
     }
+  },
+  sortFeed: function(feed) {
+    feed.sort(function(a, b) {
+      var keyA = new Date(a.createdOn),
+          keyB = new Date(b.createdOn);
+
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+
+      return 0;
+    });
   }
 };
 

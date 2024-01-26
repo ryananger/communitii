@@ -1,6 +1,6 @@
 import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
-import {firebase} from 'util';
+import {helpers, firebase} from 'util';
 
 import SubmitPost from './SubmitPost.jsx';
 import Feed from './Feed.jsx';
@@ -16,17 +16,9 @@ const Home = function() {
     ...feeds.help
   ];
 
-  console.log(feed);
+  helpers.sortFeed(feed);
 
-  feed.sort(function(a, b) {
-    var keyA = new Date(a.createdOn),
-        keyB = new Date(b.createdOn);
-
-    if (keyA < keyB) return -1;
-    if (keyA > keyB) return 1;
-
-    return 0;
-  });
+  useEffect(()=>{}, [feed]);
 
   return (
     <div className='page v'>
