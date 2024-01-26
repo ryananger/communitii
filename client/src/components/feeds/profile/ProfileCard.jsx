@@ -3,6 +3,7 @@ import {BsPersonFillAdd as AddIcon,
         BsPersonFillExclamation as PendIcon,
         BsPersonFillCheck as FriendIcon} from 'react-icons/bs';
 import {BiSolidMessage as MessageIcon, BiSolidUserCircle as UserIcon} from 'react-icons/bi';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
@@ -135,11 +136,11 @@ const ProfileCard = function({user, onProfile}) {
 
   var handleFriendIcon = function() {
     if (otherUser && !isFriend && !pendingFriend) {
-      return <AddIcon className='utilButton grow' onClick={()=>{handlePopup('add')}} size={24}/>;
+      return <icons.AddFriendIcon className='utilButton grow' onClick={()=>{handlePopup('add')}} size={24}/>;
     } else if (pendingFriend) {
-      return <PendIcon className='utilButton grow' onClick={()=>{handlePopup('pend')}} size={24}/>;
+      return <icons.PendFriendIcon className='utilButton grow' onClick={()=>{handlePopup('pend')}} size={24}/>;
     } else if (isFriend) {
-      return <FriendIcon className='utilButton grow' onClick={()=>{handlePopup('friend')}} size={24}/>;
+      return <icons.FriendIcon className='utilButton grow' onClick={()=>{handlePopup('friend')}} size={24}/>;
     }
   };
 
@@ -157,8 +158,8 @@ const ProfileCard = function({user, onProfile}) {
         <div className='anchor h' style={{width: '100%', justifyContent: 'flex-end'}}>
           {handleFriendIcon()}
           {friendPopup()}
-          {otherUser && <MessageIcon className='utilButton grow' size={24}/>}
-          {!onProfile && <UserIcon className='utilButton grow' onClick={handleProfile} size={24}/>}
+          {otherUser && <icons.MessageIcon className='utilButton grow' size={24}/>}
+          {!onProfile && <icons.UserIcon className='utilButton grow' onClick={handleProfile} size={24}/>}
         </div>
       </div>
     </div>

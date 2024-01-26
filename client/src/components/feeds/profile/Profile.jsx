@@ -1,5 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {AiFillSave as Save, AiOutlineClose as Close} from 'react-icons/ai';
+
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 

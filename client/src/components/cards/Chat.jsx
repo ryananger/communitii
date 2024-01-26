@@ -50,8 +50,9 @@ const Chat = function() {
       <div className='chatMessages v'>
         {renderMessages()}
       </div>
-      <div className='chatInputContainer'>
+      <div className='chatInputContainer v'>
         <textarea className='chatInput'/>
+
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SlOptionsVertical as OptionsIcon} from 'react-icons/sl';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
 
@@ -19,7 +19,7 @@ const Options = function({post}) {
 
   return (
     <div className='optionsContainer v c' style={{width: '24px', height: '24px'}}>
-      <OptionsIcon className='grow' onClick={()=>{setShowOptions(!showOptions)}} size={16}/>
+      <icons.OptionsIcon className='grow' onClick={()=>{setShowOptions(!showOptions)}} size={16}/>
       {showOptions && (
         <div className='optionsList v'>
           {post.user.uid === st.user.uid  && <div className='grow' onClick={handleDelete}>delete</div>}

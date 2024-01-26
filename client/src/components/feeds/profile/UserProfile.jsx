@@ -1,5 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {AiFillSave as Save, AiOutlineClose as Close} from 'react-icons/ai';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
@@ -61,8 +61,8 @@ const UserProfile = function() {
               <textarea id='editBio' className='editBio' defaultValue={settings.bio} placeholder='edit bio'/>
             </div>
             <div className='editButtons v'>
-              <Close className='editButton grow' size={20} onClick={()=>{setEditBio(false)}}/>
-              <Save  className='editButton grow' size={20} onClick={updateBio}/>
+              <icons.CloseIcon className='editButton grow' size={20} onClick={()=>{setEditBio(false)}}/>
+              <icons.SaveIcon  className='editButton grow' size={20} onClick={updateBio}/>
             </div>
           </div>
         }

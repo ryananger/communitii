@@ -1,5 +1,4 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {MdAddToPhotos as Add} from 'react-icons/md';
 
 import st from 'ryscott-st';
 import {helpers, firebase} from 'util';

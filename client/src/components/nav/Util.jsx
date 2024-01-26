@@ -1,9 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {AiOutlineLogout as Out,
-        AiOutlineLogin as In,
-        AiFillSetting as SettingsIcon} from 'react-icons/ai';
-import {BsPersonCircle as ProfileIcon} from 'react-icons/bs';
-import {IoMdNotifications as NotificationsIcon} from 'react-icons/io';
+import icons from 'icons';
 
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
@@ -91,12 +87,12 @@ const Util = function({user}) {
     <div className='util h'>
       {user && showNotifications && renderNotifications()}
       <div className='utilButton anchor grow v c' onClick={handleNotification}>
-        <NotificationsIcon size={32}/>
+        <icons.NotificationsIcon size={32}/>
         {user && checkUnread() && <div className='notifyIndicator'/>}
       </div>
-      <ProfileIcon className='utilButton grow' onClick={()=>{st.setView('userProfile')}} size={24}/>
-      <SettingsIcon className='utilButton grow' size={26}/>
-      <div className='utilButton grow v c' onClick={handleLogin}>{user ? <Out size={30}/> : <In size={30}/>}</div>
+      <icons.ProfileIcon className='utilButton grow' onClick={()=>{st.setView('userProfile')}} size={24}/>
+      <icons.SettingsIcon className='utilButton grow' size={26}/>
+      <div className='utilButton grow v c' onClick={handleLogin}>{user ? <icons.LogoutIcon size={30}/> : <icons.LoginIcon size={30}/>}</div>
     </div>
   );
 };

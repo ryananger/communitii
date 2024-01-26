@@ -1,5 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {MdMinimize as Min} from "react-icons/md";
+import icons from 'icons';
 
 const Card = function({type, content}) {
   const [open, setOpen] = useState(true);
@@ -8,7 +8,7 @@ const Card = function({type, content}) {
     <div className={`${type} card v`} style={open ? openStyle : closedStyle}>
       <div className={`cardHead ${type}Head h`}>
         {type}
-        <Min onClick={()=>{setOpen(!open)}}/>
+        <icons.MinIcon onClick={()=>{setOpen(!open)}}/>
       </div>
       {content}
     </div>

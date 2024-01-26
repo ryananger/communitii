@@ -1,6 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {IoMdSend as Send,
-        IoMdHeart as Like} from 'react-icons/io';
+
 import st from 'ryscott-st';
 import {ax} from 'util';
 

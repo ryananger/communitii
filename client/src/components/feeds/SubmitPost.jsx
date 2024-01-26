@@ -1,5 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {IoMdSend as Send} from 'react-icons/io';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
@@ -90,7 +90,7 @@ const SubmitPost = function() {
       <textarea id='submitText' placeholder='Say something!'/>
       <div className='submitButtons h'>
         <ImageUpload uploads={uploads} setUploads={setUploads}/>
-        <Send className='postButton grow' size={30} onClick={handleSubmit} />
+        <icons.SendIcon className='postButton grow' size={30} onClick={handleSubmit} />
       </div>
     </div>
   );

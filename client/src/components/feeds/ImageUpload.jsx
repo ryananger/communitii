@@ -1,5 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {MdAddToPhotos as Add} from 'react-icons/md';
+import icons from 'icons';
 
 import st from 'ryscott-st';
 import {helpers, firebase} from 'util';
@@ -62,7 +62,7 @@ const ImageUpload = function({uploads, setUploads}) {
       <div className='uploads h'>
         {renderUploads()}
       </div>
-      <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}><Add size={32}/></div>
+      <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}><icons.AddPhotosIcon size={32}/></div>
       <input type="file" id="imageInput" accept=".jpg, .png, .gif, .mp4, .mov" style={{display: 'none'}} onChange={loadImage} multiple/>
     </div>
   );

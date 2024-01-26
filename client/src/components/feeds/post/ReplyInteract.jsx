@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IoMdHeart as Like, IoMdChatbubbles as Comment} from 'react-icons/io';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax} from 'util';
 
@@ -27,7 +27,7 @@ const PostInteract = function({post}) {
   return (
     <div className='replyInteract h'>
       <div className='likeContainer h'>
-        <Like className={`likeButton grow ${liked ? 'liked' : ''}`} size={28} onClick={handleLike}/>
+        <icons.LikeIcon className={`likeButton grow ${liked ? 'liked' : ''}`} size={28} onClick={handleLike}/>
         <div className='likeCount'>{post.likes.length ? post.likes.length : ''}</div>
       </div>
       <Options post={post}/>

@@ -29,7 +29,8 @@
     "ryscott-st": "^1.0.2",
     "stream-browserify": "^3.0.0",
     "styles": "file:client/src/styles",
-    "util": "file:client/src/util"
+    "util": "file:client/src/util",
+    "icons": "file:client/src/components/icons"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

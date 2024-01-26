@@ -1,6 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {BsPersonCircle as DefaultPic} from 'react-icons/bs';
-import {MdAddToPhotos as Add} from 'react-icons/md';
+import icons from 'icons';
 
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
@@ -45,7 +44,7 @@ const PicUpload = function({settings}) {
     if (settings.pfp) {
       return <img className='pfpImg' src={settings.pfp} style={{height: '100px'}}/>;
     } else {
-      return <DefaultPic size={80} style={{color: 'var(--borderColor)'}}/>;
+      return <icons.ProfileIcon size={80} style={{color: 'var(--borderColor)'}}/>;
     }
   };
 

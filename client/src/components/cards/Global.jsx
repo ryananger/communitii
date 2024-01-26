@@ -1,5 +1,4 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {MdMinimize as Min} from "react-icons/md";
 
 import st from 'ryscott-st';
 import {helpers} from 'util';

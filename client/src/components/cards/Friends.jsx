@@ -1,6 +1,5 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {BsPersonCircle as ProfileIcon} from 'react-icons/bs';
-import {IoMdChatbubbles as MessageIcon} from 'react-icons/io';
+import icons from 'icons';
 
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
@@ -47,8 +46,8 @@ const Friends = function() {
           <div className='friendStatus' style={{backgroundColor: `var(--${color})`}}/>
           {friend.username}
           <div className='friendListIcons h'>
-            <ProfileIcon className='friendListIcon grow' onClick={()=>{ax.getPostsForUser(friend)}}/>
-            {friend.status !== 'dnd' && <MessageIcon className='friendListIcon grow' onClick={()=>{st.setChatWith(friend)}}/>}
+            <icons.ProfileIcon className='friendListIcon grow' onClick={()=>{ax.getPostsForUser(friend)}}/>
+            {friend.status !== 'dnd' && <icons.MessageIcon className='friendListIcon grow' onClick={()=>{st.setChatWith(friend)}}/>}
           </div>
         </div>
       );

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {IoMdSend as Send} from 'react-icons/io';
-import {MdAddToPhotos as Add} from 'react-icons/md';
+import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, firebase} from 'util';
 
@@ -72,8 +71,8 @@ const PostReply = function({post}) {
       <textarea id={`replyText${post._id}`} className='replyText' placeholder='post a comment'/>
       <ReplyUpload uploads={uploads} setUploads={setUploads}/>
       <div className='replyButtons'>
-        <Add className='replyButton grow' onClick={()=>{document.getElementById('replyImageInput').click()}} size={20}/>
-        <Send className='replyButton grow' onClick={handleSubmit} size={20}/>
+        <icons.AddIcon className='replyButton grow' onClick={()=>{document.getElementById('replyImageInput').click()}} size={20}/>
+        <icons.SendIcon className='replyButton grow' onClick={handleSubmit} size={20}/>
       </div>
     </div>
   )
