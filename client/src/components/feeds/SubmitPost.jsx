@@ -10,14 +10,18 @@ const SubmitPost = function() {
   const postFeed = st.view === 'userProfile' ? 'home' : st.view;
 
   var submitPost = function(post) {
-    var newFeed, newFeeds, newPosts;
+    var newFeed, newFeeds, newPosts, newCommunity;
+    var localPost = {...post, user: st.user};
 
     newFeed = st.community.feeds[postFeed];
-    newFeed.push(post);
+    newFeed.push(localPost);
     newFeeds = {...st.community.feeds, [postFeed]: newFeed};
-    newPosts = [...st.user.posts, post];
+    newPosts = [...st.user.posts, localPost];
 
-    st.setCommunity({...st.community, feeds: newFeeds});
+    newCommunity = {...st.community, feeds: newFeeds};
+    newCommunity = ax.transformFeeds(newCommunity);
+
+    st.setCommunity(newCommunity);
     st.setUser({...st.user, posts: newPosts});
 
     ax.submitPost(post);
@@ -33,7 +37,7 @@ const SubmitPost = function() {
     var uid = st.user.uid;
 
     var post = {
-      user: st.user,
+      user: {uid: uid},
       community: st.user.community,
       feed: postFeed,
       text,

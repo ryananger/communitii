@@ -103,9 +103,9 @@ const Chat = function() {
 
   return (
     <div className='chatBox v'>
-      <div className='chatUserInfo v'>
-        {chatWith ? chatWith.username : ''}
-      </div>
+      {chatWith && <div className='chatUserInfo v'>
+        {chatWith.username}
+      </div>}
       <div id='chatMessages' className='chatMessages v'>
         {renderMessages()}
       </div>

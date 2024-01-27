@@ -37,18 +37,18 @@ const PostReply = function({post}) {
     Promise.all(promises)
       .then(function(res) {
         var submission = {
-          user: st.user,
+          user: {uid: uid},
           community: st.user.community,
           feed: post.feed,
           text,
           media,
-          date: Date(Date.now()).toString(),
+          createdOn: Date(Date.now()).toString(),
           likes: [],
           parent: post._id
         };
 
         var newFeed = st.community.feeds[post.feed];
-        newFeed.push(submission);
+        newFeed.push({...submission, user: st.user});
 
         var newCommunity = {
           ...st.community,
@@ -71,7 +71,7 @@ const PostReply = function({post}) {
       <textarea id={`replyText${post._id}`} className='replyText' placeholder='post a comment'/>
       <ReplyUpload uploads={uploads} setUploads={setUploads}/>
       <div className='replyButtons'>
-        <icons.AddIcon className='replyButton grow' onClick={()=>{document.getElementById('replyImageInput').click()}} size={20}/>
+        <icons.AddPhotosIcon className='replyButton grow' onClick={()=>{document.getElementById('replyImageInput').click()}} size={20}/>
         <icons.SendIcon className='replyButton grow' onClick={handleSubmit} size={20}/>
       </div>
     </div>
