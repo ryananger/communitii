@@ -144,6 +144,18 @@ const ProfileCard = function({user, onProfile}) {
     }
   };
 
+  var handleMessage = function() {
+    var userInfo = {
+      _id: user._id,
+      uid: user.uid,
+      username: user.username,
+      posts: user.posts,
+      settings: info
+    };
+
+    st.setChatWith(userInfo);
+  };
+
   return (
     <div className={`card ${onProfile ? 'profileHead' : 'profileCard'} h`}>
       <div className='profileLeft v' onClick={handleProfile}>
@@ -158,7 +170,7 @@ const ProfileCard = function({user, onProfile}) {
         <div className='anchor h' style={{width: '100%', justifyContent: 'flex-end'}}>
           {handleFriendIcon()}
           {friendPopup()}
-          {otherUser && <icons.MessageIcon className='utilButton grow' size={24}/>}
+          {otherUser && <icons.MessageIcon className='utilButton grow' onClick={handleMessage} size={24}/>}
           {!onProfile && <icons.UserIcon className='utilButton grow' onClick={handleProfile} size={24}/>}
         </div>
       </div>
