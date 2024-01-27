@@ -11,6 +11,12 @@
   height: calc(100% - 28px);
 }
 
+.chatUserInfo {
+  width: 100%;
+  padding: 1vh;
+  box-shadow: 0px 2px 3px 0px #b3657326;
+}
+
 .chatMessages {
   width: 100%;
   height: calc(100% - 82px);

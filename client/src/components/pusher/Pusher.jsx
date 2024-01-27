@@ -15,12 +15,11 @@ const Pusher = function({admin}) {
       const userChannel = pusher.subscribe(`${st.user.uid}`);
 
       userChannel.bind('userUpdate', function(data) {
-        st.setUser(data.user);
-
         if (data.update) {
           helpers.alert(data.update.text);
         }
 
+        ax.getUser(st.user.uid);
         console.log('in userUpdate', data);
       });
 

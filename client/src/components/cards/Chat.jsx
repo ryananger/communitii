@@ -33,7 +33,11 @@ const Chat = function() {
 
       rendered.push(
         <div key={message.sentBy + i} className='messageEntry v'>
-          {addHead && <div className={`messageHead ${tag} v`}>{msgHead}</div>}
+          {addHead &&
+            <div className={`messageHead ${tag} v`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
+              {msgHead}
+            </div>
+          }
           <div className={`messageText ${tag} v`}>{message.text}</div>
         </div>
       );
@@ -55,7 +59,9 @@ const Chat = function() {
       }
     })
 
-    setMessages(msgs);
+    if (messages.length !== msgs.length) {
+      setMessages(msgs);
+    }
   };
 
   var sendMessage = function(text) {
@@ -91,12 +97,15 @@ const Chat = function() {
     el.scrollTo({top: el.scrollHeight, behavior: 'smooth'});
   };
 
+  useEffect(()=>{document.getElementById('chatInput').focus()}, [chatWith]);
   useEffect(handleUserMessages, [st.user, chatWith]);
   useEffect(scrollToBottom, [messages]);
 
   return (
     <div className='chatBox v'>
-      <div>{chatWith ? chatWith.username : ''}</div>
+      <div className='chatUserInfo v'>
+        {chatWith ? chatWith.username : ''}
+      </div>
       <div id='chatMessages' className='chatMessages v'>
         {renderMessages()}
       </div>

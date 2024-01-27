@@ -155,7 +155,7 @@ var controller = {
             .then(function(updated) {
               User.findOneAndUpdate({uid}, update.user, {new: true})
                 .then(function(user) {
-                  pusher.trigger(`${uid}`, 'userUpdate', {user, update: userNotify});
+                  pusher.trigger(`${uid}`, 'userUpdate', {update: userNotify});
                   pusher.trigger(`${comm}`, 'adminUpdate', updated.notifications);
                   res.json(updated);
                 })
@@ -182,7 +182,7 @@ var controller = {
             .then(function(updated) {
               User.findOneAndUpdate({uid}, update, {new: true})
                 .then(function(user) {
-                  pusher.trigger(`${uid}`, 'userUpdate', {user, update: userNotify});
+                  pusher.trigger(`${uid}`, 'userUpdate', {update: userNotify});
                   res.json(updated);
                 })
             })
@@ -616,7 +616,7 @@ var controller = {
 
     User.findOneAndUpdate({uid: message.sentTo}, {$push: {messages: message}}, {new: true})
       .then(function(user) {
-        pusher.trigger(`${message.sentTo}`, 'userUpdate', {user});
+        pusher.trigger(`${message.sentTo}`, 'userUpdate', {update: 'messages'});
         console.log(user.username, user.messages);
       })
 
