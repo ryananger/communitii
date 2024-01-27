@@ -20,6 +20,7 @@
   height: 200px;
   width: 100%;
   resize: none;
+  white-space: pre-wrap;
 }
 
 #uploadButton {
@@ -99,9 +100,11 @@
 }
 
 .postContent {
+  width: 100%;
   padding: 1vh;
   justify-content: center;
   min-height: 160px;
+  white-space: pre-wrap;
 }
 
 .postMedia {

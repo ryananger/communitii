@@ -611,18 +611,35 @@ var controller = {
           })
       })
   },
+  sendMessage: function(req, res) {
+    const message = req.body;
+
+    User.findOneAndUpdate({uid: message.sentTo}, {$push: {messages: message}}, {new: true})
+      .then(function(user) {
+        pusher.trigger(`${message.sentTo}`, 'userUpdate', {user});
+        console.log(user.username, user.messages);
+      })
+
+    User.findOneAndUpdate({uid: message.sentBy}, {$push: {messages: message}}, {new: true})
+      .then(function(user) {
+        console.log(user.username, user.messages);
+
+        res.json(user.messages);
+      })
+  },
+
   fix: function(req, res) {
-    Post.deleteMany({})
-      .then(function() {
-        console.log('Posts deleted.');
-      })
+    // Post.deleteMany({})
+    //   .then(function() {
+    //     console.log('Posts deleted.');
+    //   })
 
-    Community.deleteMany({})
-      .then(function(response) {
-        console.log(response);
-      })
+    // Community.deleteMany({})
+    //   .then(function(response) {
+    //     console.log(response);
+    //   })
 
-    User.updateMany({}, {community: null, notifications: [], posts: []})
+    User.updateMany({}, {messages: []})
       .then(function(response) {
         console.log(response);
 

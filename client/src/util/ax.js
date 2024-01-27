@@ -126,6 +126,12 @@ var ax = {
         }
       })
   },
+  sendMessage: function(message) {
+    axios.post(process.env.URL + 'api/messages/send', message)
+      .then(function(response) {
+        st.setUser({...st.user, messages: response.data});
+      })
+  },
   deletePost: function(send) {
     axios.post(process.env.URL + 'api/posts/delete', send)
       .then(function(response) {

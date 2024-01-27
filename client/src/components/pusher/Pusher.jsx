@@ -16,7 +16,10 @@ const Pusher = function({admin}) {
 
       userChannel.bind('userUpdate', function(data) {
         st.setUser(data.user);
-        helpers.alert(data.update.text);
+
+        if (data.update) {
+          helpers.alert(data.update.text);
+        }
 
         console.log('in userUpdate', data);
       });
