@@ -23,17 +23,22 @@ const Chat = function() {
 
   var renderMessages = function() {
     var rendered = [];
+    var current = null;
 
     messages.map(function(message, i) {
       var userSent = message.sentBy === st.user.uid;
-      var tag = `messageEntry ${userSent ? 'userSent' : 'friendSent'} h`;
+      var tag = `${userSent ? 'userSent' : 'friendSent'}`;
+      var msgHead = userSent ? st.user.username : chatWith ? chatWith.username : message.sentBy;
+      var addHead = current === message.sentBy ? false : true;
 
       rendered.push(
-        <div key={message.sentBy + i} className={tag}>
-          {/* <b>{userSent ? st.user.username + ':': chatWith ? chatWith.username + ':': ''}</b> */}
-          {message.text}
+        <div key={message.sentBy + i} className='messageEntry v'>
+          {addHead && <div className={`messageHead ${tag} v`}>{msgHead}</div>}
+          <div className={`messageText ${tag} v`}>{message.text}</div>
         </div>
       );
+
+      current = message.sentBy;
     })
 
     return rendered;
@@ -68,6 +73,8 @@ const Chat = function() {
   var handleInput = function(e) {
     var input = document.getElementById('chatInput');
 
+    if (!input.value.split('\n')[0] && !input.value.split('\n')[1]) {return};
+
     if (e.key === 'Enter') {
       if (!e.shiftKey) {
         e.preventDefault();
@@ -78,15 +85,14 @@ const Chat = function() {
     }
   };
 
-  useEffect(handleUserMessages, [st.user, chatWith]);
-  useEffect(()=>{
+  var scrollToBottom = function() {
     var el = document.getElementById('chatMessages');
 
-    console.log(el);
-    window.el = el;
-
     el.scrollTo({top: el.scrollHeight, behavior: 'smooth'});
-  }, [messages]);
+  };
+
+  useEffect(handleUserMessages, [st.user, chatWith]);
+  useEffect(scrollToBottom, [messages]);
 
   return (
     <div className='chatBox v'>

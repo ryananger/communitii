@@ -21,13 +21,29 @@
 .messageEntry {
   width: 100%;
   font-size: 14px;
+}
+
+.messageText,
+.messageHead {
+  box-sizing: border-box;
+  width: 100%;
   padding: 0.5vh 1vh;
-  border-bottom: 1px solid var(--borderColor);
-  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.messageHead {
+  border-top: 1px solid var(--borderColor);
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.messageText {
+  white-space: pre-wrap;
 }
 
 .userSent {
-  justify-content: flex-end;
+  text-align: right;
+  align-items: flex-end;
 }
 
 .chatInputContainer {
