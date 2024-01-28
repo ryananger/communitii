@@ -198,6 +198,24 @@ var helpers = {
       };
     }
   },
+  transformFeed: function(feed) {
+    var posts = [];
+
+    feed.map(function(post) {
+      if (!post.parent) {
+        post.replies = [];
+        posts.push(post);
+      } else {
+        posts.map(function(chk, i) {
+          if (chk._id === post.parent) {
+            posts[i].replies.push(post);
+          }
+        })
+      }
+    });
+
+    return posts;
+  },
   sortFeed: function(feed) {
     feed.sort(function(a, b) {
       var keyA = new Date(a.createdOn),

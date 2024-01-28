@@ -7,7 +7,7 @@ import Post from '../post/Post.jsx';
 import ProfileCard from './ProfileCard.jsx';
 
 const Profile = function({profile}) {
-  const posts = profile.posts;
+  const posts = helpers.transformFeed(profile.posts);
   const settings = profile.settings || {};
 
   var renderFeed = function() {

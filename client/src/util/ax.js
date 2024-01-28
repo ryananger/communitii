@@ -53,22 +53,8 @@ var ax = {
   transformFeeds: function(community) {
     for (var key in community.feeds) {
       var feed = community.feeds[key];
-      var posts = [];
 
-      feed.map(function(post) {
-        if (!post.parent) {
-          post.replies = [];
-          posts.push(post);
-        } else {
-          posts.map(function(chk, i) {
-            if (chk._id === post.parent) {
-              posts[i].replies.push(post);
-            }
-          })
-        }
-      })
-
-      feed = posts;
+      feed = helpers.transformFeed(feed);
     }
 
     return community;
@@ -145,6 +131,8 @@ var ax = {
     axios.get(process.env.URL + 'api/users/posts/' + user._id)
       .then(function(response) {
         var newUser = {...user, posts: response.data};
+
+        console.log(response.data);
 
         st.setProfile(newUser);
         st.setView('profile');

@@ -16,6 +16,7 @@ var controller = {
       .then(function(user) {
         Post.find({user: user._id})
           .populate('user')
+          .populate('replies')
           .then(function(posts) {
             user.posts = posts;
 
@@ -209,13 +210,13 @@ var controller = {
             console.log('Created post.');
 
             if (post.parent) {
-              Post.findOneAndUpdate({_id: post.parent}, {$push: {replies: post._id}}, {new: true})
+              Post.findOneAndUpdate({_id: post.parent}, {$push: {replies: ObjectId(post._id)}}, {new: true})
                 .then(function(post) {
                   console.log(`Added reply to post ${post._id}.`);
                 })
             }
 
-            User.findOneAndUpdate({uid: uid}, {$push: {posts: post._id}}, {new: true})
+            User.findOneAndUpdate({uid: uid}, {$push: {posts: ObjectId(post._id)}}, {new: true})
               .then(function(user) {
                 pusher.trigger(`${user.community}`, 'communityUpdate', {text: 'New post.'});
                 res.send({success: true});
@@ -227,7 +228,7 @@ var controller = {
     const {parent, uid, _id, replies} = req.body;
 
     if (parent) {
-      Post.updateOne({_id: parent}, {$pull: {replies: _id}})
+      Post.updateOne({_id: parent}, {$pull: {replies: ObjectId(_id)}})
         .then(function(result) {
           console.log('Deleted reply from parent.');
         })
@@ -257,8 +258,20 @@ var controller = {
   getPostsForUser: function(req, res) {
     Post.find({user: req.params._id})
       .populate('user')
+      .populate('replies')
+      .populate({path: 'replies', populate: {path: 'user'}})
       .then(function(posts) {
-        res.json(posts);
+        var send = [];
+
+        posts.map((post)=>{
+          send.push(post);
+
+          post.replies.map((reply)=>{
+            send.push(reply)
+          })
+        });
+
+        res.json(send);
       })
   },
   addFriend: function(req, res) {

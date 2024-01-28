@@ -55,7 +55,7 @@ const postSchema = new mongoose.Schema({
   text: String,
   parent: String,
   media: [Object],
-  replies: [String],
+  replies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
 
   createdOn: {type: Date, default: Date.now},
   likes: [String]

@@ -9,8 +9,6 @@ const CommunityUpdate = function({update}) {
   const [expand, setExpand] = useState(false);
 
   var handleUpdate = function() {
-    console.log(update);
-
     switch (update.type) {
       case 'joinRequest':
         var str = `${update.username} has asked to join ${st.community.name}.`;

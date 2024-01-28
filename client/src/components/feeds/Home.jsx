@@ -18,7 +18,7 @@ const Home = function() {
 
   helpers.sortFeed(feed);
 
-  useEffect(()=>{}, [st.community.feeds]);
+  useEffect(()=>{}, [feed]);
 
   return (
     <div className='page v'>
