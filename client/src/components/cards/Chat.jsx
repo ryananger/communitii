@@ -97,6 +97,10 @@ const Chat = function() {
     el.scrollTo({top: el.scrollHeight, behavior: 'smooth'});
   };
 
+  var handleFocus = function() {
+    document.getElementById('chatCard').style = "flex: 1 1 auto;";
+  };
+
   useEffect(()=>{document.getElementById('chatInput').focus()}, [chatWith]);
   useEffect(handleUserMessages, [st.user, chatWith]);
   useEffect(scrollToBottom, [messages]);
@@ -110,7 +114,7 @@ const Chat = function() {
         {renderMessages()}
       </div>
       <div className='chatInputContainer v'>
-        <textarea id='chatInput' className='chatInput' onKeyDown={handleInput}/>
+        <textarea id='chatInput' className='chatInput' onKeyDown={handleInput} onFocus={handleFocus}/>
         {/* <icons.SendIcon size={30}/> */}
       </div>
     </div>

@@ -3,7 +3,6 @@ import React from 'react';
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-// between 50% and 65%
 const leftY1 = (height * 0.5) + Math.random() * (height * 0.15);
 const rightY1 = leftY1 + (Math.random() * height * 0.15) + (height * 0.15);
 
@@ -19,8 +18,8 @@ function RandomPathsSVG({color}) {
 
   return (
     <svg className="randomPaths" xmlns="http://www.w3.org/2000/svg" style={{position: 'fixed'}}>
-      <path d={svgPath1} fill={`var(--${fill})`} fillOpacity="0.2"/>
-      <path d={svgPath2} fill={`var(--${fill})`} fillOpacity="0.1"/>
+      <path d={svgPath1} fill={`var(--${fill})`} fillOpacity="0.15"/>
+      <path d={svgPath2} fill={`var(--${fill})`} fillOpacity="0.15"/>
     </svg>
   );
 }
