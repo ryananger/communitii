@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
 import ProfileCard from '../profile/ProfileCard.jsx';
@@ -6,6 +6,7 @@ import Options from '../Options.jsx';
 
 const PostHead = function({post}) {
   const [showCard, setShowCard] = useState(false);
+  const el = useRef(null);
 
   const timeSince = helpers.timeSince(new Date(post.createdOn));
   const timeText =  timeSince ? timeSince  + ' ago' : 'now';
@@ -39,12 +40,12 @@ const PostHead = function({post}) {
     }
   };
 
-  var handleClick = async function() {
-    ax.getPost(post._id);
+  var handleClick = async function(e) {
+    e.target === el.current && ax.getPost(post._id);
   };
 
   return (
-    <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
+    <div className='postHead h' ref={el} style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
         <div className='postDate'><small>{timeText}</small></div>

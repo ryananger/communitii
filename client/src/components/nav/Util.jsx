@@ -86,11 +86,11 @@ const Util = function({user}) {
   return (
     <div className='util h'>
       {user && showNotifications && renderNotifications()}
-      <div className='utilButton anchor grow v c' onClick={handleNotification}>
+      <div className='utilButton anchor grow v c' onClick={user && handleNotification}>
         <icons.NotificationsIcon size={32}/>
         {user && checkUnread() && <div className='notifyIndicator'/>}
       </div>
-      <icons.ProfileIcon className='utilButton grow' onClick={()=>{st.setView('userProfile')}} size={24}/>
+      <icons.ProfileIcon className='utilButton grow' onClick={()=>{user && st.setView('userProfile')}} size={24}/>
       <icons.SettingsIcon className='utilButton grow' size={26}/>
       <div className='utilButton grow v c' onClick={handleLogin}>{user ? <icons.LogoutIcon size={30}/> : <icons.LoginIcon size={30}/>}</div>
     </div>

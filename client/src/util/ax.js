@@ -154,6 +154,11 @@ var ax = {
   getPost: async function(_id) {
     axios.get(process.env.URL + 'api/posts/' + _id)
       .then(function(response) {
+        if (!response.data) {
+          st.setView('home');
+          return;
+        }
+
         st.setPost(response.data);
       })
   },
