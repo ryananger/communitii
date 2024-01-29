@@ -46,7 +46,7 @@ const Friends = function() {
           <div className='friendStatus' style={{backgroundColor: `var(--${color})`}}/>
           {friend.username}
           <div className='friendListIcons h'>
-            <icons.ProfileIcon className='friendListIcon grow' onClick={()=>{ax.getPostsForUser(friend)}}/>
+            <icons.ProfileIcon className='friendListIcon grow' onClick={()=>{ax.getProfile(friend.uid)}}/>
             {friend.status !== 'dnd' && <icons.MessageIcon className='friendListIcon grow' onClick={()=>{st.setChatWith(friend)}}/>}
           </div>
         </div>

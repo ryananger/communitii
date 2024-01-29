@@ -40,7 +40,6 @@ app.post('/api/users/settings', controller.updateSettings);
 app.post('/api/posts/submit', controller.submitPost);
 app.post('/api/messages/send', controller.sendMessage);
 app.post('/api/posts/delete', controller.deletePost);
-app.get('/api/users/posts/:_id', controller.getPostsForUser);
 app.put('/api/posts/likePost', controller.likePost);
 app.post('/api/addFriend', controller.addFriend);
 app.post('/api/unfriend', controller.unfriend);

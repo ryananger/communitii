@@ -56,7 +56,7 @@ const ProfileCard = function({user, onProfile}) {
     if (!otherUser) {
       st.setView('userProfile');
     } else {
-      ax.getPostsForUser(user);
+      ax.getProfile(user.uid);
     }
   };
 

@@ -27,6 +27,14 @@ var ax = {
         }
       })
   },
+  getProfile: function(uid) {
+    axios.get(process.env.URL + 'api/users/profile/' + uid)
+      .then(function(response) {
+        var user = response.data;
+
+        st.setProfile(user);
+      })
+  },
   createCommunity: function(sendBody) {
     axios.post(process.env.URL + 'api/communities', sendBody)
       .then(function(response) {
@@ -109,6 +117,10 @@ var ax = {
         if (response.data.success) {
           ax.getCommunity(st.user.community);
           ax.getUser(st.user.uid);
+
+          if (st.view === 'profile') {
+            ax.getProfile(st.profile.uid);
+          }
         }
       })
   },
@@ -124,18 +136,11 @@ var ax = {
         if (response.data.success) {
           ax.getCommunity(st.user.community);
           ax.getUser(st.user.uid);
+
+          if (st.view === 'profile') {
+            ax.getProfile(st.profile.uid);
+          }
         }
-      })
-  },
-  getPostsForUser: function(user) {
-    axios.get(process.env.URL + 'api/users/posts/' + user._id)
-      .then(function(response) {
-        var newUser = {...user, posts: response.data};
-
-        console.log(response.data);
-
-        st.setProfile(newUser);
-        st.setView('profile');
       })
   },
   addFriend: function(sender, uid, type) {

@@ -17,6 +17,7 @@ var controller = {
         Post.find({user: user._id})
           .populate('user')
           .populate('replies')
+          .populate({path: 'replies', populate: {path: 'user'}})
           .then(function(posts) {
             user.posts = posts;
 
@@ -253,25 +254,6 @@ var controller = {
       .then(function(result) {
         console.log('Deleted post.');
         res.send({success: true});
-      })
-  },
-  getPostsForUser: function(req, res) {
-    Post.find({user: req.params._id})
-      .populate('user')
-      .populate('replies')
-      .populate({path: 'replies', populate: {path: 'user'}})
-      .then(function(posts) {
-        var send = [];
-
-        posts.map((post)=>{
-          send.push(post);
-
-          post.replies.map((reply)=>{
-            send.push(reply)
-          })
-        });
-
-        res.json(send);
       })
   },
   addFriend: function(req, res) {

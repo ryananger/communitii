@@ -9,7 +9,7 @@ import Post from '../post/Post.jsx';
 import PicUpload from './PicUpload.jsx';
 
 const UserProfile = function() {
-  const [posts, setPosts] = useState(helpers.transformFeed(st.user.posts));
+  const [posts, setPosts] = useState(st.user.posts);
   const [editBio, setEditBio] = useState(false);
   const settings = st.user.settings || {};
 

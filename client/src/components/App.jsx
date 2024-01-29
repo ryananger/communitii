@@ -33,7 +33,7 @@ const App = function() {
   const [community, setCommunity] = st.newState('community', useState(null));
   const [profile, setProfile] = st.newState('profile', useState(null));
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(null);
   const [adminOpen, setAdminOpen] = useState(false);
 
   const views = {
@@ -68,16 +68,27 @@ const App = function() {
   var handleCommunity = function() {
     if (!community) {return};
 
-    community.members.map(function(member) {
-      if (member.uid === user.uid) {
-        setIsAdmin(member.admin);
-      }
-    });
+    if (setIsAdmin === null) {
+      community.members.map(function(member) {
+        if (member.uid === user.uid) {
+          setIsAdmin(member.admin);
+        }
+      });
+    }
+
+    ax.getUser(user.uid);
+  };
+
+  var handleProfile = function() {
+    if (profile) {
+      setView('profile');
+    }
   };
 
   useEffect(userFromCookie, []);
   useEffect(handleUser, [user]);
   useEffect(handleCommunity, [community]);
+  useEffect(handleProfile, [profile]);
 
   if (!user || !user.community) {
     return (

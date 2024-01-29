@@ -7,7 +7,8 @@ import Post from '../post/Post.jsx';
 import ProfileCard from './ProfileCard.jsx';
 
 const Profile = function({profile}) {
-  const posts = helpers.transformFeed(profile.posts);
+  const uid = profile.uid;
+  const posts = profile.posts;
   const settings = profile.settings || {};
 
   var renderFeed = function() {
@@ -25,10 +26,6 @@ const Profile = function({profile}) {
 
     return rendered;
   };
-
-  useEffect(()=>{
-    ax.getPostsForUser(profile);
-  }, []);
 
   return (
     <div className='profile v'>
