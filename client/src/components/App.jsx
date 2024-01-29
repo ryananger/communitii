@@ -5,6 +5,7 @@ import st from 'ryscott-st';
 import pusher from './pusher/pusher.js';
 import {ax, helpers} from 'util';
 
+import RandomPathsSVG from './RandomPathsSVG.jsx';
 import Nav from './nav/Nav.jsx';
 
 import Card from './cards/Card.jsx';
@@ -109,6 +110,7 @@ const App = function() {
       <Alert />
       <Pusher />
       <Nav user={user}/>
+      <RandomPathsSVG color={view}/>
       <div className='main h'>
         <div className='social v'>
           <Card type='friends' content={<Friends />}/>
