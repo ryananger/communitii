@@ -90,19 +90,23 @@ const App = function() {
     }
   };
 
-  var handleColor = function() {
+  var handleView = function() {
     if (['find', 'profile', 'userProfile'].includes(view)) {
       setColor('home');
     } else if (view !== 'postView') {
       setColor(view);
     }
+
+    var feedEl = document.getElementById('feed');
+
+    feedEl && document.getElementById('feed').scrollTo({top: 0, behavior: 'smooth'});
   };
 
   useEffect(userFromCookie, []);
   useEffect(handleUser, [user]);
   useEffect(handleCommunity, [community]);
   useEffect(handleProfile, [profile]);
-  useEffect(handleColor, [view]);
+  useEffect(handleView, [view]);
   useEffect(()=>{post && setView('postView')}, [post]);
 
   if (!user || !user.community) {
@@ -130,7 +134,7 @@ const App = function() {
           <Card type='friends' content={<Friends />}/>
           <Card type='chat' content={<Chat />}/>
         </div>
-        <div className='feed v'>
+        <div id='feed' className='feed v'>
           {views[view] || view}
         </div>
         <div className='wing v'>

@@ -28,7 +28,7 @@ var ax = {
       })
   },
   getProfile: function(uid) {
-    axios.get(process.env.URL + 'api/users/profile/' + uid)
+    axios.get(process.env.URL + 'api/users/' + uid)
       .then(function(response) {
         var user = response.data;
 
