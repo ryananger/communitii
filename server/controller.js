@@ -256,6 +256,15 @@ var controller = {
         res.send({success: true});
       })
   },
+  getPost: function(req, res) {
+    Post.findOne({_id: req.params._id})
+      .populate('user')
+      .populate('replies')
+      .populate({path: 'replies', populate: {path: 'user'}})
+      .then(function(post) {
+        res.json(post);
+      })
+  },
   addFriend: function(req, res) {
     User.findOne({uid: req.body.userId})
       .then(function(result) {

@@ -39,8 +39,12 @@ const PostHead = function({post}) {
     }
   };
 
+  var handleClick = async function() {
+    ax.getPost(post._id);
+  };
+
   return (
-    <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}}>
+    <div className='postHead h' style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
         <div className='postDate'><small>{timeText}</small></div>

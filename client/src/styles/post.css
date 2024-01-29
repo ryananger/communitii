@@ -50,7 +50,12 @@
 }
 
 .postHead {
+  cursor: pointer;
   box-sizing: border-box;
+}
+
+.postHead .cardContainer {
+  cursor: default;
 }
 
 .postInteract {

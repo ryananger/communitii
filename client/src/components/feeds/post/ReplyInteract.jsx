@@ -30,7 +30,7 @@ const PostInteract = function({post}) {
         <icons.LikeIcon className={`likeButton grow ${liked ? 'liked' : ''}`} size={28} onClick={handleLike}/>
         <div className='likeCount'>{post.likes.length ? post.likes.length : ''}</div>
       </div>
-      <Options post={post}/>
+      {post.user.uid === st.user.uid && <Options post={post}/>}
     </div>
   )
 };

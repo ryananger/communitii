@@ -47,18 +47,24 @@ const PostReply = function({post}) {
           parent: post._id
         };
 
-        var newFeed = st.community.feeds[post.feed];
-        newFeed.push({...submission, user: st.user});
+        if (post.user.community === st.community) {
+          var newFeed = st.community.feeds[post.feed];
+          newFeed.push({...submission, user: st.user});
 
-        var newCommunity = {
-          ...st.community,
-          feeds: {
-            ...st.community.feeds,
-            [post.feed]: newFeed}
-        };
+          var newCommunity = {
+            ...st.community,
+            feeds: {
+              ...st.community.feeds,
+              [post.feed]: newFeed}
+          };
 
-        newCommunity = ax.transformFeeds(newCommunity);
-        st.setCommunity(newCommunity);
+          newCommunity = ax.transformFeeds(newCommunity);
+          st.setCommunity(newCommunity);
+        }
+
+        if (st.view === 'postView') {
+          st.setPost({...st.post, replies: [...st.post.replies, {...submission, user: st.user}]});
+        }
 
         el.value = null;
         ax.submitPost(submission);

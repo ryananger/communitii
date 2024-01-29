@@ -121,6 +121,10 @@ var ax = {
           if (st.view === 'profile') {
             ax.getProfile(st.profile.uid);
           }
+
+          if (st.view === 'postView') {
+            ax.getPost(st.post._id);
+          }
         }
       })
   },
@@ -140,7 +144,17 @@ var ax = {
           if (st.view === 'profile') {
             ax.getProfile(st.profile.uid);
           }
+
+          if (st.view === 'postView') {
+            ax.getPost(st.post._id);
+          }
         }
+      })
+  },
+  getPost: async function(_id) {
+    axios.get(process.env.URL + 'api/posts/' + _id)
+      .then(function(response) {
+        st.setPost(response.data);
       })
   },
   addFriend: function(sender, uid, type) {

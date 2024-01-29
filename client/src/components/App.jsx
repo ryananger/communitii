@@ -15,6 +15,7 @@ import Global from './cards/Global.jsx';
 
 import Home from './feeds/Home.jsx';
 import Page from './feeds/Page.jsx';
+import PostView from './feeds/PostView.jsx';
 import Profile from './feeds/profile/Profile.jsx';
 import UserProfile from './feeds/profile/UserProfile.jsx';
 import Login from './Login.jsx';
@@ -30,7 +31,9 @@ const cookie = helpers.cookieParse();
 
 const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
+  const [color, setColor] = st.newState('color', useState('home'));
   const [user, setUser] = st.newState('user', useState(null));
+  const [post, setPost] = st.newState('post', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
   const [profile, setProfile] = st.newState('profile', useState(null));
 
@@ -47,7 +50,8 @@ const App = function() {
     login: <Login />,
     find:  <Find />,
     profile: <Profile profile={profile}/>,
-    userProfile: <UserProfile />
+    userProfile: <UserProfile />,
+    postView: <PostView post={post}/>
   };
 
   var userFromCookie = function() {
@@ -86,10 +90,20 @@ const App = function() {
     }
   };
 
+  var handleColor = function() {
+    if (['find', 'profile', 'userProfile'].includes(view)) {
+      setColor('home');
+    } else if (view !== 'postView') {
+      setColor(view);
+    }
+  };
+
   useEffect(userFromCookie, []);
   useEffect(handleUser, [user]);
   useEffect(handleCommunity, [community]);
   useEffect(handleProfile, [profile]);
+  useEffect(handleColor, [view]);
+  useEffect(()=>{post && setView('postView')}, [post]);
 
   if (!user || !user.community) {
     return (
@@ -110,7 +124,7 @@ const App = function() {
       <Alert />
       <Pusher />
       <Nav user={user}/>
-      <RandomPathsSVG color={view}/>
+      <RandomPathsSVG color={color}/>
       <div className='main h'>
         <div className='social v'>
           <Card type='friends' content={<Friends />}/>
