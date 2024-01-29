@@ -1,2 +1,7 @@
-- add friends
-- create post
+- notifications for posts/messages
+- chat default view, window, timestamp, buttons
+- post privacy, hide
+- comment handle
+- community updates
+- community settings
+- user settings

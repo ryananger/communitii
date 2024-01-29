@@ -13,7 +13,6 @@ const PostHead = function({post}) {
 
   const user = post.user;
   const userPost = st.user.uid === post.user.uid;
-
   const settings = post.user.settings || {};
 
   var handleUser = function() {
