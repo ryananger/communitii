@@ -107,7 +107,8 @@ const Chat = function() {
 
   return (
     <div className='chatBox v'>
-      {chatWith && <div className='chatUserInfo v'>
+      {chatWith && <div className='chatUserInfo v' onClick={()=>{ax.getProfile(chatWith.uid)}}>
+        {chatWith.settings.pfp && <img className='chatThumb' src={chatWith.settings.pfp}/>}
         {chatWith.username}
       </div>}
       <div id='chatMessages' className='chatMessages v'>

@@ -15,6 +15,17 @@
   width: 100%;
   padding: 1vh;
   box-shadow: 0px 2px 3px 0px #b3657326;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chatThumb {
+  width: 48px;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  margin-bottom: 6px;
+  box-shadow: 0px 2px 3px 0px #b365735c;
 }
 
 .chatMessages {

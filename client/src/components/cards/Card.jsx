@@ -23,7 +23,7 @@ const Card = function({type, content}) {
     <div id={`${type}Card`} ref={element} className={`${type} card v`}>
       <div className={`cardHead ${type}Head h`}>
         {type}
-        <icons.MinIcon onClick={handleOpen}/>
+        <icons.MinIcon style={{height: '100%'}} onClick={handleOpen}/>
       </div>
       {content}
     </div>

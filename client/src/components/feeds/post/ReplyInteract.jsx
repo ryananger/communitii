@@ -27,7 +27,7 @@ const PostInteract = function({post}) {
   return (
     <div className='replyInteract h'>
       <div className='likeContainer h'>
-        <icons.LikeIcon className={`likeButton grow ${liked ? 'liked' : ''}`} size={28} onClick={handleLike}/>
+        <icons.LikeIcon className={`likeButton grow ${liked ? 'liked' : ''}`} size={22} onClick={handleLike}/>
         <div className='likeCount'>{post.likes.length ? post.likes.length : ''}</div>
       </div>
       {post.user.uid === st.user.uid && <Options post={post}/>}
