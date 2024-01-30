@@ -54,13 +54,19 @@ textarea {
 }
 
 .actionBox {
+  position: relative;
   padding: 1vh;
-  border: 1px solid var(--borderColor);
-  width: 100%;
-  height: 72px;
-  border-radius: 12px;
-  justify-content: center;
+  padding-top: calc(1vh + 4px);
+  width: calc(100% - 2vh);
+  height: 60px;
+  border-radius: 1px 1px 12px 12px;
   align-items: center;
+  font-size: 30px;
+  background-color: white;
+}
+
+.actionBoxIcon {
+  cursor: pointer;
 }
 
 .randomPaths {

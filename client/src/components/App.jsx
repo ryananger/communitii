@@ -9,6 +9,7 @@ import RandomPathsSVG from './RandomPathsSVG.jsx';
 import Nav from './nav/Nav.jsx';
 
 import Card from './cards/Card.jsx';
+import ActionBox from './ActionBox.jsx';
 import Friends from './cards/Friends.jsx';
 import Chat from './cards/Chat.jsx';
 import Global from './cards/Global.jsx';
@@ -131,6 +132,7 @@ const App = function() {
       <RandomPathsSVG color={color}/>
       <div className='main h'>
         <div className='social v'>
+          <ActionBox />
           <Card type='friends' content={<Friends />}/>
           <Card type='chat' content={<Chat />}/>
         </div>
