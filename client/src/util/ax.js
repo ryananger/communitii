@@ -163,7 +163,7 @@ var ax = {
       })
   },
   addFriend: function(sender, uid, type) {
-    axios.post(process.env.URL + 'api/addFriend', {sender: sender, userId: uid, type})
+    axios.post(process.env.URL + 'api/addFriend', {senderId: sender.uid, friendId: uid, type})
       .then(function(response) {
         st.setUser(response.data);
       })

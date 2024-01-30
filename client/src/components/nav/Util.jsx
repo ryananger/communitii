@@ -29,8 +29,12 @@ const Util = function({user}) {
     var rendered = [];
 
     user.notifications.map(function(entry, i) {
+      var handleClick = function() {
+        ['friendConfirmed', 'friendAdded'].includes(entry.type) && ax.getProfile(entry.uid);
+      };
+
       var render = (
-        <div key={i} className='notificationInfo v'>
+        <div key={i} className='notificationInfo v' onClick={handleClick}>
           {entry.text}
           {noteButtons(entry)}
         </div>

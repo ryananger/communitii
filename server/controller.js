@@ -265,10 +265,11 @@ var controller = {
         res.json(post);
       })
   },
-  addFriend: function(req, res) {
-    User.findOne({uid: req.body.userId})
+  addFriend: async function(req, res) {
+    const sender = await User.findOne({uid: req.body.senderId});
+
+    User.findOne({uid: req.body.friendId})
       .then(function(result) {
-        const sender = req.body.sender;
         const user = result;
         const type = req.body.type;
 
@@ -304,6 +305,7 @@ var controller = {
 
           User.updateOne({_id: user._id}, sendUpdate)
             .then(function(result) {
+              pusher.trigger(user.uid, 'userUpdate', {update: {text: `${sender.username} sent a friend request!`}});
               console.log('addFriend sent notification', sendNote);
             })
 
@@ -360,6 +362,7 @@ var controller = {
 
           User.updateOne({_id: user._id}, confirmUpdate)
             .then(function(result) {
+              pusher.trigger(user.uid, 'userUpdate', {update: {text: confirmNote.text}});
               console.log('addFriend confirm notification', confirmNote);
             })
 
