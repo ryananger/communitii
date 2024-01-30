@@ -60,14 +60,11 @@ var controller = {
         var promises = [];
         var newFeeds = {};
 
-        var getPosts = function(feed, resolve) {
-          Post.find({community: community._id, feed: feed})
-            .populate('user')
-            .then(function(posts) {
-              newFeeds[feed] = posts;
+        var getPosts = async function(feed, resolve) {
+          var posts = await Post.find({community: community._id, feed: feed}).populate('user');
 
-              resolve();
-            })
+          newFeeds[feed] = posts;
+          resolve();
         };
 
         for (var key in community.feeds) {
@@ -618,16 +615,38 @@ var controller = {
           })
       })
   },
-  sendMessage: function(req, res) {
+  sendMessage: async function(req, res) {
     const message = req.body;
 
-    User.findOneAndUpdate({uid: message.sentTo}, {$push: {messages: message}}, {new: true})
-      .then(function(user) {
-        pusher.trigger(`${message.sentTo}`, 'userUpdate', {update: 'messages'});
-        console.log(user.username, user.messages);
+    const sentTo = await User.findOne({uid: message.sentTo});
+    const sentBy = await User.findOne({uid: message.sentBy});
+
+    var m1 = sentTo.messages;
+
+    message.username = sentBy.username;
+
+    if (!m1[sentBy.uid]) {m1[sentBy.uid] = []};
+
+    console.log(m1);
+
+    m1[sentBy.uid] = [...m1[sentBy.uid], message];
+
+    User.updateOne({uid: sentTo.uid}, {messages: m1})
+      .then(function(result) {
+        pusher.trigger(sentTo.uid, 'userUpdate', {update: 'messages'});
       })
 
-    User.findOneAndUpdate({uid: message.sentBy}, {$push: {messages: message}}, {new: true})
+    var m2 = sentBy.messages;
+
+    console.log(m2);
+
+    message.username = sentTo.username;
+
+    if (!m2[sentTo.uid]) {m2[sentTo.uid] = []};
+
+    m2[sentTo.uid] = [...m2[sentTo.uid], message];
+
+    User.findOneAndUpdate({uid: sentBy.uid}, {messages: m2}, {new: true})
       .then(function(user) {
         console.log(user.username, user.messages);
 
@@ -646,7 +665,7 @@ var controller = {
     //     console.log(response);
     //   })
 
-    User.updateMany({}, {messages: []})
+    User.updateMany({}, {messages: {}})
       .then(function(response) {
         console.log(response);
 

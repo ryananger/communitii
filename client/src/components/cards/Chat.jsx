@@ -51,13 +51,7 @@ const Chat = function() {
   var handleUserMessages = function() {
     if (!chatWith) {return};
 
-    var msgs = [];
-
-    st.user.messages.map(function(msg) {
-      if (msg.sentBy === chatWith.uid || msg.sentTo === chatWith.uid) {
-        msgs.push(msg);
-      }
-    })
+    var msgs = st.user.messages ? st.user.messages[chatWith.uid] : [];
 
     if (messages.length !== msgs.length) {
       setMessages(msgs);

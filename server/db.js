@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   notifications: [Object],
   friends: [],
   interactions: [Object],
-  messages: [Object],
+  messages: Object,
   posts:    [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   events:   [Object]
 });
