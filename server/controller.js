@@ -621,36 +621,55 @@ var controller = {
     const sentTo = await User.findOne({uid: message.sentTo});
     const sentBy = await User.findOne({uid: message.sentBy});
 
-    var m1 = sentTo.messages;
+    var handleMessages = function(messages, user) {
+      var info = {
+        _id: user._id,
+        uid: user.uid,
+        username: user.username,
+        settings: user.settings
+      };
 
-    message.username = sentBy.username;
+      var msgs = messages[user.uid];
 
-    if (!m1[sentBy.uid]) {m1[sentBy.uid] = []};
+      message.username = user.username;
 
-    console.log(m1);
+      if (!msgs) {
+        msgs = {messages: [], unread: 0};
+      }
 
-    m1[sentBy.uid] = [...m1[sentBy.uid], message];
+      messages[user.uid] = msgs = {
+        messages: [...msgs.messages, message],
+        unread: Number(msgs.unread) + 1,
+        info: info
+      };
+
+      return messages;
+    };
+
+    var m1 = handleMessages(sentTo.messages, sentBy);
+    var m2 = handleMessages(sentBy.messages, sentTo);
+
+    m2[sentTo.uid].unread = 0;
 
     User.updateOne({uid: sentTo.uid}, {messages: m1})
       .then(function(result) {
         pusher.trigger(sentTo.uid, 'userUpdate', {update: 'messages'});
       })
 
-    var m2 = sentBy.messages;
-
-    console.log(m2);
-
-    message.username = sentTo.username;
-
-    if (!m2[sentTo.uid]) {m2[sentTo.uid] = []};
-
-    m2[sentTo.uid] = [...m2[sentTo.uid], message];
-
     User.findOneAndUpdate({uid: sentBy.uid}, {messages: m2}, {new: true})
       .then(function(user) {
-        console.log(user.username, user.messages);
-
         res.json(user.messages);
+      })
+  },
+  readMessages: function(req, res) {
+    User.findOne({uid: req.body.uid})
+      .then(function(user) {
+        user.messages[req.body.chatUid].unread = 0;
+
+        User.findOneAndUpdate({uid: user.uid}, {messages: user.messages})
+          .then(function(updated) {
+            res.json(user.messages);
+          })
       })
   },
 

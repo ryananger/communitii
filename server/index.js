@@ -46,6 +46,7 @@ app.post('/api/addFriend', controller.addFriend);
 app.post('/api/unfriend', controller.unfriend);
 
 app.post('/api/readNotifications/', controller.readNotifications);
+app.post('/api/readMessages/', controller.readMessages);
 
 app.get('/api/fix', controller.fix);
 

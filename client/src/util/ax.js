@@ -190,6 +190,12 @@ var ax = {
       .then(function(response) {
         st.setUser({...st.user, notifications: response.data});
       })
+  },
+  readMessages: function(chatUid) {
+    axios.post(process.env.URL + 'api/readMessages', {uid: st.user.uid, chatUid})
+      .then(function(response) {
+        st.setUser({...st.user, messages: response.data});
+      })
   }
 };
 

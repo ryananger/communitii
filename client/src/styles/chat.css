@@ -9,6 +9,22 @@
 .chatBox {
   width: 100%;
   height: calc(100% - 28px);
+  position: relative;
+}
+
+.chatViewEntry {
+  width: 100%;
+  padding: 1vh;
+  font-size: 16px;
+  border-bottom: 1px solid var(--borderColor);
+  cursor: pointer;
+}
+
+.chatBack {
+  position: absolute;
+  left: 0;
+  margin: 4px;
+  cursor: pointer;
 }
 
 .chatUserInfo {

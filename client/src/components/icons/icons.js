@@ -14,7 +14,8 @@ import {IoMdNotifications as NotificationsIcon,
         IoIosInformationCircle as InfoIcon} from 'react-icons/io';
 import {SlOptionsVertical as OptionsIcon} from 'react-icons/sl';
 import {MdAddToPhotos as AddPhotosIcon,
-        MdMinimize as MinIcon} from 'react-icons/md';
+        MdMinimize as MinIcon,
+        MdArrowBack as BackIcon} from 'react-icons/md';
 import {BiSolidMessage as MessageIcon,
         BiSolidUserCircle as UserIcon} from 'react-icons/bi';
 import {IoCalendar as EventsIcon,
@@ -47,7 +48,8 @@ const icons = {
   LibraryIcon: LibraryIcon,
   ShopIcon: ShopIcon,
   MoneyIcon: MoneyIcon,
-  InfoIcon: InfoIcon
+  InfoIcon: InfoIcon,
+  BackIcon: BackIcon
 };
 
 export default icons;
