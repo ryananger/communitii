@@ -52,6 +52,10 @@
   width: 100%;
 }
 
+.posts {
+  position: relative;
+}
+
 .post {
   background-color: white;
   border-radius: 12px;
@@ -242,7 +246,6 @@
 
 .replyImage,
 .replyVideo {
-  height: 360px;
   margin: 1vh 0.25vh;
   border: var(--border);
 }

@@ -7,6 +7,7 @@ import Feed from './Feed.jsx';
 
 const Home = function() {
   const feeds = st.community.feeds;
+
   const feed = [
     ...feeds.home,
     ...feeds.learn,

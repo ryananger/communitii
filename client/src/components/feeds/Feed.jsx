@@ -1,6 +1,8 @@
 import React, {lazy, useEffect, useState} from 'react';
+import st from 'ryscott-st';
 
 import Post from './post/Post.jsx';
+import FeedFilter from './FeedFilter.jsx';
 
 const Feed = function({feed}) {
   var renderFeed = function() {
@@ -19,6 +21,7 @@ const Feed = function({feed}) {
 
   return (
     <div className='posts'>
+      {st.view === 'home' && <FeedFilter />}
       {renderFeed()}
     </div>
   );
