@@ -63,6 +63,7 @@ textarea {
   align-items: center;
   font-size: 30px;
   background-color: white;
+  flex: none;
 }
 
 .actionBoxIcon {

@@ -1,14 +1,25 @@
 .postContainer {
+  height: 120px;
   width: 100%;
+  transition: height 1s;
+  flex: none;
+}
+
+.postContainer:hover,
+.postContainer:has(#submitText:focus) {
+  transition: height 0.25s;
+  height: 240px;
 }
 
 .submitButtons {
   background: white;
   padding: 0.5vh 1vh;
   align-self: flex-end;
-  justify-content: flex-end;
   border: 1px solid var(--borderColor);
   border-radius: 12px;
+  flex: none;
+  height: 48px;
+  align-items: center;
 }
 
 .postButton {
@@ -17,10 +28,11 @@
 }
 
 #submitText {
-  height: 200px;
+  height: 100%;
   width: 100%;
   resize: none;
   white-space: pre-wrap;
+  padding: 1.4vh;
 }
 
 #uploadButton {
