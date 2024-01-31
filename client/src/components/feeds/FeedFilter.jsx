@@ -27,7 +27,7 @@ const FeedFilter = function({feed}) {
 
       rendered.push(
         <div key={`${color}Filter`} className={`filterCircle ${tag}`} style={style} onClick={()=>{toggleFilter(color)}}>
-            <div className='filterLine'/>
+            <div className='filterLine' style={style}/>
         </div>
       );
     });

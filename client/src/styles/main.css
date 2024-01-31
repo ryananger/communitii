@@ -57,7 +57,7 @@
   margin-bottom: 4px;
   position: relative;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 4px solid transparent;
   box-sizing: border-box;
   z-index: 1;
 }
@@ -68,18 +68,16 @@
   border: 4px solid;
 }
 
-.filterCircle:hover div,
 .filterOff div {
   opacity: 0;
 }
 
 .filterLine {
-  background-color: inherit;
-  width: 23px;
+  width: 22px;
   height: 4px;
   position: absolute;
-  top: 10px;
-  left: 12px;
+  top: 6px;
+  left: 10px;
   z-index: 0;
 }
 
