@@ -62,12 +62,14 @@
   z-index: 1;
 }
 
-.filterCircle:hover {
+.filterCircle:hover,
+.filterOff {
   background-color: white !important;
   border: 4px solid;
 }
 
-.filterCircle:hover div {
+.filterCircle:hover div,
+.filterOff div {
   opacity: 0;
 }
 
