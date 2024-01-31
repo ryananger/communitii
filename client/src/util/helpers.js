@@ -216,6 +216,25 @@ var helpers = {
 
     return posts;
   },
+  sortMessages: function(messages) {
+    var sorted = [];
+
+    for (var uid in messages) {
+      sorted.push({...messages[uid]});
+    }
+
+    sorted.sort(function(a, b) {
+      var keyA = new Date(a.messages[a.messages.length - 1].createdOn),
+          keyB = new Date(b.messages[b.messages.length - 1].createdOn);
+
+      if (keyA > keyB) return -1;
+      if (keyA < keyB) return 1;
+
+      return 0;
+    })
+
+    return sorted;
+  },
   sortFeed: function(feed) {
     feed.sort(function(a, b) {
       var keyA = new Date(a.createdOn),

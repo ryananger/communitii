@@ -20,6 +20,10 @@
   cursor: pointer;
 }
 
+.chatViewEntry:hover {
+  background-color: #bedf8f4d;
+}
+
 .chatBack {
   position: absolute;
   left: 0;

@@ -6,14 +6,14 @@ import {ax, helpers} from 'util';
 import ChatViewEntry from './ChatViewEntry.jsx';
 
 const ChatView = function() {
-  const messages = st.user.messages;
+  var messages = helpers.sortMessages(st.user.messages);
 
   var renderChats = function() {
     var rendered = [];
 
-    for (var uid in messages) {
-      rendered.push(<ChatViewEntry key={uid} entry={messages[uid]}/>);
-    }
+    messages.map(function(message, i) {
+      rendered.push(<ChatViewEntry key={'chatViewEntry_' + i} entry={message}/>);
+    })
 
     return rendered;
   };
