@@ -3,13 +3,13 @@ import st from 'ryscott-st';
 import {helpers, firebase} from 'util';
 
 import SubmitPost from './SubmitPost.jsx';
+import FeedFilter from './FeedFilter.jsx';
 import Feed from './Feed.jsx';
 
 var allString = 'home learn grow work play help ';
 
 const Home = function() {
   const feeds = st.community.feeds;
-  const [feed, setFeed] = useState([]);
   const [homeFilter, setHomeFilter] = st.newState('homeFilter', useState(st.homeFilter || allString));
 
   var handleFilter = function() {
@@ -30,16 +30,15 @@ const Home = function() {
     }
 
     helpers.sortFeed(newFeed);
-    setFeed(newFeed);
+    st.setFeed(newFeed);
   };
 
   useEffect(handleFilter, [homeFilter]);
-  useEffect(()=>{}, [feed]);
 
   return (
     <div className='page v'>
       <SubmitPost />
-      <Feed feed={feed}/>
+      <Feed filter={<FeedFilter />}/>
     </div>
   );
 };

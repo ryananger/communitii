@@ -34,6 +34,7 @@
   padding: 2vh;
   overflow-x: unset;
   overflow-y: scroll;
+  position: relative;
 }
 
 .feedFilter {
@@ -47,6 +48,12 @@
   border: 1px solid var(--borderColor);
   border-radius: 12px;
   flex: none;
+}
+
+.topButton {
+  position: absolute;
+  bottom: 2vh;
+  align-self: flex-end;
 }
 
 .filterCircle {

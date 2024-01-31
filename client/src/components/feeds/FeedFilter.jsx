@@ -1,7 +1,7 @@
 import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
 
-const FeedFilter = function({feed}) {
+const FeedFilter = function() {
   var colors = ['home', 'learn', 'grow', 'work', 'play', 'help'];
 
   var toggleFilter = function(color) {

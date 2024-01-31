@@ -74,6 +74,7 @@
 .editBio {
   margin: 4px;
   padding: 0.5vh 1vh;
+  width: 100%;
   height: 72px;
   resize: none;
 }

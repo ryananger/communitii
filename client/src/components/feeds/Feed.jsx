@@ -4,7 +4,9 @@ import st from 'ryscott-st';
 import Post from './post/Post.jsx';
 import FeedFilter from './FeedFilter.jsx';
 
-const Feed = function({feed}) {
+const Feed = function({filter}) {
+  const feed = st.feed;
+
   var renderFeed = function() {
     var rendered = [];
 
@@ -21,7 +23,7 @@ const Feed = function({feed}) {
 
   return (
     <div className='posts'>
-      {st.view === 'home' && <FeedFilter />}
+      {filter}
       {renderFeed()}
     </div>
   );

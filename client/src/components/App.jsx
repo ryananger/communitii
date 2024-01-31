@@ -34,6 +34,7 @@ const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
   const [color, setColor] = st.newState('color', useState('home'));
   const [user, setUser] = st.newState('user', useState(null));
+  const [feed, setFeed] = st.newState('feed', useState([]));
   const [post, setPost] = st.newState('post', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
   const [profile, setProfile] = st.newState('profile', useState(null));
@@ -98,9 +99,13 @@ const App = function() {
       setColor(view);
     }
 
+    scrollToTop();
+  };
+
+  var scrollToTop = function() {
     var feedEl = document.getElementById('feed');
 
-    feedEl && document.getElementById('feed').scrollTo({top: 0, behavior: 'smooth'});
+    feedEl && feedEl.scrollTo({top: 0, behavior: 'smooth'});
   };
 
   useEffect(userFromCookie, []);

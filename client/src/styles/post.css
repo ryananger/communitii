@@ -1,15 +1,15 @@
 .postContainer {
-  height: 120px;
+  height: 240px;
   width: 100%;
   transition: height 1s;
   flex: none;
 }
 
-.postContainer:hover,
+/* .postContainer:hover,
 .postContainer:has(#submitText:focus) {
   transition: height 0.25s;
   height: 240px;
-}
+} */
 
 .submitButtons {
   background: white;
