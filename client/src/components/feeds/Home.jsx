@@ -10,8 +10,7 @@ var allString = 'home learn grow work play help ';
 
 const Home = function() {
   const feeds = st.community.feeds;
-  const allFeed = [...feeds.home, ...feeds.learn, ...feeds.grow, ...feeds.work, ...feeds.play, ...feeds.help];
-  const [feed, setFeed] = useState(allFeed);
+  const [feed, setFeed] = useState(allFeed(feeds));
   const [homeFilter, setHomeFilter] = st.newState('homeFilter', useState(st.homeFilter || allString));
 
   var handleFilter = function() {
@@ -43,6 +42,21 @@ const Home = function() {
       <Feed feed={feed} filter={<FeedFilter />}/>
     </div>
   );
+};
+
+const allFeed = function(feeds) {
+  var all = [
+    ...feeds.home,
+    ...feeds.learn,
+    ...feeds.grow,
+    ...feeds.work,
+    ...feeds.play,
+    ...feeds.help
+  ];
+
+  helpers.sortFeed(all);
+
+  return all;
 };
 
 export default Home;
