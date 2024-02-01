@@ -3,7 +3,7 @@ import { getAuth,
          createUserWithEmailAndPassword,
          signInWithEmailAndPassword,
          signOut } from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, updateMetadata } from "firebase/storage";
 
 import ax from './ax.js';
 
@@ -59,7 +59,7 @@ var logOut = function() {
 
 var uploadBlob = async function(file, path, resolve) {
   const imgRef = ref(storageRef, path);
-  const meta = {contentType: file.type};
+  const meta = {contentType: file.type, cacheControl: 'public, max-age=31536000'};
 
   var url;
 
@@ -68,6 +68,15 @@ var uploadBlob = async function(file, path, resolve) {
 
     if (resolve) {resolve(url)};
   });
+};
+
+var updateMeta = function(path) {
+  const imgRef = ref(storage, path);
+
+  updateMetadata(imgRef, {cacheControl: 'public, max-age=31536000'})
+    .then((metadata)=>{
+      console.log(metadata);
+    })
 };
 
 var getURL = async function(path) {
@@ -82,7 +91,8 @@ var methods = {
   signIn,
   logOut,
   uploadBlob,
-  getURL
+  getURL,
+  updateMeta
 };
 
 export default methods;

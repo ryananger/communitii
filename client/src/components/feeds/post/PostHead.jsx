@@ -15,6 +15,8 @@ const PostHead = function({post}) {
   const userPost = st.user.uid === post.user.uid;
   const settings = post.user.settings || {};
 
+  const pfpEl = <img className='pfpThumb' src={settings.pfp}/>;
+
   var handleUser = function() {
     var postInfo = '';
 
@@ -31,7 +33,7 @@ const PostHead = function({post}) {
     } else {
       return (
         <div className='postUser h c' onMouseEnter={()=>{setShowCard(true)}}>
-          {settings.pfp && <img className='pfpThumb' src={settings.pfp}/>}
+          {settings.pfp && pfpEl}
           <b>{user.username}</b>
           <small className='postInfo h'>{postInfo}</small>
         </div>

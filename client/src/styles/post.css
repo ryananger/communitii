@@ -94,6 +94,7 @@
 }
 
 .pfpThumb {
+  background-color: white;
   width: 24px;
   aspect-ratio: 1;
   border-radius: 100%;
