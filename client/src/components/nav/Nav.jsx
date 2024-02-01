@@ -9,7 +9,6 @@ const Nav = function({user}) {
   var handleClick = function(view) {
     if (user && user.community) {
       st.setView(view);
-      st.setFeed(st.community.feeds[view]);
     }
   };
 

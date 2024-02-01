@@ -34,7 +34,6 @@ const App = function() {
   const [view, setView] = st.newState('view', useState('find'));
   const [color, setColor] = st.newState('color', useState('home'));
   const [user, setUser] = st.newState('user', useState(null));
-  const [feed, setFeed] = st.newState('feed', useState([]));
   const [post, setPost] = st.newState('post', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
   const [profile, setProfile] = st.newState('profile', useState(null));

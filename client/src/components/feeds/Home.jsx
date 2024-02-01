@@ -10,6 +10,8 @@ var allString = 'home learn grow work play help ';
 
 const Home = function() {
   const feeds = st.community.feeds;
+  const allFeed = [...feeds.home, ...feeds.learn, ...feeds.grow, ...feeds.work, ...feeds.play, ...feeds.help];
+  const [feed, setFeed] = useState(allFeed);
   const [homeFilter, setHomeFilter] = st.newState('homeFilter', useState(st.homeFilter || allString));
 
   var handleFilter = function() {
@@ -30,15 +32,15 @@ const Home = function() {
     }
 
     helpers.sortFeed(newFeed);
-    st.setFeed(newFeed);
+    setFeed(newFeed);
   };
 
-  useEffect(handleFilter, [homeFilter]);
+  useEffect(handleFilter, [homeFilter, st.community]);
 
   return (
     <div className='page v'>
       <SubmitPost />
-      <Feed filter={<FeedFilter />}/>
+      <Feed feed={feed} filter={<FeedFilter />}/>
     </div>
   );
 };

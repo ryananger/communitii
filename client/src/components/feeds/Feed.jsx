@@ -4,9 +4,7 @@ import st from 'ryscott-st';
 import Post from './post/Post.jsx';
 import FeedFilter from './FeedFilter.jsx';
 
-const Feed = function({filter}) {
-  const feed = st.feed;
-
+const Feed = function({feed, filter}) {
   var renderFeed = function() {
     var rendered = [];
 
