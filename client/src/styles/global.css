@@ -12,6 +12,7 @@
 }
 
 .globalEntry {
+  width: 100%;
   font-size: 14px;
   padding: 0.5vh 1vh;
   border-bottom: 1px solid var(--borderColor);

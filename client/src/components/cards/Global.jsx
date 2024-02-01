@@ -4,16 +4,16 @@ import st from 'ryscott-st';
 import {helpers} from 'util';
 
 const updates = [
-  { user: "John", update: "Just witnessed some crazy stuff on the streets. Creatures everywhere!" },
-  { user: "Betty", update: "Government rumors flying around. Time to stock up and make some alliances." },
-  { user: "Gertrude", update: "My gadgets are turning against me! Disconnecting and finding refuge in the wild." },
-  { user: "Mo", update: "More UFO sightings today. Joining the resistance to figure out what's up there." },
-  { user: "Mo", update: "Infections spreading like wildfire. Setting up a quarantine zone. Need a cure ASAP." },
-  { user: "Mo", update: "Detected nuclear fallout. Going underground and adapting to the new normal." },
-  { user: "Mohammad", update: "Experiencing psychic disturbances. Meditating and connecting with other sensitives for insights." },
-  { user: "Mo", update: "Reality warping all around me. Navigating through surreal landscapes. What a trip!" },
-  { user: "John", update: "Alien forces intensifying. Humanity uniting for a stand. Ready for whatever comes our way." },
-  { user: "Alice", update: "Codes and signals disrupted. Deciphering patterns and decrypting the unknown." }
+  { user: "Elon", update: "This app sucks. I can't believe anyone would waste their time." },
+  { user: "Mark", update: "I don't feel safe unless I can click on an ad." },
+  { user: "Gertrude", update: "I'm so glad someone from the neighborhood shoveled my walk today!" },
+  { user: "Mo", update: "President is announcing aliens live." },
+  { user: "Mo", update: "I knew it." },
+  { user: "Mo", update: "The aliens said God is real." },
+  { user: "Mohammad", update: "It's a conspiracy, nothing is real." },
+  { user: "Mo", update: "I guess they need help building their temple, who's coming with?" },
+  { user: "John", update: "An alien brought me pancakes today?" },
+  { user: "Alice", update: "What's with all the pancakes?" }
 ];
 
 const Global = function({user}) {
