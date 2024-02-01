@@ -42,6 +42,8 @@ const App = function() {
   const [isAdmin, setIsAdmin] = useState(null);
   const [adminOpen, setAdminOpen] = useState(false);
 
+  st.colors = ['home', 'learn', 'grow', 'work', 'play', 'help'];
+
   const views = {
     home:  <Home/>,
     learn: <Page feed='learn'/>,

@@ -3,6 +3,7 @@ import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
+import Badges from './Badges.jsx';
 import SubmitPost from '../SubmitPost.jsx';
 import ImageUpload from '../ImageUpload.jsx';
 import Post from '../post/Post.jsx';
@@ -67,9 +68,14 @@ const UserProfile = function() {
           </div>
         }
         {!editBio &&
-          <div className='bio' onClick={()=>{setEditBio(true)}}>
-            <h4>{settings.headline ? settings.headline : 'add a headline'}</h4>
-            {settings.bio ? settings.bio : 'add a bio'}
+          <div className='bio v' onClick={()=>{setEditBio(true)}}>
+            <div>
+              <h4>{settings.headline ? settings.headline : 'add a headline'}</h4>
+              {settings.bio ? settings.bio : 'add a bio'}
+            </div>
+            <div className='anchor h' style={{width: '100%', height: '24px'}}>
+              <Badges roles={settings.roles}/>
+            </div>
           </div>
         }
       </div>

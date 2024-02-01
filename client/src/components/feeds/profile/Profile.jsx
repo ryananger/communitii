@@ -3,6 +3,7 @@ import React, {lazy, useEffect, useState} from 'react';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
+import Badges from './Badges.jsx';
 import Post from '../post/Post.jsx';
 import ProfileCard from './ProfileCard.jsx';
 

@@ -169,7 +169,7 @@ var ax = {
       })
   },
   unfriend: function(sender, uid) {
-    axios.post(process.env.URL + 'api/unfriend', {sender: sender, userId: uid})
+    axios.post(process.env.URL + 'api/unfriend', {sender: sender.uid, userId: uid})
       .then(function(response) {
         st.setUser(response.data);
       })

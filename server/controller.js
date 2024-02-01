@@ -554,7 +554,7 @@ var controller = {
         var newFriends = [];
 
         user.friends.map(function(friend) {
-          if (friend.uid !== sender.uid) {
+          if (friend.uid !== sender) {
             newFriends.push(friend);
           }
         })
@@ -565,7 +565,7 @@ var controller = {
           })
       })
 
-    User.findOne({uid: sender.uid})
+    User.findOne({uid: sender})
       .then(function(user) {
         var newFriends = [];
 
@@ -673,7 +673,7 @@ var controller = {
       })
   },
 
-  fix: function(req, res) {
+  fix: async function(req, res) {
     // Post.deleteMany({})
     //   .then(function() {
     //     console.log('Posts deleted.');
@@ -684,12 +684,20 @@ var controller = {
     //     console.log(response);
     //   })
 
-    User.updateMany({}, {messages: {}})
-      .then(function(response) {
-        console.log(response);
+    var users = await User.find();
 
-        res.send('yay');
-      })
+    users.map(async function(user, i) {
+      var roles = ['Baker', 'Artist', 'Plumber'];
+
+      var newSettings = {...user.settings, roles: [roles[i]]};
+
+      await User.updateOne({uid: user.uid}, {settings: newSettings})
+        .then(function(result) {
+          console.log(newSettings);
+        })
+    })
+
+    res.send('yay');
   }
 };
 

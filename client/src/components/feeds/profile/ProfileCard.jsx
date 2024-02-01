@@ -1,55 +1,36 @@
 import React, {lazy, useEffect, useState} from 'react';
-import {BsPersonFillAdd as AddIcon,
-        BsPersonFillExclamation as PendIcon,
-        BsPersonFillCheck as FriendIcon} from 'react-icons/bs';
-import {BiSolidMessage as MessageIcon, BiSolidUserCircle as UserIcon} from 'react-icons/bi';
 import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
 
 import ProfilePic from './ProfilePic.jsx';
+import Badges from './Badges.jsx';
 
 const ProfileCard = function({user, onProfile}) {
   const [popup, setPopup] = useState(null);
 
   const info = user.settings || {pfp: '', headline: '', bio: ''};
   const otherUser = user.uid !== st.user.uid;
-  const isFriend = function() {
-    var result;
 
-    st.user.friends.map(function(friend) {
-      if (friend.uid.includes('pending.')) {return};
+  var isFriend, pendingFriend, isSender;
 
-      if (friend.uid === user.uid) {
-        result = true;
-      }
-    })
-
-    return result;
-  }();
-
-  const pendingFriend = function() {
-    var result;
-
+  const handleFriend = function() {
     st.user.friends.map(function(friend) {
       if (friend.uid.includes('pending.')) {
-        result = true;
+        pendingFriend = true;
+        return;
+      }
+
+      if (friend.uid === user.uid) {
+        isFriend = true;
       }
     })
-
-    return result;
-  }();
-
-  const isSender = function() {
-    var result = false;
 
     st.user.notifications.map(function(entry) {
       if (entry.type === 'friendPending' && entry.uid === user.uid) {
-        result = true;
+        isSender = true;
       }
-    })
-
-    return result;
+    });
   }();
 
   var handleProfile = function() {
@@ -168,6 +149,7 @@ const ProfileCard = function({user, onProfile}) {
           <small>{info.bio ? info.bio : ''}</small>
         </div>
         <div className='anchor h' style={{width: '100%', justifyContent: 'flex-end'}}>
+          {onProfile && <Badges roles={info.roles}/>}
           {handleFriendIcon()}
           {friendPopup()}
           {otherUser && <icons.MessageIcon className='utilButton grow' onClick={handleMessage} size={24}/>}
