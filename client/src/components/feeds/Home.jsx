@@ -10,8 +10,11 @@ var allString = 'home learn grow work play help ';
 
 const Home = function() {
   const feeds = st.community.feeds;
-  const [feed, setFeed] = useState(allFeed(feeds));
-  const [homeFilter, setHomeFilter] = st.newState('homeFilter', useState(st.homeFilter || allString));
+  const fil = st.homeFilter || allString;
+  const fee = fil === allString ? allFeed(feeds) : st.filtered;
+
+  const [homeFilter, setHomeFilter] = st.newState('homeFilter', useState(fil));
+  const [feed, setFeed] = useState(fee);
 
   var handleFilter = function() {
     var newFeed = [];
@@ -30,6 +33,7 @@ const Home = function() {
       filterFeed(split[i]);
     }
 
+    st.filtered = newFeed;
     helpers.sortFeed(newFeed);
     setFeed(newFeed);
   };
