@@ -9,11 +9,24 @@ const ImageUpload = function({uploads, setUploads}) {
     var rendered = [];
 
     uploads.map(function(entry){
-      if (entry.type === 'image') {
-        rendered.push(<img className='uploadThumb' src={entry.src} key={entry.name}/>);
-      } else {
-        rendered.push(<video className='uploadThumb' src={entry.src} key={entry.name}/>);
-      }
+      var removeUpload = function() {
+        var newUploads = [];
+
+        uploads.map(function(upload) {
+          if (upload.src !== entry.src) {
+            newUploads.push(upload);
+          }
+        })
+
+        setUploads(newUploads);
+      };
+
+      rendered.push(
+        <div key={entry.name} className='anchor h'>
+          <icons.CloseIcon className='uploadRemove float' onClick={removeUpload}/>
+          {entry.type === 'image' && <img className='uploadThumb' src={entry.src}/>}
+          {entry.type === 'video' && <video className='uploadThumb' src={entry.src}/>}
+        </div>);
     })
 
     return rendered;
@@ -21,7 +34,7 @@ const ImageUpload = function({uploads, setUploads}) {
 
   var loadImage = function(event) {
     var input = document.getElementById('imageInput');
-    var newUploads = [];
+    var newUploads = [...uploads];
 
     if (input.files && input.files[0]) {
       var load = function(index) {
@@ -58,11 +71,10 @@ const ImageUpload = function({uploads, setUploads}) {
   };
 
   return (
-    <div className={`imageUpload v`}>
+    <div className={`imageUpload h`}>
       <div className='uploads h'>
         {renderUploads()}
       </div>
-      <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}><icons.AddPhotosIcon size={32}/></div>
       <input type="file" id="imageInput" accept=".jpg, .png, .gif, .mp4, .mov" style={{display: 'none'}} onChange={loadImage} multiple/>
     </div>
   );

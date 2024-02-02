@@ -35,17 +35,30 @@
   padding: 1.4vh;
 }
 
+.imageUpload {
+  align-self: end;
+}
+
+.uploadRemove {
+  top: -8px;
+  right: 0;
+  cursor: pointer;
+}
+
 #uploadButton {
   height: 32px;
   cursor: pointer;
 }
 
 .uploadThumb {
-  height: 120px;
+  height: 72px;
   aspect-ratio: 1;
-  margin: 1vh;
   object-fit: cover;
   border: var(--border);
+  margin-right: 1vh;
+  border-radius: 4px;
+  padding: 4px;
+  background: white;
 }
 
 .posts, .post, .postHead, .postInteract {

@@ -94,6 +94,9 @@ const SubmitPost = function() {
       <textarea id='submitText' placeholder='Say something!'/>
       <div className='submitButtons h'>
         <ImageUpload uploads={uploads} setUploads={setUploads}/>
+        <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}>
+          <icons.AddPhotosIcon size={32}/>
+        </div>
         <icons.SendIcon className='postButton grow' size={30} onClick={handleSubmit} />
       </div>
     </div>
