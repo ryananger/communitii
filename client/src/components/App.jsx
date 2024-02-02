@@ -32,15 +32,16 @@ import CommunityHead from './admin/CommunityHead.jsx';
 const cookie = helpers.cookieParse();
 
 const App = function() {
-  const [view, setView] = st.newState('view', useState('find'));
+  const [view, setView]   = st.newState('view', useState('find'));
   const [color, setColor] = st.newState('color', useState('home'));
-  const [user, setUser] = st.newState('user', useState(null));
-  const [post, setPost] = st.newState('post', useState(null));
-  const [community, setCommunity] = st.newState('community', useState(null));
-  const [profile, setProfile] = st.newState('profile', useState(null));
-  const [chatWith, setChatWith] = st.newState('chatWith', useState(null));
+  const [user, setUser]   = st.newState('user', useState(null));
+  const [post, setPost]   = st.newState('post', useState(null));
 
-  const [isAdmin, setIsAdmin] = useState(null);
+  const [community, setCommunity] = st.newState('community', useState(null));
+  const [profile, setProfile]     = st.newState('profile', useState(null));
+  const [chatWith, setChatWith]   = st.newState('chatWith', useState(null));
+
+  const [isAdmin, setIsAdmin]     = useState(null);
   const [adminOpen, setAdminOpen] = useState(false);
 
   st.colors = ['home', 'learn', 'grow', 'work', 'play', 'help'];
@@ -54,10 +55,10 @@ const App = function() {
     help:  <Page feed='help'/>,
     login: <Login />,
     find:  <Find />,
-    profile: <Profile profile={profile}/>,
+    chat:  <ChatWith />,
+    profile:     <Profile profile={profile}/>,
     userProfile: <UserProfile />,
-    postView: <PostView post={post}/>,
-    chat: <ChatWith />
+    postView:    <PostView post={post}/>
   };
 
   var userFromCookie = function() {

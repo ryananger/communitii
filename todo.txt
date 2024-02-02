@@ -1,7 +1,9 @@
-- notifications for posts/messages
-- chat, window, timestamp, buttons
+- community chat default
+- uploaded image handle
+- notifications for posts
+- chat timestamp, buttons
 - post privacy, hide
-- comment handle
+- reply handle
 - community updates
 - community settings
 - user settings

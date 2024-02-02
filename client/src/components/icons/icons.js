@@ -18,10 +18,13 @@ import {IoMdNotifications as NotificationsIcon,
         IoMdChatbubbles as CommentIcon,
         IoIosInformationCircle as InfoIcon} from 'react-icons/io';
 import {IoCalendar as EventsIcon,
-        IoLibrary as LibraryIcon} from "react-icons/io5";
+        IoLibrary as LibraryIcon,
+        IoChevronForward as NextIcon,
+        IoChevronBack as PrevIcon} from "react-icons/io5";
 import {MdAddToPhotos as AddPhotosIcon,
         MdMinimize as MinIcon,
         MdArrowBack as BackIcon,
+        MdArrowForward as ForwardIcon,
         MdArrowOutward as ExpandIcon} from 'react-icons/md';
 import {SlOptionsVertical as OptionsIcon} from 'react-icons/sl';
 
@@ -52,6 +55,9 @@ const icons = {
   MoneyIcon: MoneyIcon,
   InfoIcon: InfoIcon,
   BackIcon: BackIcon,
+  ForwardIcon: ForwardIcon,
+  NextIcon: NextIcon,
+  PrevIcon: PrevIcon,
   TopIcon: TopIcon,
   ExpandIcon: ExpandIcon
 };

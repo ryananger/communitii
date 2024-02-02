@@ -1,6 +1,7 @@
 import React, {lazy, useEffect, useState} from 'react';
 
 import st from 'ryscott-st';
+import icons from 'icons';
 import {ax} from 'util';
 
 import PostHead from './PostHead.jsx';
@@ -10,15 +11,18 @@ import ReplyInteract from './ReplyInteract.jsx';
 
 const Post = function({post}) {
   const [showReply, setShowReply] = useState(false);
+  const [mediaFull, setMediaFull] = useState(false);
 
   var handleMedia = function(media, type) {
     var rendered = [];
 
     media.map(function(entry, i) {
+      var handleClick = ()=>{setMediaFull({media: media, index: i})};
+
       if (entry.type === 'image') {
-        rendered.push(<img key={i} className={`${type}Image`} src={entry.url}/>);
+        rendered.push(<img id={post._id + 'media' + i} key={i} className={`${type}Image`} src={entry.url} onClick={handleClick} />);
       } else {
-        rendered.push(<video key={i} className={`${type}Video`} src={entry.url} controls/>);
+        rendered.push(<video id={post._id + 'media' + i} key={i} className={`${type}Video`} src={entry.url} onClick={handleClick} controls/>);
       }
     })
 
@@ -44,6 +48,30 @@ const Post = function({post}) {
     return rendered;
   };
 
+  var renderMediaFull = function() {
+    var prevClick = function(e) {
+      e.stopPropagation();
+      setMediaFull({...mediaFull, index: mediaFull.index - 1});
+    };
+
+    var nextClick = function(e) {
+      e.stopPropagation();
+      setMediaFull({...mediaFull, index: mediaFull.index + 1});
+    };
+
+    return (
+      <div id='mediaModal' className='mediaModal h' onClick={()=>{setMediaFull(null)}}>
+        <div style={{width: '48px'}}>
+          {mediaFull.index > 0 && <icons.PrevIcon onClick={prevClick}/>}
+        </div>
+        {handleMedia([mediaFull.media[mediaFull.index]], 'full')}
+        <div style={{width: '48px'}}>
+          {mediaFull.media.length > 1 && mediaFull.index < mediaFull.media.length - 1 && <icons.NextIcon onClick={nextClick}/>}
+        </div>
+      </div>
+    )
+  };
+
   return (
     <div className='post v'>
       <PostHead post={post}/>
@@ -52,6 +80,8 @@ const Post = function({post}) {
       <PostInteract post={post} showReply={showReply} setShowReply={setShowReply}/>
       {showReply && renderReplies()}
       {showReply && <PostReply post={post}/>}
+
+      {mediaFull && renderMediaFull()}
     </div>
   );
 };
