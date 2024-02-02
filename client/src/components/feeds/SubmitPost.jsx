@@ -1,4 +1,4 @@
-import React, {lazy, useEffect, useState} from 'react';
+import React, {lazy, useEffect, useState, useRef} from 'react';
 import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers, firebase} from 'util';
@@ -7,7 +7,10 @@ import ImageUpload from './ImageUpload.jsx';
 
 const SubmitPost = function() {
   const [uploads, setUploads] = useState([]);
+  const el = useRef(null);
+
   const postFeed = st.view === 'userProfile' ? 'home' : st.view;
+  const uid = st.user.uid;
 
   var submitPost = function(post) {
     var newFeed, newFeeds, newPosts, newCommunity;
@@ -28,20 +31,16 @@ const SubmitPost = function() {
   };
 
   var handleSubmit = async function() {
-    var el = document.getElementById('submitText');
-    var text = el.value;
+    var text = el.current.value;
 
     if (uploads.length === 0 && !text) {return};
-
-    var media = [];
-    var uid = st.user.uid;
 
     var post = {
       user: {uid: uid},
       community: st.user.community,
       feed: postFeed,
+      media: [],
       text,
-      media,
       createdOn: new Date().toISOString(),
       likes: [],
       replies: []
@@ -50,10 +49,14 @@ const SubmitPost = function() {
     if (uploads.length === 0) {
       submitPost(post);
 
-      el.value = null;
+      el.current.value = null;
       return;
     }
 
+    handleUploads(post);
+  };
+
+  var handleUploads = function(post) {
     var promises = [];
 
     uploads.map(function(entry) {
@@ -62,7 +65,7 @@ const SubmitPost = function() {
 
       var promise = new Promise(function(resolve) {
         var push = function(url) {
-          media.push({type: entry.type, url});
+          post.media.push({type: entry.type, url});
           resolve(url);
         };
 
@@ -84,14 +87,14 @@ const SubmitPost = function() {
       .then(function(res) {
         submitPost(post);
 
-        el.value = null;
+        el.current.value = null;
         setUploads([]);
       })
   };
 
   return (
     <div className='postContainer v'>
-      <textarea id='submitText' placeholder='Say something!'/>
+      <textarea id='submitText' ref={el} placeholder='Say something!'/>
       <div className='submitButtons h'>
         <ImageUpload uploads={uploads} setUploads={setUploads}/>
         <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}>
