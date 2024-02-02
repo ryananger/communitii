@@ -74,7 +74,7 @@ const SubmitPost = function() {
         };
 
         if (entry.type === 'image') {
-          helpers.resizeImage(entry.file, 800, upload);
+          helpers.resizeImage(entry.file, 1200, upload);
         } else {
           upload(entry.file);
         }

@@ -24,7 +24,8 @@
   width: 420px;
   background: white;
   margin: 0;
-  box-shadow: 0px 2px 2px 0px #b365734a;
+  box-shadow: 0px 2px 8px 0px #b365734a;
+  z-index: 9;
 }
 
 .friendPopup {

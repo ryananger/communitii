@@ -4,7 +4,7 @@ import {ax, helpers} from 'util';
 import ProfileCard from '../profile/ProfileCard.jsx';
 import Options from '../Options.jsx';
 
-const PostHead = function({post}) {
+const PostHead = function({post, reply}) {
   const [showCard, setShowCard] = useState(false);
   const el = useRef(null);
 
@@ -20,7 +20,7 @@ const PostHead = function({post}) {
   var handleUser = function() {
     var postInfo = '';
 
-    if (['home', 'profile', 'userProfile'].includes(st.view)) {
+    if (!reply && ['home', 'profile', 'userProfile'].includes(st.view)) {
       postInfo = `in ${post.feed}`;
     }
 
@@ -42,15 +42,17 @@ const PostHead = function({post}) {
   };
 
   var handleClick = async function(e) {
+    if (reply) {return};
+
     e.target === el.current && ax.getPost(post._id);
   };
 
   return (
-    <div className='postHead h' ref={el} style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
+    <div className={`postHead ${reply ? 'replyHead': ''} h`} ref={el} style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
         <div className='postDate'><small>{timeText}</small></div>
-        {userPost && <Options post={post}/>}
+        {userPost && !reply && <Options post={post}/>}
       </div>
     </div>
   )

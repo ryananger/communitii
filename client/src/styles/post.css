@@ -157,7 +157,9 @@
 }
 
 .postImage,
-.postVideo {
+.postVideo,
+.replyImage,
+.replyVideo {
   margin: 1vh;
   max-height: 600px;
   width: 90%;
@@ -167,7 +169,9 @@
 }
 
 .postSmallImage,
-.postSmallVideo {
+.postSmallVideo,
+.replySmallImage,
+.replySmallVideo {
   aspect-ratio: 1;
   margin: 1vh;
   max-width: 20%;
@@ -197,6 +201,7 @@
   max-height: 90vh;
   border-radius: 4px;
   box-shadow: 0px 0px 50px 0px #180d0dab;
+  cursor: zoom-out;
 }
 
 .likeContainer {
@@ -231,6 +236,12 @@
   border-top: var(--border);
 }
 
+.replyHead {
+  padding: 0.5vh;
+  background-color: transparent !important;
+  cursor: default;
+}
+
 .replyText {
   border-radius: 8px;
   height: 40px;
@@ -257,12 +268,13 @@
   max-width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
+  padding: 1vh;
 }
 
 .replyUpload::-webkit-scrollbar {
   background: var(--white);
   border-style: none;
-  height: 0.8vw;
+  height: 0.5vh;
   min-height: 6px;
 
   width: 100%;
@@ -291,25 +303,12 @@
   border-left: var(--border);
 }
 
-.replyHead {
-  padding: 1vh;
-}
-
 .replyContent {
   justify-content: flex-start;
   align-items: flex-start;
   height: 100%;
   width: 100%;
   padding: 2vh 1vh;
-}
-
-.replyImage,
-.replyVideo {
-  margin: 1vh 0.25vh;
-  border-radius: 4px;
-  border: var(--border);
-  max-width: 90%;
-  max-height: 400px;
 }
 
 .replyMedia {

@@ -38,7 +38,7 @@ const Post = function({post}) {
     post.replies.map(function(reply, i) {
       rendered.push(
         <div key={'reply' + i} className='replyBody v'>
-          <div className='replyHead'><small><b>{reply.user.username}</b></small></div>
+          <PostHead post={reply} reply/>
           {reply.text && <div className='replyContent v'>{reply.text}</div>}
           {reply.media[0] && <div className='replyMedia h'>{handleMedia(reply.media, 'reply')}</div>}
           <ReplyInteract post={reply}/>
