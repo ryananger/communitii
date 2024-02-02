@@ -124,6 +124,7 @@
   padding: 0.5vh 1vh;
   border-bottom: var(--border);
   text-align: center;
+  cursor: pointer;
 }
 
 .utilButton {

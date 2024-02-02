@@ -18,11 +18,12 @@ const Post = function({post}) {
 
     media.map(function(entry, i) {
       var handleClick = ()=>{setMediaFull({media: media, index: i})};
+      var tag = i !== 0 ? 'Small' : '';
 
       if (entry.type === 'image') {
-        rendered.push(<img id={post._id + 'media' + i} key={i} className={`${type}Image`} src={entry.url} onClick={handleClick} />);
+        rendered.push(<img key={i} className={`${type}${tag}Image`} src={entry.url} onClick={handleClick} />);
       } else {
-        rendered.push(<video id={post._id + 'media' + i} key={i} className={`${type}Video`} src={entry.url} onClick={handleClick} controls/>);
+        rendered.push(<video key={i} className={`${type}${tag}Video`} src={entry.url} onClick={handleClick} controls/>);
       }
     })
 
@@ -49,24 +50,21 @@ const Post = function({post}) {
   };
 
   var renderMediaFull = function() {
-    var prevClick = function(e) {
-      e.stopPropagation();
-      setMediaFull({...mediaFull, index: mediaFull.index - 1});
-    };
+    var handleClick = function(e, type) {
+      var val = type === 'next' ? 1 : -1;
 
-    var nextClick = function(e) {
       e.stopPropagation();
-      setMediaFull({...mediaFull, index: mediaFull.index + 1});
+      setMediaFull({...mediaFull, index: mediaFull.index + val});
     };
 
     return (
       <div id='mediaModal' className='mediaModal h' onClick={()=>{setMediaFull(null)}}>
-        <div style={{width: '48px'}}>
-          {mediaFull.index > 0 && <icons.PrevIcon onClick={prevClick}/>}
+        <div style={{width: '48px', cursor: 'pointer'}}>
+          {mediaFull.index > 0 && <icons.PrevIcon onClick={(e)=>{handleClick(e, 'prev')}}/>}
         </div>
         {handleMedia([mediaFull.media[mediaFull.index]], 'full')}
-        <div style={{width: '48px'}}>
-          {mediaFull.media.length > 1 && mediaFull.index < mediaFull.media.length - 1 && <icons.NextIcon onClick={nextClick}/>}
+        <div style={{width: '48px', cursor: 'pointer'}}>
+          {mediaFull.media.length > 1 && mediaFull.index < mediaFull.media.length - 1 && <icons.NextIcon onClick={(e)=>{handleClick(e, 'next')}}/>}
         </div>
       </div>
     )
@@ -76,7 +74,7 @@ const Post = function({post}) {
     <div className='post v'>
       <PostHead post={post}/>
       {post.text && <div className='postContent v'>{post.text}</div>}
-      {post.media[0] && <div className='postMedia v'>{handleMedia(post.media, 'post')}</div>}
+      {post.media[0] && <div className='postMedia h'>{handleMedia(post.media, 'post')}</div>}
       <PostInteract post={post} showReply={showReply} setShowReply={setShowReply}/>
       {showReply && renderReplies()}
       {showReply && <PostReply post={post}/>}
