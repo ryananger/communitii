@@ -21,7 +21,8 @@ import {IoCalendar as EventsIcon,
         IoLibrary as LibraryIcon} from "react-icons/io5";
 import {MdAddToPhotos as AddPhotosIcon,
         MdMinimize as MinIcon,
-        MdArrowBack as BackIcon} from 'react-icons/md';
+        MdArrowBack as BackIcon,
+        MdArrowOutward as ExpandIcon} from 'react-icons/md';
 import {SlOptionsVertical as OptionsIcon} from 'react-icons/sl';
 
 
@@ -51,7 +52,8 @@ const icons = {
   MoneyIcon: MoneyIcon,
   InfoIcon: InfoIcon,
   BackIcon: BackIcon,
-  TopIcon: TopIcon
+  TopIcon: TopIcon,
+  ExpandIcon: ExpandIcon
 };
 
 export default icons;

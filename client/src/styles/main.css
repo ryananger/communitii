@@ -31,7 +31,7 @@
 .feed {
   width: 100%;
   height: 100%;
-  padding: 2vh;
+  padding: 1vh 2vh;
   overflow-x: unset;
   overflow-y: scroll;
   position: relative;

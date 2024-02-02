@@ -6,6 +6,7 @@ import {ax, helpers} from 'util';
 const ChatWith = function() {
   const chatWith = st.chatWith;
   const [messages, setMessages] = useState([]);
+  const expanded = st.view === 'chat';
 
   var renderMessages = function() {
     var rendered = [];
@@ -62,6 +63,8 @@ const ChatWith = function() {
     };
 
     ax.sendMessage(message);
+
+    setMessages([...messages, message]);
   };
 
   var handleInput = function(e) {
@@ -89,6 +92,11 @@ const ChatWith = function() {
     document.getElementById('chatCard').style = "flex: 1 1 auto;";
   };
 
+  var handleExpand = function() {
+    st.lastView = st.view;
+    st.setView('chat');
+  };
+
   useEffect(()=>{
     document.getElementById('chatInput').focus();
   }, [chatWith]);
@@ -96,9 +104,11 @@ const ChatWith = function() {
   useEffect(scrollToBottom, [messages]);
 
   return (
-    <div className='chatBox v'>
-      <icons.BackIcon className='chatBack' size={24} onClick={()=>{st.setChatWith(null)}}/>
-      <div className='chatUserInfo v' onClick={()=>{ax.getProfile(chatWith.uid)}}>
+    <div className={`chatBox ${expanded ? 'card' : ''} v`}>
+      {!expanded && <icons.BackIcon className='chatBack' size={24} onClick={()=>{st.setChatWith(null)}}/>}
+      {!expanded && <icons.ExpandIcon className='chatExpand' size={20} onClick={handleExpand}/>}
+      {expanded && <icons.CloseIcon className='chatExpand' size={20} onClick={()=>{st.setView(st.lastView)}}/>}
+      <div className={`chatUserInfo ${expanded ? 'chatUserInfoExpanded' : ''} v`} onClick={()=>{ax.getProfile(chatWith.uid)}}>
         {chatWith.settings.pfp && <img className='chatThumb' src={chatWith.settings.pfp}/>}
         {chatWith.username}
       </div>

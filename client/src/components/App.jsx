@@ -11,7 +11,8 @@ import Nav from './nav/Nav.jsx';
 import Card from './cards/Card.jsx';
 import ActionBox from './ActionBox.jsx';
 import Friends from './cards/Friends.jsx';
-import Chat from './cards/Chat.jsx';
+import Chat from './cards/chat/Chat.jsx';
+import ChatWith from './cards/chat/ChatWith.jsx';
 import Global from './cards/Global.jsx';
 
 import Home from './feeds/Home.jsx';
@@ -37,6 +38,7 @@ const App = function() {
   const [post, setPost] = st.newState('post', useState(null));
   const [community, setCommunity] = st.newState('community', useState(null));
   const [profile, setProfile] = st.newState('profile', useState(null));
+  const [chatWith, setChatWith] = st.newState('chatWith', useState(null));
 
   const [isAdmin, setIsAdmin] = useState(null);
   const [adminOpen, setAdminOpen] = useState(false);
@@ -54,7 +56,8 @@ const App = function() {
     find:  <Find />,
     profile: <Profile profile={profile}/>,
     userProfile: <UserProfile />,
-    postView: <PostView post={post}/>
+    postView: <PostView post={post}/>,
+    chat: <ChatWith />
   };
 
   var userFromCookie = function() {
@@ -96,7 +99,7 @@ const App = function() {
   var handleView = function() {
     if (['find', 'profile', 'userProfile'].includes(view)) {
       setColor('home');
-    } else if (view !== 'postView') {
+    } else if (view !== 'postView' && view !== 'chat') {
       setColor(view);
     }
 

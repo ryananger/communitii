@@ -7,11 +7,16 @@ import ChatWith from './ChatWith.jsx';
 import ChatView from './ChatView.jsx';
 
 const Chat = function() {
-  const [chatWith, setChatWith] = st.newState('chatWith', useState(null));
+  const chatWith = st.chatWith;
+  const expanded = st.view === 'chat';
 
-  if (!chatWith && st.user) {return <ChatView />};
-
-  if (chatWith) {return <ChatWith />};
+  return (
+    <div className='chatContainer v'>
+      {!chatWith && st.user && <ChatView />}
+      {expanded && <ChatView />}
+      {chatWith && !expanded && <ChatWith />}
+    </div>
+  )
 };
 
 export default Chat;
