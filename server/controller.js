@@ -207,6 +207,14 @@ var controller = {
           .then(function(post) {
             console.log('Created post.');
 
+            var pushPost = function() {
+              User.findOneAndUpdate({uid: uid}, {$push: {posts: ObjectId(post._id)}}, {new: true})
+                .then(function(user) {
+                  pusher.trigger(`${user.community}`, 'communityUpdate', {text: 'New post.'});
+                  res.send({success: true});
+                })
+            };
+
             if (post.parent) {
               Post.findOne({_id: post.parent})
                 .populate('user')
@@ -215,6 +223,8 @@ var controller = {
                     .then(function() {
                       console.log(`Added reply to post.`);
                     })
+
+                  pushPost();
 
                   if (user.uid === parent.user.uid) {return};
 
@@ -230,15 +240,10 @@ var controller = {
 
                       pusher.trigger(parent.user.uid, 'userUpdate', {update: replyNote});
                     })
-
                 })
+            } else {
+              pushPost();
             }
-
-            User.findOneAndUpdate({uid: uid}, {$push: {posts: ObjectId(post._id)}}, {new: true})
-              .then(function(user) {
-                pusher.trigger(`${user.community}`, 'communityUpdate', {text: 'New post.'});
-                res.send({success: true});
-              })
           })
       })
   },

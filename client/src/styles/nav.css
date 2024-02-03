@@ -125,6 +125,9 @@
   border-bottom: var(--border);
   text-align: center;
   cursor: pointer;
+  min-height: 36px;
+  justify-content: center;
+  flex: none;
 }
 
 .utilButton {
