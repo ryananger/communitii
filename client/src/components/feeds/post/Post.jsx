@@ -13,6 +13,10 @@ const Post = function({post}) {
   const [showReply, setShowReply] = useState(st.view === 'postView');
   const [mediaFull, setMediaFull] = useState(false);
 
+  if (st.view === 'postView') {
+    st.setColor(post.feed);
+  }
+
   var handleMedia = function(media, type) {
     var rendered = [];
 

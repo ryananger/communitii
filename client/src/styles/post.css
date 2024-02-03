@@ -45,6 +45,7 @@
   overflow: scroll;
   padding: 1vh;
   margin-right: 1vh;
+  user-select: none;
 }
 
 .uploadRemove {
@@ -155,6 +156,7 @@
   margin-bottom: 1vh;
   flex-wrap: wrap;
   justify-content: center;
+  user-select: none;
 }
 
 .postImage,
@@ -316,8 +318,9 @@
 .replyMedia {
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   padding: 1vh;
+  user-select: none;
 }
 
 .replyInteract {

@@ -7,6 +7,7 @@ import {ax, helpers} from 'util';
 const Pusher = function({admin}) {
   const [userMount, setUserMount] = useState(false);
   const [commMount, setCommMount] = useState(false);
+  const [postMount, setPostMount] = useState(false);
 
   var mountUser = function() {
     if (!st.user) {setUserMount(false)};
@@ -52,6 +53,20 @@ const Pusher = function({admin}) {
     }
   };
 
+  var mountPost = function() {
+    if (!st.post) {
+      pusher.unsubscribe(postMount);
+    } else {
+      const postChannel = pusher.subscribe(st.post._id);
+
+      postChannel.bind('postUpdate', function() {
+        ax.getPost(st.post._id);
+      })
+
+      setPostMount(st.post._id);
+    }
+  };
+
   var isAdmin = function() {
     var result = false;
 
@@ -66,6 +81,7 @@ const Pusher = function({admin}) {
 
   useEffect(mountUser, [st.user]);
   useEffect(mountComm, [st.community]);
+  useEffect(mountPost, [st.post]);
 };
 
 export default Pusher;

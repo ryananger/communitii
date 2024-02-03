@@ -221,6 +221,7 @@ var controller = {
                 .then(function(parent) {
                   Post.updateOne({_id: post.parent}, {$push: {replies: ObjectId(post._id)}})
                     .then(function() {
+                      pusher.trigger(post.parent, 'postUpdate', {text: 'New reply.'});
                       console.log(`Added reply to post.`);
                     })
 

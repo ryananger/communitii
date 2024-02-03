@@ -1,5 +1,4 @@
 - community chat default
-- fix postView submitPost spoof
 - chat timestamp, buttons
 - post privacy, hide
 - reply handle

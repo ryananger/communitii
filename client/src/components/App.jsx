@@ -104,6 +104,10 @@ const App = function() {
       setColor(view);
     }
 
+    if (view !== 'postView') {
+      setPost(null);
+    }
+
     scrollToTop();
   };
 
