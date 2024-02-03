@@ -71,7 +71,7 @@ const ImageUpload = function({uploads, setUploads}) {
   };
 
   return (
-    <div className={`imageUpload h`}>
+    <div className={`imageUpload h`} style={uploads[0] ? {display: 'block'} : {display: 'none'}}>
       <div className='uploads h'>
         {renderUploads()}
       </div>

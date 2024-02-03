@@ -40,10 +40,11 @@
 
 .imageUpload {
   width: 100%;
-  height: 100px;
   align-items: end;
   align-self: end;
   overflow: scroll;
+  padding: 1vh;
+  margin-right: 1vh;
 }
 
 .uploadRemove {
@@ -58,7 +59,7 @@
 }
 
 .uploadThumb {
-  height: 72px;
+  height: 60px;
   aspect-ratio: 1;
   object-fit: cover;
   border: var(--border);
@@ -271,7 +272,8 @@
   padding: 1vh;
 }
 
-.replyUpload::-webkit-scrollbar {
+.replyUpload::-webkit-scrollbar,
+.imageUpload::-webkit-scrollbar {
   background: var(--white);
   border-style: none;
   height: 0.5vh;
