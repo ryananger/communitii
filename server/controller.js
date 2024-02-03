@@ -254,6 +254,7 @@ var controller = {
     if (parent) {
       Post.updateOne({_id: parent}, {$pull: {replies: ObjectId(_id)}})
         .then(function(result) {
+          pusher.trigger(parent, 'postUpdate', {text: 'Deleted reply.'});
           console.log('Deleted reply from parent.');
         })
     }

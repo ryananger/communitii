@@ -102,9 +102,6 @@ const App = function() {
       setColor('home');
     } else if (view !== 'postView' && view !== 'chat') {
       setColor(view);
-    }
-
-    if (view !== 'postView') {
       setPost(null);
     }
 
