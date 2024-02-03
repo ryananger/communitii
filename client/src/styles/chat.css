@@ -69,7 +69,7 @@
 .chatMessages {
   width: 100%;
   height: calc(100% - 82px);
-  overflow: auto;
+  overflow: scroll;
   overflow-x: hidden;
 }
 

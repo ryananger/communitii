@@ -10,7 +10,7 @@ import PostReply from './PostReply.jsx';
 import ReplyInteract from './ReplyInteract.jsx';
 
 const Post = function({post}) {
-  const [showReply, setShowReply] = useState(false);
+  const [showReply, setShowReply] = useState(st.view === 'postView');
   const [mediaFull, setMediaFull] = useState(false);
 
   var handleMedia = function(media, type) {

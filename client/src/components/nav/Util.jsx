@@ -31,6 +31,7 @@ const Util = function({user}) {
     user.notifications.map(function(entry, i) {
       var handleClick = function() {
         ['friendConfirmed', 'friendAdded'].includes(entry.type) && ax.getProfile(entry.uid);
+        entry.type === 'newReply' && ax.getPost(entry._id);
       };
 
       var render = (

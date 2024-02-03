@@ -1,6 +1,5 @@
 - community chat default
-- uploaded image handle
-- notifications for posts
+- fix postView submitPost spoof
 - chat timestamp, buttons
 - post privacy, hide
 - reply handle

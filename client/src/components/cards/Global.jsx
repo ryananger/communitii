@@ -4,8 +4,7 @@ import st from 'ryscott-st';
 import {helpers} from 'util';
 
 const updates = [
-  { user: "Elon", update: "This app sucks. I can't believe anyone would waste their time." },
-  { user: "Mark", update: "I don't feel safe unless I can click on an ad." },
+  { user: "Mark", update: "So many beans growing at the garden. Come get some!" },
   { user: "Gertrude", update: "I'm so glad someone from the neighborhood shoveled my walk today!" },
   { user: "Mo", update: "President is announcing aliens live." },
   { user: "Mo", update: "I knew it." },

@@ -208,9 +208,29 @@ var controller = {
             console.log('Created post.');
 
             if (post.parent) {
-              Post.findOneAndUpdate({_id: post.parent}, {$push: {replies: ObjectId(post._id)}}, {new: true})
-                .then(function(post) {
-                  console.log(`Added reply to post ${post._id}.`);
+              Post.findOne({_id: post.parent})
+                .populate('user')
+                .then(function(parent) {
+                  Post.updateOne({_id: post.parent}, {$push: {replies: ObjectId(post._id)}})
+                    .then(function() {
+                      console.log(`Added reply to post.`);
+                    })
+
+                  if (user.uid === parent.user.uid) {return};
+
+                  var replyNote = {
+                    type: 'newReply',
+                    _id: post.parent,
+                    text: `${user.username} replied to your post.`
+                  };
+
+                  User.updateOne({_id: parent.user._id}, {$push: {notifications: replyNote}})
+                    .then(function() {
+                      console.log(`Added reply notification to user.`);
+
+                      pusher.trigger(parent.user.uid, 'userUpdate', {update: replyNote});
+                    })
+
                 })
             }
 
