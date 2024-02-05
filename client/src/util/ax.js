@@ -171,7 +171,7 @@ var ax = {
     axios.get(process.env.URL + 'api/posts/' + _id)
       .then(function(response) {
         if (!response.data) {
-          st.setView('home');
+          helpers.alert('Post not found.');
           return;
         }
 

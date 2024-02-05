@@ -22,6 +22,7 @@ const ChatWith = function() {
       var thisDate = new Date(message.createdOn);
       var dateText = helpers.chatDate(thisDate);
       var dateEl = <small className='dateEl'>{dateText}</small>;
+      var style = i === 0 ? {borderTop: 'none', marginTop: '0'}: {};
 
       if (!addHead && lastDate !== thisDate.getDate()) {
         addHead = true;
@@ -30,7 +31,7 @@ const ChatWith = function() {
       rendered.push(
         <div key={message.user.uid + i} className='messageEntry v'>
           {addHead &&
-            <div className={`messageHead ${tag} h`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
+            <div className={`messageHead ${tag} h`} style={style} onClick={()=>{!userSent && ax.getProfile(message.user.uid)}}>
               {tag === 'userSent' && dateEl}
               {message.user.username}
               {tag === 'friendSent' && dateEl}

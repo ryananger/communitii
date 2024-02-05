@@ -102,6 +102,10 @@
   opacity: 0.8;
 }
 
+.messageHead:is(.friendSent) {
+  cursor: pointer;
+}
+
 .messageText {
   white-space: pre-wrap;
 }

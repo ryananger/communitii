@@ -1,6 +1,6 @@
 - community chat unread
 
-- chat timestamp, buttons
+- chat buttons
 - post edit, privacy, hide
 - community updates
 - community settings
