@@ -39,12 +39,12 @@
 }
 
 .imageUpload {
-  width: 100%;
+  max-width: calc(100% - 2vh);
   align-items: end;
   align-self: end;
   overflow: scroll;
   padding: 1vh;
-  margin-right: 1vh;
+  margin: 0 1vh;
   user-select: none;
 }
 

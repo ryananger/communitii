@@ -53,51 +53,21 @@ const SubmitPost = function() {
       return;
     }
 
-    handleUploads(post);
-  };
+    var cb = function() {
+      submitPost(post);
+      setUploads([]);
+      el.current.value = null;
+    };
 
-  var handleUploads = function(post) {
-    var promises = [];
-
-    uploads.map(function(entry) {
-      var split = entry.file.name.split('.');
-      var path = split[0] + Date.now() + uid + '.' + split[1];
-
-      var promise = new Promise(function(resolve) {
-        var push = function(url) {
-          post.media.push({type: entry.type, url});
-          resolve(url);
-        };
-
-        var upload = function(file) {
-          firebase.uploadBlob(file, path, push);
-        };
-
-        if (entry.type === 'image') {
-          helpers.resizeImage(entry.file, 1200, upload);
-        } else {
-          upload(entry.file);
-        }
-      });
-
-      promises.push(promise);
-    });
-
-    Promise.all(promises)
-      .then(function(res) {
-        submitPost(post);
-
-        el.current.value = null;
-        setUploads([]);
-      })
+    helpers.loadMedia(uploads, post.media, cb);
   };
 
   return (
     <div className='postContainer v'>
       <textarea id='submitText' ref={el} placeholder='Say something!'/>
       <div className='submitButtons h'>
-        <ImageUpload uploads={uploads} setUploads={setUploads}/>
-        <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('imageInput').click()}}>
+        <ImageUpload uploads={uploads} setUploads={setUploads} id='post'/>
+        <div id="uploadButton" className='grow' onClick={()=>{document.getElementById('postImageInput').click()}}>
           <icons.AddPhotosIcon size={32}/>
         </div>
         <icons.SendIcon className='postButton grow' size={30} onClick={handleSubmit} />

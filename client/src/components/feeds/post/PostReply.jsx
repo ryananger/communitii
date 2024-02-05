@@ -3,7 +3,7 @@ import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, firebase} from 'util';
 
-import ReplyUpload from './ReplyUpload.jsx';
+import ImageUpload from '../ImageUpload.jsx';
 
 const PostReply = function({post}) {
   const [uploads, setUploads] = useState([]);
@@ -75,7 +75,7 @@ const PostReply = function({post}) {
   return (
     <div className='replyContainer v'>
       <textarea id={`replyText${post._id}`} className='replyText' placeholder='post a comment'/>
-      <ReplyUpload uploads={uploads} setUploads={setUploads}/>
+      <ImageUpload uploads={uploads} setUploads={setUploads} id='reply'/>
       <div className='replyButtons'>
         <icons.AddPhotosIcon className='replyButton grow' onClick={()=>{document.getElementById('replyImageInput').click()}} size={20}/>
         <icons.SendIcon className='replyButton grow' onClick={handleSubmit} size={20}/>

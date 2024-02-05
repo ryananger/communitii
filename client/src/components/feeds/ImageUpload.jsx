@@ -1,10 +1,9 @@
-import React, {lazy, useEffect, useState} from 'react';
+import React, {lazy, useEffect, useState, useRef} from 'react';
 import icons from 'icons';
 
-import st from 'ryscott-st';
-import {helpers, firebase} from 'util';
+const ImageUpload = function({uploads, setUploads, id}) {
+  const imageLoadEl = useRef(null);
 
-const ImageUpload = function({uploads, setUploads}) {
   var renderUploads = function() {
     var rendered = [];
 
@@ -32,8 +31,8 @@ const ImageUpload = function({uploads, setUploads}) {
     return rendered;
   };
 
-  var loadImage = function(event) {
-    var input = document.getElementById('imageInput');
+  var loadImage = function() {
+    var input = imageLoadEl.current;
     var newUploads = [...uploads];
 
     if (input.files && input.files[0]) {
@@ -71,11 +70,11 @@ const ImageUpload = function({uploads, setUploads}) {
   };
 
   return (
-    <div className={`imageUpload h`} style={uploads[0] ? {display: 'block'} : {display: 'none'}}>
+    <div className={`imageUpload h`} style={uploads[0] ? {display: 'flex'} : {display: 'none'}}>
       <div className='uploads h'>
         {renderUploads()}
       </div>
-      <input type="file" id="imageInput" accept=".jpg, .png, .gif, .mp4, .mov" style={{display: 'none'}} onChange={loadImage} multiple/>
+      <input type="file" id={`${id}ImageInput`} ref={imageLoadEl} accept=".jpg, .png, .gif, .mp4, .mov" style={{display: 'none'}} onChange={loadImage} multiple/>
     </div>
   );
 };

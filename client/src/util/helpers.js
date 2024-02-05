@@ -190,6 +190,35 @@ var helpers = {
       return `${split[1]} ${split[2]}   ${timeString}`;
     }
   },
+  loadMedia: function(uploads, media, cb) {
+    var promises = [];
+
+    uploads.map(function(entry) {
+      var split = entry.file.name.split('.');
+      var path = split[0] + Date.now() + st.user.uid + '.' + split[1];
+
+      var promise = new Promise(function(resolve) {
+        var push = function(url) {
+          media.push({type: entry.type, url});
+          resolve(url);
+        };
+
+        var upload = function(file) {
+          firebase.uploadBlob(file, path, push);
+        };
+
+        if (entry.type === 'image') {
+          helpers.resizeImage(entry.file, 1200, upload);
+        } else {
+          upload(entry.file);
+        }
+      });
+
+      promises.push(promise);
+    });
+
+    Promise.all(promises).then(cb);
+  },
   resizeImage: function(file, width, resolve) {
     var reader = new FileReader();
 
