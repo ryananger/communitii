@@ -16,17 +16,19 @@ const ChatWith = function() {
       if (!message.text) {return};
 
       var userSent = message.user._id === st.user._id;
-      var tag = `${userSent ? 'userSent' : 'friendSent'}`;
+      var tag = userSent ? 'userSent' : 'friendSent';
       var addHead = current === message.user.uid ? false : true;
+      var date = helpers.timeSince(new Date(message.createdOn));
+      var dateEl = <small className='dateEl'>{date}</small>;
 
       rendered.push(
         <div key={message.user.uid + i} className='messageEntry v'>
           {addHead &&
-            <div className={`messageHead ${tag} v`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
-              {message.user.username}
+            <div className={`messageHead ${tag} h`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
+              {tag === 'userSent' && dateEl}{message.user.username}{tag === 'friendSent' && dateEl}
             </div>
           }
-          <div className={`messageText ${tag} v`}>{message.text}</div>
+          <div className={`messageText ${tag} h`}>{message.text}</div>
         </div>
       );
 

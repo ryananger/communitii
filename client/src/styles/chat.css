@@ -92,13 +92,22 @@
   margin-top: 2px;
 }
 
+.dateEl {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.messageHead:hover .dateEl {
+  opacity: 0.8;
+}
+
 .messageText {
   white-space: pre-wrap;
 }
 
-.userSent {
+.userSent:not(.messageHead) {
   text-align: right;
-  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .chatInputContainer {
