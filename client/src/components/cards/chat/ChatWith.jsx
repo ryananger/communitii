@@ -11,6 +11,7 @@ const ChatWith = function() {
   var renderMessages = function() {
     var rendered = [];
     var current = null;
+    var lastDate = null;
 
     messages.map(function(message, i) {
       if (!message.text) {return};
@@ -18,14 +19,21 @@ const ChatWith = function() {
       var userSent = message.user._id === st.user._id;
       var tag = userSent ? 'userSent' : 'friendSent';
       var addHead = current === message.user.uid ? false : true;
-      var date = helpers.timeSince(new Date(message.createdOn));
-      var dateEl = <small className='dateEl'>{date}</small>;
+      var thisDate = new Date(message.createdOn);
+      var dateText = helpers.chatDate(thisDate);
+      var dateEl = <small className='dateEl'>{dateText}</small>;
+
+      if (!addHead && lastDate !== thisDate.getDate()) {
+        addHead = true;
+      }
 
       rendered.push(
         <div key={message.user.uid + i} className='messageEntry v'>
           {addHead &&
             <div className={`messageHead ${tag} h`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
-              {tag === 'userSent' && dateEl}{message.user.username}{tag === 'friendSent' && dateEl}
+              {tag === 'userSent' && dateEl}
+              {message.user.username}
+              {tag === 'friendSent' && dateEl}
             </div>
           }
           <div className={`messageText ${tag} h`}>{message.text}</div>
@@ -33,6 +41,7 @@ const ChatWith = function() {
       );
 
       current = message.user.uid;
+      lastDate = new Date(message.createdOn).getDate();
     })
 
     return rendered;

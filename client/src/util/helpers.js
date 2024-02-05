@@ -167,6 +167,29 @@ var helpers = {
     }
     return null;
   },
+  chatDate: function(date) {
+    var today = new Date();
+    var isToday = function() {
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getYear() === today.getYear()
+      );
+    }();
+
+    var spc = date.toLocaleTimeString('en-US').split(' ');
+    var col = spc[0].split(':');
+
+    var timeString = `${col[0]}:${col[1]} ${spc[1]}`
+
+    if (isToday) {
+      return timeString;
+    } else {
+      var split = date.toDateString().split(' ');
+
+      return `${split[1]} ${split[2]}   ${timeString}`;
+    }
+  },
   resizeImage: function(file, width, resolve) {
     var reader = new FileReader();
 

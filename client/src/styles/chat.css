@@ -95,6 +95,7 @@
 .dateEl {
   opacity: 0;
   transition: opacity 0.5s;
+  align-self: flex-end;
 }
 
 .messageHead:hover .dateEl {
