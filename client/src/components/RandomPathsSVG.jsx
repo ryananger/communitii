@@ -18,8 +18,8 @@ function RandomPathsSVG({color}) {
 
   return (
     <svg className="randomPaths" xmlns="http://www.w3.org/2000/svg" style={{position: 'fixed'}}>
-      <path d={svgPath1} fill={`var(--${fill})`} style={{transition: 'fill 2s'}} fillOpacity="0.25"/>
-      <path d={svgPath2} fill={`var(--${fill})`} style={{transition: 'fill 2s'}} fillOpacity="0.15"/>
+      <path d={svgPath1} fill={`var(--${fill})`} style={{transition: 'fill 1s'}} fillOpacity="0.25"/>
+      <path d={svgPath2} fill={`var(--${fill})`} style={{transition: 'fill 1s'}} fillOpacity="0.15"/>
     </svg>
   );
 }

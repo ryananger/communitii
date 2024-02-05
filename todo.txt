@@ -1,10 +1,7 @@
 - community chat unread
 
 - chat timestamp, buttons
-- post privacy, hide
+- post edit, privacy, hide
 - community updates
 - community settings
 - user settings
-
-- getProfile for card
-- fix repeat notifications

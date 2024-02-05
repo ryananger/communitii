@@ -27,8 +27,14 @@ const Util = function({user}) {
 
   var renderNotifications = function() {
     var rendered = [];
+    var dupCheck = [];
 
     user.notifications.map(function(entry, i) {
+      var dupString = `${entry.type}.${entry._id || entry.uid}.${entry.text}`;
+      if (dupCheck.indexOf(dupString) !== -1) {return};
+
+      dupCheck.push(dupString);
+
       var handleClick = function() {
         ['friendConfirmed', 'friendAdded'].includes(entry.type) && ax.getProfile(entry.uid);
         entry.type === 'newReply' && ax.getPost(entry._id);
