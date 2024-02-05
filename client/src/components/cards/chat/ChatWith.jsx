@@ -55,9 +55,7 @@ const ChatWith = function() {
       userMessages = [];
     }
 
-    if (messages.length !== userMessages.length) {
-      setMessages(userMessages);
-    }
+    setMessages(userMessages);
   };
 
   var sendMessage = function(text) {

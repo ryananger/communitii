@@ -134,7 +134,7 @@ var ax = {
         var messages = st.user.messages || {};
 
         if (!messages[message.sentTo]) {
-          messages[message.sentTo] = {messages: [], unread: 0, info: {}};
+          messages[message.sentTo] = {messages: [], unread: 0, info: st.chatWith};
         }
 
         messages[message.sentTo].messages.push(response.data);
