@@ -20,7 +20,7 @@ const ChatWith = function() {
       var tag = userSent ? 'userSent' : 'friendSent';
       var addHead = current === message.user.uid ? false : true;
       var thisDate = new Date(message.createdOn);
-      var dateText = helpers.chatDate(thisDate);
+      var dateText = helpers.getDate(thisDate);
       var dateEl = <small className='dateEl'>{dateText}</small>;
       var style = i === 0 ? {borderTop: 'none', marginTop: '0'}: {};
 

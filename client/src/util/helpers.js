@@ -167,7 +167,7 @@ var helpers = {
     }
     return null;
   },
-  chatDate: function(date) {
+  getDate: function(date) {
     var today = new Date();
     var isToday = function() {
       return (
@@ -180,7 +180,7 @@ var helpers = {
     var spc = date.toLocaleTimeString('en-US').split(' ');
     var col = spc[0].split(':');
 
-    var timeString = `${col[0]}:${col[1]} ${spc[1]}`
+    var timeString = `${col[0]}:${col[1]} ${spc[1]}`;
 
     if (isToday) {
       return timeString;

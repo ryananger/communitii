@@ -9,7 +9,8 @@ const PostHead = function({post, reply}) {
   const el = useRef(null);
 
   const timeSince = helpers.timeSince(new Date(post.createdOn));
-  const timeText =  timeSince ? timeSince  + ' ago' : 'now';
+  const timeText1 = timeSince ? timeSince  + ' ago' : 'now';
+  const timeText2 = helpers.getDate(new Date(post.createdOn));
 
   const user = post.user;
   const userPost = st.user.uid === post.user.uid;
@@ -51,7 +52,10 @@ const PostHead = function({post, reply}) {
     <div className={`postHead ${reply ? 'replyHead': ''} h`} ref={el} style={{backgroundColor: `var(--${post.feed})`}} onClick={handleClick}>
       {handleUser()}
       <div className='h' style={{alignItems: 'center'}}>
-        <div className='postDate'><small>{timeText}</small></div>
+        <div className='postDate'>
+          <small className='timeText1 v'>{timeText1}</small>
+          <small className='timeText2 v'>{timeText2}</small>
+        </div>
         {userPost && !reply && <Options post={post}/>}
       </div>
     </div>

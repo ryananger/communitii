@@ -88,8 +88,26 @@
 }
 
 .postHead {
+  font-size: 1.8vh;
+  height: 32px;
   cursor: pointer;
   box-sizing: border-box;
+}
+
+.timeText1 {
+  display: flex;
+}
+
+.timeText2 {
+  display: none;
+}
+
+.postDate:hover .timeText1 {
+  display: none;
+}
+
+.postDate:hover .timeText2 {
+  display: flex;
 }
 
 .postHead .cardContainer {
