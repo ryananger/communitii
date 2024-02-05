@@ -76,6 +76,9 @@ const App = function() {
       setView('find');
       setIsAdmin(false);
       setCommunity(null);
+      setPost(null);
+      setProfile(null);
+      setChatWith(null);
     }
   };
 

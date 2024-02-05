@@ -107,6 +107,8 @@ var controller = {
   getCommunity: function(req, res) {
     Community.findOne({_id: req.params.id})
       .lean()
+      .populate('messages')
+      .populate({path: 'messages', populate: {path: 'user'}})
       .then(function(community) {
         var promises = [];
         var newFeeds = {};
@@ -739,11 +741,14 @@ var controller = {
         res.json(message);
       })
   },
-  sendCommunityMessage: function(req, res) {
-    const message = req.body;
+  sendCommunityMessage: async function(req, res) {
+    const message = await Message.create(req.body);
 
-    Community.findOneAndUpdate({_id: message.sentTo}, {$push: {messages: message}}, {new: true})
+    Community.findOneAndUpdate({_id: message.sentTo}, {$push: {messages: message._id}}, {new: true})
+      .populate('messages')
+      .populate({path: 'messages', populate: {path: 'user'}})
       .then(function(community) {
+        pusher.trigger(`${community._id}`, 'communityUpdate', {text: 'New message.'});
         res.json(community.messages);
       })
   },

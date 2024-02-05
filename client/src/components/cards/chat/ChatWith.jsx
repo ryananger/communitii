@@ -17,14 +17,13 @@ const ChatWith = function() {
 
       var userSent = message.user._id === st.user._id;
       var tag = `${userSent ? 'userSent' : 'friendSent'}`;
-      var msgHead = userSent ? st.user.username : chatWith.username;
       var addHead = current === message.user.uid ? false : true;
 
       rendered.push(
         <div key={message.user.uid + i} className='messageEntry v'>
           {addHead &&
             <div className={`messageHead ${tag} v`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
-              {msgHead}
+              {message.user.username}
             </div>
           }
           <div className={`messageText ${tag} v`}>{message.text}</div>
