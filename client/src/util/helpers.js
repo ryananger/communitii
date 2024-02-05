@@ -235,8 +235,8 @@ var helpers = {
 
     return sorted;
   },
-  sortFeed: function(feed) {
-    feed.sort(function(a, b) {
+  sortByDate: function(array) {
+    array.sort(function(a, b) {
       var keyA = new Date(a.createdOn),
           keyB = new Date(b.createdOn);
 

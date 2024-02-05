@@ -1,7 +1,10 @@
 - community chat default
 - chat timestamp, buttons
 - post privacy, hide
-- reply handle
 - community updates
 - community settings
 - user settings
+
+- message schema/connect
+- getProfile for card
+- fix repeat notifications

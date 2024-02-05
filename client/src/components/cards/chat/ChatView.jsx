@@ -11,6 +11,10 @@ const ChatView = function() {
   var renderChats = function() {
     var rendered = [];
 
+    if (st.community) {
+      rendered.push(<ChatViewEntry key={'chatViewEntry_community'} community/>);
+    }
+
     messages.map(function(message, i) {
       rendered.push(<ChatViewEntry key={'chatViewEntry_' + i} entry={message}/>);
     })

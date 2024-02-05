@@ -13,13 +13,15 @@ const ChatWith = function() {
     var current = null;
 
     messages.map(function(message, i) {
-      var userSent = message.sentBy === st.user.uid;
+      if (!message.text) {return};
+
+      var userSent = message.user._id === st.user._id;
       var tag = `${userSent ? 'userSent' : 'friendSent'}`;
       var msgHead = userSent ? st.user.username : chatWith.username;
-      var addHead = current === message.sentBy ? false : true;
+      var addHead = current === message.user.uid ? false : true;
 
       rendered.push(
-        <div key={message.sentBy + i} className='messageEntry v'>
+        <div key={message.user.uid + i} className='messageEntry v'>
           {addHead &&
             <div className={`messageHead ${tag} v`} style={i === 0 ? {borderTop: 'none', marginTop: '0'}: {}}>
               {msgHead}
@@ -29,20 +31,25 @@ const ChatWith = function() {
         </div>
       );
 
-      current = message.sentBy;
+      current = message.user.uid;
     })
 
     return rendered;
   };
 
-  var handleUserMessages = function() {
+  var handleMessages = function() {
+    if (chatWith === 'community') {
+      setMessages(st.community.messages);
+      return;
+    }
+
     var userMessages;
 
-    if (st.user.messages && st.user.messages[chatWith.uid]) {
-      userMessages = st.user.messages[chatWith.uid].messages;
+    if (st.user.messages && st.user.messages[chatWith._id]) {
+      userMessages = st.user.messages[chatWith._id].messages;
 
-      if (st.user.messages[chatWith.uid].unread > 0) {
-        ax.readMessages(chatWith.uid);
+      if (st.user.messages[chatWith._id].unread > 0) {
+        ax.readMessages(chatWith._id);
       }
     } else {
       userMessages = [];
@@ -55,16 +62,21 @@ const ChatWith = function() {
 
   var sendMessage = function(text) {
     var message = {
-      createdOn: new Date().toISOString(),
+      user: st.user._id,
       text: text,
-      sentBy: st.user.uid,
-      sentTo: chatWith ? chatWith.uid : null,
-      media: []
+      sentTo: chatWith._id || st.community._id,
+      media: [],
+
+      createdOn: new Date().toISOString()
     };
 
-    ax.sendMessage(message);
+    if (chatWith === 'community') {
+      ax.sendCommunityMessage(message);
+    } else {
+      ax.sendMessage(message);
+    }
 
-    setMessages([...messages, message]);
+    setMessages([...messages, {...message, user: st.user}]);
   };
 
   var handleInput = function(e) {
@@ -100,7 +112,7 @@ const ChatWith = function() {
   useEffect(()=>{
     document.getElementById('chatInput').focus();
   }, [chatWith]);
-  useEffect(handleUserMessages, [st.user, chatWith]);
+  useEffect(handleMessages, [st.user, chatWith]);
   useEffect(scrollToBottom, [messages]);
 
   return (
@@ -108,9 +120,9 @@ const ChatWith = function() {
       {!expanded && <icons.BackIcon className='chatBack' size={24} onClick={()=>{st.setChatWith(null)}}/>}
       {!expanded && <icons.ExpandIcon className='chatExpand' size={20} onClick={handleExpand}/>}
       {expanded && <icons.CloseIcon className='chatExpand' size={20} onClick={()=>{st.setView(st.lastView)}}/>}
-      <div className={`chatUserInfo ${expanded ? 'chatUserInfoExpanded' : ''} v`} onClick={()=>{ax.getProfile(chatWith.uid)}}>
-        {chatWith.settings.pfp && <img className='chatThumb' src={chatWith.settings.pfp}/>}
-        {chatWith.username}
+      <div className={`chatUserInfo ${expanded ? 'chatUserInfoExpanded' : ''} v`} onClick={()=>{chatWith !== 'community' && ax.getProfile(chatWith.uid)}}>
+        {chatWith !== 'community' && chatWith.settings.pfp && <img className='chatThumb' src={chatWith.settings.pfp}/>}
+        {chatWith === 'community' ? st.community.name : chatWith.username}
       </div>
       <div id='chatMessages' className='chatMessages v'>
         {renderMessages()}
@@ -124,4 +136,3 @@ const ChatWith = function() {
 };
 
 export default ChatWith;
-

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const axios    = require('axios');
 const pusher = require('./pusher.js');
-const { User, Community, Post } = require('./db.js');
+const { User, Community, Post, Message } = require('./db.js');
 
 var controller = {
   createUser: function(req, res) {
@@ -13,16 +13,67 @@ var controller = {
   },
   getUser: function(req, res) {
     User.findOne({uid: req.params.uid})
-      .then(function(user) {
-        Post.find({user: user._id})
+      .then(async function(user) {
+        var posts = await Post.find({user: user._id})
           .populate('user')
           .populate('replies')
-          .populate({path: 'replies', populate: {path: 'user'}})
-          .then(function(posts) {
-            user.posts = posts;
+          .populate({path: 'replies', populate: {path: 'user'}});
 
-            res.json(user);
-          })
+        user.posts = posts;
+
+        controller.getMessagesForUser(user, res);
+      })
+  },
+  getMessagesForUser: function(user, res) {
+    var messages = user.messages;
+    var p1 = [];
+
+    var messagesFor = function(resolve, id) {
+      var p2 = [];
+
+      var newMessages = [];
+
+      messages[id].messages.map(function(_id) {
+        var prom = new Promise(async function(r2) {
+          var msg = await Message.findOne({_id: _id}).populate('user');
+
+          newMessages.push(msg);
+          r2();
+        })
+
+        p2.push(prom);
+      })
+
+      Promise.all(p2)
+        .then(function() {
+          newMessages.sort(function(a, b) {
+            var keyA = new Date(a.createdOn),
+                keyB = new Date(b.createdOn);
+
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+
+            return 0;
+          });
+
+          user.messages[id].messages = newMessages;
+          resolve();
+        });
+    };
+
+    for (var key in messages) {
+      var id = key;
+
+      var promise = new Promise(function(r1) {
+        messagesFor(r1, id);
+      });
+
+      p1.push(promise);
+    }
+
+    Promise.all(p1)
+      .then(function() {
+        res.json(user);
       })
   },
   createCommunity: function(req, res) {
@@ -643,10 +694,12 @@ var controller = {
       })
   },
   sendMessage: async function(req, res) {
-    const message = req.body;
+    const message = await Message.create(req.body);
 
-    const sentTo = await User.findOne({uid: message.sentTo});
-    const sentBy = await User.findOne({uid: message.sentBy});
+    const sentTo = await User.findOne({_id: req.body.sentTo});
+    const sentBy = await User.findOne({_id: req.body.user});
+
+    message.user = sentBy;
 
     var handleMessages = function(messages, user) {
       var info = {
@@ -656,16 +709,14 @@ var controller = {
         settings: user.settings
       };
 
-      var msgs = messages[user.uid];
-
-      message.username = user.username;
+      var msgs = messages[user._id];
 
       if (!msgs) {
         msgs = {messages: [], unread: 0};
       }
 
-      messages[user.uid] = msgs = {
-        messages: [...msgs.messages, message],
+      messages[user._id] = msgs = {
+        messages: [...msgs.messages, message._id],
         unread: Number(msgs.unread) + 1,
         info: info
       };
@@ -676,16 +727,24 @@ var controller = {
     var m1 = handleMessages(sentTo.messages, sentBy);
     var m2 = handleMessages(sentBy.messages, sentTo);
 
-    m2[sentTo.uid].unread = 0;
+    m2[sentTo._id].unread = 0;
 
     User.updateOne({uid: sentTo.uid}, {messages: m1})
       .then(function(result) {
         pusher.trigger(sentTo.uid, 'userUpdate', {update: 'messages'});
       })
 
-    User.findOneAndUpdate({uid: sentBy.uid}, {messages: m2}, {new: true})
+    User.findOneAndUpdate({uid: sentBy.uid}, {messages: m2})
       .then(function(user) {
-        res.json(user.messages);
+        res.json(message);
+      })
+  },
+  sendCommunityMessage: function(req, res) {
+    const message = req.body;
+
+    Community.findOneAndUpdate({_id: message.sentTo}, {$push: {messages: message}}, {new: true})
+      .then(function(community) {
+        res.json(community.messages);
       })
   },
   readMessages: function(req, res) {
@@ -695,7 +754,7 @@ var controller = {
 
         User.findOneAndUpdate({uid: user.uid}, {messages: user.messages})
           .then(function(updated) {
-            res.json(user.messages);
+            res.sendStatus(200);
           })
       })
   },
@@ -706,23 +765,9 @@ var controller = {
     //     console.log('Posts deleted.');
     //   })
 
-    // Community.deleteMany({})
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-
-    var users = await User.find();
-
-    users.map(async function(user, i) {
-      var roles = ['Baker', 'Artist', 'Plumber'];
-
-      var newSettings = {...user.settings, roles: [roles[i]]};
-
-      await User.updateOne({uid: user.uid}, {settings: newSettings})
-        .then(function(result) {
-          console.log(newSettings);
-        })
-    })
+    await User.updateMany({}, {messages: {}});
+    await Community.updateMany({}, {messages: []});
+    await Message.deleteMany({});
 
     res.send('yay');
   }

@@ -46,6 +46,8 @@ const App = function() {
 
   st.colors = ['home', 'learn', 'grow', 'work', 'play', 'help'];
 
+  window.st = st;
+
   const views = {
     home:  <Home/>,
     learn: <Page feed='learn'/>,

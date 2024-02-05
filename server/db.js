@@ -36,7 +36,7 @@ const communitySchema = new mongoose.Schema({
 
   notifications: [Object],
   members:  [{admin: Boolean, uid: String}],
-  messages: [Object],
+  messages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Message'}],
   feeds: {
     home:  [String],
     learn: [String],
@@ -61,14 +61,25 @@ const postSchema = new mongoose.Schema({
   likes: [String]
 });
 
+const messageSchema = new mongoose.Schema({
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  text: String,
+  sentTo: String,
+  media: [],
+
+  createdOn: {type: Date, default: Date.now}
+});
+
 const User = new mongoose.model('User', userSchema);
 const Community = new mongoose.model('Community', communitySchema);
 const Post = new mongoose.model('Post', postSchema);
+const Message = new mongoose.model('Message', messageSchema);
 
 var models = {
   User: User,
   Community: Community,
-  Post: Post
+  Post: Post,
+  Message: Message
 };
 
 module.exports = models;

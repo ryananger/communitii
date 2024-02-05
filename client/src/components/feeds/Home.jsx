@@ -34,7 +34,7 @@ const Home = function() {
     }
 
     st.filtered = newFeed;
-    helpers.sortFeed(newFeed);
+    helpers.sortByDate(newFeed);
     setFeed(newFeed);
   };
 
@@ -58,7 +58,7 @@ const allFeed = function(feeds) {
     ...feeds.help
   ];
 
-  helpers.sortFeed(all);
+  helpers.sortByDate(all);
 
   return all;
 };

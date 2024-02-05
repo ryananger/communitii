@@ -3,21 +3,21 @@ import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
 
-const ChatViewEntry = function({entry}) {
-  var style = entry.unread > 0 ? {fontWeight: 'bold'} : {};
-  var msgs = entry.messages;
+const ChatViewEntry = function({entry, community}) {
+  var style = entry && entry.unread ? {fontWeight: 'bold'} : {};
+  var msgs = entry && entry.messages || st.community.messages;
 
-  var handleClick = function() {
-    st.setChatWith(entry.info);
-
-    if (st.view === 'chat') {
-      st.setView('chat');
-    }
-  };
+  if (community) {
+    return (
+      <div className='chatViewEntry h' style={style} onClick={()=>{st.setChatWith('community')}}>
+        {st.community.name}: {msgs.length > 0 && msgs[msgs.length - 1].text || ''}
+      </div>
+    )
+  }
 
   return (
     <div className='chatViewEntry h' style={style} onClick={()=>{st.setChatWith(entry.info)}}>
-      {entry.info.username}: {msgs[msgs.length - 1].text}
+      {entry.info.username}: {msgs.length > 0 && msgs[msgs.length - 1].text || ''}
     </div>
   );
 };

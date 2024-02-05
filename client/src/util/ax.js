@@ -131,7 +131,23 @@ var ax = {
   sendMessage: function(message) {
     axios.post(process.env.URL + 'api/messages/send', message)
       .then(function(response) {
-        st.setUser({...st.user, messages: response.data});
+        var messages = st.user.messages || {};
+
+        if (!messages[message.sentTo]) {
+          messages[message.sentTo] = {messages: [], unread: 0, info: {}};
+        }
+
+        messages[message.sentTo].messages.push(response.data);
+
+        st.setUser({...st.user, messages: messages});
+      })
+  },
+  sendCommunityMessage: function(message) {
+    console.log(message);
+
+    axios.post(process.env.URL + 'api/messages/community/send', message)
+      .then(function(response) {
+        st.setCommunity({...st.community, messages: response.data});
       })
   },
   deletePost: function(send) {
@@ -194,7 +210,7 @@ var ax = {
   readMessages: function(chatUid) {
     axios.post(process.env.URL + 'api/readMessages', {uid: st.user.uid, chatUid})
       .then(function(response) {
-        st.setUser({...st.user, messages: response.data});
+        ax.getUser(st.user.uid);
       })
   }
 };
