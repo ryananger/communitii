@@ -15,9 +15,9 @@ var controller = {
     User.findOne({uid: req.params.uid})
       .then(async function(user) {
         var posts = await Post.find({user: user._id})
-          .populate('user')
+          .populate('user', '_id uid username settings')
           .populate('replies')
-          .populate({path: 'replies', populate: {path: 'user'}});
+          .populate({path: 'replies', populate: {path: 'user', select: '_id uid username settings'}});
 
         user.posts = posts;
 
@@ -35,7 +35,7 @@ var controller = {
 
       messages[id].messages.map(function(_id) {
         var prom = new Promise(async function(r2) {
-          var msg = await Message.findOne({_id: _id}).populate('user');
+          var msg = await Message.findOne({_id: _id}).populate('user', '_id uid username settings');
 
           newMessages.push(msg);
           r2();
@@ -108,13 +108,13 @@ var controller = {
     Community.findOne({_id: req.params.id})
       .lean()
       .populate('messages')
-      .populate({path: 'messages', populate: {path: 'user'}})
+      .populate({path: 'messages', populate: {path: 'user', select: '_id uid username settings'}})
       .then(function(community) {
         var promises = [];
         var newFeeds = {};
 
         var getPosts = async function(feed, resolve) {
-          var posts = await Post.find({community: community._id, feed: feed}).populate('user');
+          var posts = await Post.find({community: community._id, feed: feed}).populate('user', '_id uid username settings');
 
           newFeeds[feed] = posts;
           resolve();
@@ -270,7 +270,7 @@ var controller = {
 
             if (post.parent) {
               Post.findOne({_id: post.parent})
-                .populate('user')
+                .populate('user', '_id uid username settings')
                 .then(function(parent) {
                   Post.updateOne({_id: post.parent}, {$push: {replies: ObjectId(post._id)}})
                     .then(function() {
@@ -335,9 +335,9 @@ var controller = {
   },
   getPost: function(req, res) {
     Post.findOne({_id: req.params._id})
-      .populate('user')
+      .populate('user', '_id uid username settings')
       .populate('replies')
-      .populate({path: 'replies', populate: {path: 'user'}})
+      .populate({path: 'replies', populate: {path: 'user', select: '_id uid username settings'}})
       .then(function(post) {
         res.json(post);
       })
@@ -736,8 +736,8 @@ var controller = {
         pusher.trigger(sentTo.uid, 'userUpdate', {update: 'messages'});
       })
 
-    User.findOneAndUpdate({uid: sentBy.uid}, {messages: m2})
-      .then(function(user) {
+    User.updateOne({uid: sentBy.uid}, {messages: m2})
+      .then(function() {
         res.json(message);
       })
   },
@@ -746,7 +746,7 @@ var controller = {
 
     Community.findOneAndUpdate({_id: message.sentTo}, {$push: {messages: message._id}}, {new: true})
       .populate('messages')
-      .populate({path: 'messages', populate: {path: 'user'}})
+      .populate({path: 'messages', populate: {path: 'user', select: '_id uid username settings'}})
       .then(function(community) {
         pusher.trigger(`${community._id}`, 'communityUpdate', {text: 'New message.'});
         res.json(community.messages);
