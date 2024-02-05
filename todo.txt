@@ -1,8 +1,9 @@
 - community chat unread
 
 - profile only posts
+- link posting
 
-- chat buttons, delete, media
+- chat delete, media
 - post edit, privacy, hide
 - community updates
 - community settings

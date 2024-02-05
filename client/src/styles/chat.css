@@ -122,6 +122,18 @@
   flex: none;
 }
 
+.chatInputButtons {
+  width: 32px;
+  height: 100%;
+  flex: none;
+  padding: 1vh 1vh 1vh 0;
+  justify-content: space-between;
+}
+
+.chatInputButton {
+  cursor: pointer;
+}
+
 .chatInput {
   width: calc(100% - 2vh);
   margin: 1vh;
