@@ -39,7 +39,10 @@ const ChatMessages = function() {
           {message.text && <div className={`messageText ${tag} h`}>{message.text}</div>}
           {message.media[0] &&
             <div className={`messageMedia ${tag} v`}>
-              {message.media.map((entry)=>{return <img className='chatMedia' src={entry.url}/>})}
+              {message.media.map((entry)=>{
+                if (entry.type === 'image') {return <img key={'message' + entry.url} className='chatMedia' src={entry.url}/>};
+                if (entry.type === 'video') {return <video key={'message' + entry.url} className='chatMedia' src={entry.url} controls/>};
+              })}
             </div>
           }
         </div>
