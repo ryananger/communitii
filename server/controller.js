@@ -752,6 +752,48 @@ var controller = {
         res.json(community.messages);
       })
   },
+  deleteMessage: async function(req, res) {
+    const entry = req.body.entry;
+    const userSent = req.body.userSent;
+    const commMsg  = req.body.commMsg;
+
+    if (commMsg || userSent) {
+      await Message.deleteOne({_id: entry._id});
+    }
+
+    if (commMsg) {
+      await Community.updateOne({_id: entry.sentTo}, {$pull: {messages: ObjectId(entry._id)}});
+    } else {
+      var updateUserMessages = async function(a, b, cb) {
+        const user = await User.findOne({_id: a});
+
+        var newMessages = [];
+
+        user.messages[b].messages.map(function(_id) {
+          if (_id.toString() !== entry._id) {
+            newMessages.push(_id);
+          }
+        })
+
+        user.messages[b].messages = newMessages;
+
+        if (!newMessages[0]) {
+          delete user.messages[b];
+        }
+
+        var updated = await User.findOneAndUpdate({_id: a}, {messages: user.messages}, {new: true});
+        pusher.trigger(updated.uid, 'userUpdate', {update: 'messages'});
+        cb && cb();
+      };
+
+      if (userSent) {
+        await updateUserMessages(entry.sentTo, entry.user._id);
+        await updateUserMessages(entry.user._id, entry.sentTo, ()=>{res.sendStatus(201)});
+      } else {
+        await updateUserMessages(entry.sentTo, entry.user._id, ()=>{res.sendStatus(201)});
+      }
+    }
+  },
   readMessages: function(req, res) {
     User.findOne({uid: req.body.uid})
       .then(function(user) {

@@ -17,8 +17,11 @@ const Options = function({className, entry, type}) {
 
     if (type === 'post') {
       ax.deletePost(send);
-    } else {
-      console.log(entry);
+    } else if (type === 'message') {
+      var userSent = entry.user._id === st.user._id;
+      var commMsg  = st.chatWith === 'community';
+
+      ax.deleteMessage(entry, userSent, commMsg);
     }
   };
 

@@ -3,7 +3,6 @@
 - profile only posts
 - link posting
 
-- chat delete, media
 - post edit, privacy, hide
 - community updates
 - community settings

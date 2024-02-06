@@ -15,6 +15,7 @@ const ChatMessages = function() {
     var lastDate = null;
 
     messages.map(function(message, i) {
+      if (!message) {return};
       if (!message.text && !message.media[0]) {return};
 
       var userSent = message.user._id === st.user._id;

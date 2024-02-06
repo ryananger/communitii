@@ -142,9 +142,17 @@ var ax = {
         st.setUser({...st.user, messages: messages});
       })
   },
-  sendCommunityMessage: function(message) {
-    console.log(message);
+  deleteMessage: function(entry, userSent, commMsg) {
+    axios.post(process.env.URL + 'api/messages/delete', {entry, userSent, commMsg})
+      .then(function(response) {
+        ax.getUser(st.user.uid);
 
+        if (commMsg) {
+          ax.getCommunity(st.user.community);
+        }
+      })
+  },
+  sendCommunityMessage: function(message) {
     axios.post(process.env.URL + 'api/messages/community/send', message)
       .then(function(response) {
         st.setCommunity({...st.community, messages: response.data});
