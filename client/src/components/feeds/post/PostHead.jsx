@@ -56,7 +56,7 @@ const PostHead = function({post, reply}) {
           <small className='timeText1 v'>{timeText1}</small>
           <small className='timeText2 v'>{timeText2}</small>
         </div>
-        {userPost && !reply && <Options post={post}/>}
+        {userPost && !reply && <Options entry={post} type={'post'}/>}
       </div>
     </div>
   )

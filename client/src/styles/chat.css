@@ -110,9 +110,18 @@
   white-space: pre-wrap;
 }
 
+.messageOptions {
+  opacity: 0;
+  transition: opacity 0.25s;
+  align-self: flex-end;
+}
+
+.messageText:hover .messageOptions {
+  opacity: 1;
+}
+
 .userSent:not(.messageHead) {
   text-align: right;
-  justify-content: flex-end;
 }
 
 .messageMedia {

@@ -1,28 +1,48 @@
 import React, {useState, useEffect} from 'react';
 import icons from 'icons';
 import st from 'ryscott-st';
-import {ax, helpers} from 'util';
+import {ax, mouse, helpers} from 'util';
 
-const Options = function({post}) {
+const Options = function({className, entry, type}) {
   const [showOptions, setShowOptions] = useState(false);
+  const [pos, setPos] = useState(null);
 
   var handleDelete = function() {
     var send = {
-      _id: post._id,
-      parent: post.parent,
-      uid: post.user.uid,
-      replies: post.replies
+      _id: entry._id,
+      parent: entry.parent,
+      uid: entry.user.uid,
+      replies: entry.replies
     };
 
-    ax.deletePost(send);
+    if (type === 'post') {
+      ax.deletePost(send);
+    } else {
+      console.log(entry);
+    }
   };
 
+  useEffect(()=>{
+    setPos({x: mouse.x, y: mouse.y});
+  }, [showOptions]);
+
+  useEffect(()=>{
+    var el = document.getElementById(`options_${entry._id}`);
+
+    window.addEventListener('click', function(e){
+      if (!el.contains(e.target)) {
+        setShowOptions(false);
+        setPos(null);
+      }
+    })
+  }, []);
+
   return (
-    <div className='optionsContainer v c' style={{width: '24px', height: '24px'}}>
+    <div id={`options_${entry._id}`} className={'optionsContainer v c ' + className}>
       <icons.OptionsIcon className='grow' onClick={()=>{setShowOptions(!showOptions)}} size={16}/>
-      {showOptions && (
-        <div className='optionsList v'>
-          {post.user.uid === st.user.uid  && <div className='grow' onClick={handleDelete}>delete</div>}
+      {showOptions && pos && (
+        <div className='optionsList v' style={{top: pos.y - 20, left: pos.x + 10}}>
+          {(type === 'message' || entry.user.uid === st.user.uid) && <div className='grow' onClick={handleDelete}>delete</div>}
         </div>
       )}
     </div>

@@ -150,10 +150,8 @@
 }
 
 .optionsList {
-  position: absolute;
+  position: fixed;
   align-items: flex-start;
-  bottom: -42px;
-  right: -6px;
   background: white;
   padding: 0.5vh 1vh;
   border: var(--border);

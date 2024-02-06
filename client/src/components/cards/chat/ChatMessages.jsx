@@ -3,6 +3,8 @@ import icons from 'icons';
 import st from 'ryscott-st';
 import {ax, helpers} from 'util';
 
+import Options from '../../feeds/Options.jsx';
+
 const ChatMessages = function() {
   const [messages, setMessages] = st.newState('messages', useState([]));
   const chatWith = st.chatWith;
@@ -36,7 +38,13 @@ const ChatMessages = function() {
               {tag === 'friendSent' && dateEl}
             </div>
           }
-          {message.text && <div className={`messageText ${tag} h`}>{message.text}</div>}
+          {message.text &&
+            <div className={`messageText ${tag} h`}>
+              {tag === 'userSent' && <Options className='messageOptions' entry={message} type='message'/>}
+              {message.text}
+              {tag === 'friendSent' && <Options className='messageOptions' entry={message} type='message'/>}
+            </div>
+          }
           {message.media[0] &&
             <div className={`messageMedia ${tag} v`}>
               {message.media.map((entry)=>{
