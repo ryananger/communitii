@@ -40,6 +40,7 @@
 
 .imageUpload {
   max-width: calc(100% - 2vh);
+  height: 100px;
   align-items: end;
   align-self: end;
   overflow: scroll;

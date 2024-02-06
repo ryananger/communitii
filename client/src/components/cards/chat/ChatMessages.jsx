@@ -13,7 +13,7 @@ const ChatMessages = function() {
     var lastDate = null;
 
     messages.map(function(message, i) {
-      if (!message.text) {return};
+      if (!message.text && !message.media[0]) {return};
 
       var userSent = message.user._id === st.user._id;
       var tag = userSent ? 'userSent' : 'friendSent';
@@ -36,7 +36,12 @@ const ChatMessages = function() {
               {tag === 'friendSent' && dateEl}
             </div>
           }
-          <div className={`messageText ${tag} h`}>{message.text}</div>
+          {message.text && <div className={`messageText ${tag} h`}>{message.text}</div>}
+          {message.media[0] &&
+            <div className={`messageMedia ${tag} v`}>
+              {message.media.map((entry)=>{return <img className='chatMedia' src={entry.url}/>})}
+            </div>
+          }
         </div>
       );
 

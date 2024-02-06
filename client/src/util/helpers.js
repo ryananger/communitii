@@ -190,7 +190,7 @@ var helpers = {
       return `${split[1]} ${split[2]}   ${timeString}`;
     }
   },
-  loadMedia: function(uploads, media, cb) {
+  uploadMedia: function(uploads, media, cb) {
     var promises = [];
 
     uploads.map(function(entry) {

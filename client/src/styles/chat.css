@@ -115,9 +115,22 @@
   justify-content: flex-end;
 }
 
+.messageMedia {
+  align-items: flex-start;
+}
+
+.messageMedia:is(.userSent) {
+  align-items: flex-end;
+}
+
+.chatMedia {
+  width: 60%;
+  margin: 1vh;
+  border-radius: 4px;
+}
+
 .chatInputContainer {
   width: 100%;
-  height: 130px;
   border-top: 1px solid var(--borderColor);
   flex: none;
 }
@@ -139,6 +152,6 @@
   margin: 1vh;
   padding: 1vh;
   box-sizing: border-box;
-  height: 110px;
+  height: 100px;
   white-space: pre-wrap;
 }

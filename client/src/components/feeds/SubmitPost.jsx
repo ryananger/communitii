@@ -46,20 +46,17 @@ const SubmitPost = function() {
       replies: []
     };
 
-    if (uploads.length === 0) {
-      submitPost(post);
-
-      el.current.value = null;
-      return;
-    }
-
-    var cb = function() {
+    var send = function() {
       submitPost(post);
       setUploads([]);
       el.current.value = null;
     };
 
-    helpers.loadMedia(uploads, post.media, cb);
+    if (uploads[0]) {
+      helpers.uploadMedia(uploads, post.media, send);
+    } else {
+      send();
+    }
   };
 
   return (
